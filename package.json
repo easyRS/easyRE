@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "test": "react-scripts test",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
