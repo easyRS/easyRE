@@ -11,7 +11,8 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
+    'jest/globals': true
   },
 
   settings: {
@@ -25,7 +26,7 @@ module.exports = {
     }
   },
 
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'jest'],
   extends: [
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
