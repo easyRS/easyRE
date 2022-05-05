@@ -11,6 +11,7 @@ jobs:
   react-app-workflow:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
@@ -18,15 +19,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: yarn ci
-        run: yarn ci
+      - name: npm ci
+        run: npm ci
       - name: test
-        run: yarn test
+        run: npm test
       - name: format
-        run: yarn prettier
+        run: npm run prettier
       - name: lint
-        run: yarn lint
+        run: npm run lint
       - name: typescript
-        run: yarn typescript
+        run: npm run typescript
       - name: build
-        run: yarn build --if-present
+        run: npm run build --if-present
