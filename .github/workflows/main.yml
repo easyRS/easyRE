@@ -19,15 +19,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: npm ci
-        run: npm ci
+      - name: yarn ci
+        run: yarn ci
       - name: test
-        run: npm test
+        run: yarn test
       - name: format
-        run: npm run prettier
+        run: yarn prettier
       - name: lint
-        run: npm run lint
-      - name: typescript
-        run: npm run typescript
+        run: yarn lint
       - name: build
-        run: npm run build --if-present
+        run: yarn build --if-present
