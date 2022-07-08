@@ -111,6 +111,9 @@ sketch
 # remove data folder
 data/
 
+# remove data folder
+data/*
+
 # and uncomment the following lines
 # .pnp.*
 

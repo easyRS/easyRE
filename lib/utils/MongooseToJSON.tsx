@@ -2,9 +2,9 @@
 
 /* eslint-disable */
 
-import { ToObjectOptions } from 'mongoose';
+import { Schema, ToObjectOptions } from 'mongoose';
 
-const toJson = <T,>(obj: any) => {
+const toJson = <T,>(obj: Schema) => {
   const options: ToObjectOptions = {
     transform: (_1: any, ret: any, _2: any): any => {
       const { _id: removedId, __v: removedV, ...newRet } = ret;
