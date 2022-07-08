@@ -1,0 +1,23 @@
+:root {
+  --sea-water-green: #abebc3;
+  --black: #323b42;
+  --sky: #cbe3f3;
+  --grey: #99aabb;
+  --bubblegum-green: #7da192;
+  --dark-green: #6c8e84;
+  --grey2: #798494;
+  --olive-green: #6c8c7c;
+  --green: #8cbda4;
+
+  --primary: var(--sea-water-green);
+  --primary-dark: var(--black);
+  --primary-light: var(--sky);
+
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+
+  --font-size-lg: 2rem;
+  --font-size-md: 1rem;
+  --font-size-sm: 0.5rem;
+}

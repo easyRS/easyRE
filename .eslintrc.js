@@ -76,6 +76,9 @@ module.exports = {
         namedComponents: 'arrow-function',
         unnamedComponents: 'arrow-function'
       }
-    ]
+    ],
+    'no-undef': 'off',
+    'no-underscore-dangle': 'off',
+    'react/destructuring-assignment': 'off'
   }
 };
