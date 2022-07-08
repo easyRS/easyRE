@@ -108,6 +108,9 @@ sketch
 # comment the following lines
 !.yarn/cache
 
+# remove data folder
+data/
+
 # and uncomment the following lines
 # .pnp.*
 
