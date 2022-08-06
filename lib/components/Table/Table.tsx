@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Table.module.css';
 
 type TableProps = {
-  tableProperties: TableMapping[];
+  tableProperties: TableMapping;
 };
 
 const Table: React.FC<TableProps> = (props: TableProps) => {

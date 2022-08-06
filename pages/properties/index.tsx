@@ -3,7 +3,7 @@ import { BurgerMenu, Table } from '../../lib/components';
 import { getTableProperties } from '../../lib/controllers/PropertyController';
 
 type IndexPropertyProps = {
-  tableProperties: TableMapping[];
+  tableProperties: TableMapping;
 };
 
 const PropertyIndex: NextPage<IndexPropertyProps> = (
