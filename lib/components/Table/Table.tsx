@@ -7,7 +7,8 @@ type TableProps = {
 
 const Table: React.FC<TableProps> = (props: TableProps) => {
   const { tableName, arrayObj } = props.tableProperties;
-  const labels: Record<string, unknown>[] = Object.values(tableName);
+  const labels: Record<string, unknown>[] =
+    Object.values<Record<string, unknown>>(tableName);
   const keys: Record<string, unknown>[] = Object.keys(tableName);
 
   const [isSSR, setIsSSR] = useState(true);
