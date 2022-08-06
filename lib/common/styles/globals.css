@@ -12,11 +12,10 @@ body {
 
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  background-size: 100% 100%;
+  min-height: 100vh;
   background: var(--primary-light);
   color: #effffa;
-  height: 100vh;
   text-rendering: optimizeLegibility;
 }
 

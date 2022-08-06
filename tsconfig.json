@@ -16,6 +16,6 @@
     "incremental": true,
     "typeRoots": ["./node_modules/@types", "lib/types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "tsconfig.seeder.json"],
   "exclude": ["node_modules"]
 }

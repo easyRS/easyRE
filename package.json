@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "seed": "npx ts-node  --project tsconfig.seeder.json ./seeder.ts"
   },
   "engines": {
     "node": ">=14.0.0",
@@ -52,6 +53,8 @@
     "jest": "^28.0.3",
     "jest-environment-jsdom": "^28.0.2",
     "prettier": "2.6.2",
+    "ts-node": "10.9.1",
+    "tslib": "2.4.0",
     "typescript": "4.6.4"
   }
 }

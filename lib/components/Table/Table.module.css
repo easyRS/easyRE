@@ -1,0 +1,6 @@
+.container {
+  background: white;
+  width: 80vw;
+  color: var(--primary-dark);
+  padding-right: 4rem;
+}

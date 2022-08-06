@@ -1,11 +1,16 @@
-import mongoose from 'mongoose';
-import { IProperty, PropertySchema } from '../../domain/models/Property';
+import mongoose, { Model } from 'mongoose';
 
-const build = async () => {
+import IProperty from '../../domain/entities/IProperty';
+import PropertySchema from '../../domain/models/Property';
+
+export type SchemaType = {
+  Property: Model<IProperty>;
+};
+
+const build = async (): Promise<SchemaType> => {
   const Property =
     mongoose.models.Property ||
     mongoose.model<IProperty>('Property', PropertySchema);
-
   return { Property };
 };
 
