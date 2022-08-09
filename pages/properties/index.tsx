@@ -14,7 +14,7 @@ const PropertyIndex: NextPage<IndexPropertyProps> = (
   return (
     <BurgerMenu
       content={
-        <div style={{ height: '100vh' }}>
+        <div>
           <Table tableProperties={propertiesProps.tableProperties} />
         </div>
       }

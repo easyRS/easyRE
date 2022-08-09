@@ -11,12 +11,10 @@ body {
 }
 
 body {
-  display: flex;
-  background-size: 100% 100%;
   min-height: 100vh;
   background: var(--primary-light);
-  color: #effffa;
   text-rendering: optimizeLegibility;
+  margin-right: 1rem;
 }
 
 h1 {
