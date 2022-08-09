@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { BurgerMenu } from '../lib/components';
 
-const Home: NextPage<HomeProps> = () => {
+const Home: NextPage<> = () => {
   return (
     <BurgerMenu
       content={

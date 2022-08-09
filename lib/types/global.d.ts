@@ -11,7 +11,7 @@ declare global {
   };
 
   type BurguerMenuProps = {
-    menus: Menu[];
+    menus?: Menu[];
     content: React.ReactNode;
     isOpen?: boolean;
   };
