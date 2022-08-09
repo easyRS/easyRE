@@ -23,11 +23,11 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
   async _getModelTable() {
     const connectionValues = await connect();
     const className: string = this.className;
-    const ModelTable = connectionValues[className];
+    const ModelTable = (connectionValues as any)[className];
     return ModelTable;
   }
 
-  async create(obj: Record<string, unknown>): ModelGeneric {
+  async create(obj: Record<string, unknown>): Promise<ModelGeneric> {
     const ModelTable = await this._getModelTable();
     const newObj = new ModelTable(obj);
 
@@ -35,16 +35,12 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return this.toJson(newObj);
   }
 
-  async list(): ModelGeneric[] {
+  async list(): Promise<ModelGeneric[]> {
     const ModelTable = await this._getModelTable();
     const queryResult = await ModelTable.find().lean();
     return queryResult.map((obj) => {
       return { ...obj, _id: obj._id.toString() };
     });
-  }
-
-  findById(id: string): ModelGeneric {
-    throw new Error('Method not implemented.');
   }
 
   toJson(obj: Document) {
