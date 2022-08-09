@@ -38,7 +38,7 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
   async list(): Promise<ModelGeneric[]> {
     const ModelTable = await this._getModelTable();
     const queryResult = await ModelTable.find().lean();
-    return queryResult.map((obj) => {
+    return queryResult.map((obj: any) => {
       return { ...obj, _id: obj._id.toString() };
     });
   }
