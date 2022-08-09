@@ -7,10 +7,10 @@ async function getProperties(): Promise<IProperty[]> {
   return new PropertyUseCases().list();
 }
 
-async function getTableProperties(): Promise<TableMapping> {
+async function getTableProperties(): Promise<TableMapping<IPropertyTable>> {
   const properties = await getProperties();
 
-  const labelsMapping = {
+  const labelsMapping: IPropertyTable = {
     name: 'Name',
     measure: 'Measure',
     location_details: 'Location Details'

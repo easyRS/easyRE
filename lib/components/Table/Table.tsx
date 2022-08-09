@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Table.module.css';
 
 type TableProps = {
-  tableProperties: TableMapping;
+  tableProperties: TableMapping<IPropertyTable>;
 };
 
 const Table: React.FC<TableProps> = (props: TableProps) => {
-  const { tableName, arrayObj }: TableMapping = props.tableProperties;
-  const labels: Record<string, unknown>[] = Object.values(tableName);
-  const keys: Record<string, unknown>[] = Object.keys(tableName);
+  const { tableName, arrayObj }: TableMapping<IPropertyTable> =
+    props.tableProperties;
+  const labels: string[] = Object.values<string>(tableName);
+  const keys = Object.keys(tableName);
 
   const [isSSR, setIsSSR] = useState(true);
 
@@ -29,7 +30,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
           return (
             <tr key={obj._id}>
               {keys.map((key) => (
-                <td>{obj[key]}</td> // eslint-disable-line
+                <td>{(obj as any)[key]}</td> // eslint-disable-line
               ))}
             </tr>
           );

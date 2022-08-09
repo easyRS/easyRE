@@ -3,13 +3,13 @@ import { BurgerMenu, Table } from '../../lib/components';
 import { getTableProperties } from '../../lib/controllers/PropertyController';
 
 type IndexPropertyProps = {
-  tableProperties: TableMapping;
+  tableProperties: TableMapping<IPropertyTable>;
 };
 
 const PropertyIndex: NextPage<IndexPropertyProps> = (
   propertiesProps: IndexPropertyProps
 ) => {
-  console.log('property is:'); // eslint-disable-line no-console
+  console.log(propertiesProps); // eslint-disable-line no-console
 
   return (
     <BurgerMenu
