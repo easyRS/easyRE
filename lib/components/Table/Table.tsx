@@ -23,8 +23,9 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
   }, [router]);
 
   const onEdit = useCallback(
-    (obj: Record<string, unknown>) => {
-      router.push('properties/' + obj._id); // eslint-disable-line
+    (_id: string) => {
+      if (!_id) return;
+      router.push('properties/' + _id); // eslint-disable-line
     },
     [router]
   );
@@ -52,7 +53,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
                 className={styles.tbody}
                 key={obj._id}
                 onClick={() => {
-                  onEdit(obj);
+                  onEdit(obj._id || '');
                 }}
               >
                 {keys.map((key) => {
