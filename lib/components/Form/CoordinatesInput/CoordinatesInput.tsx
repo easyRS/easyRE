@@ -64,9 +64,7 @@ const CoordinatesInput: NextPage<Props> = (props: Props) => {
           field="latitude"
           register={register}
           defaultValue={
-            defaultCoordinates?.latitude
-              ? parseFloat(defaultCoordinates?.latitude)
-              : 0
+            defaultCoordinates?.latitude ? defaultCoordinates?.latitude : 0
           }
         />
         <Coordinate
@@ -74,9 +72,7 @@ const CoordinatesInput: NextPage<Props> = (props: Props) => {
           field="longitude"
           register={register}
           defaultValue={
-            defaultCoordinates?.longitude
-              ? parseFloat(defaultCoordinates?.longitude)
-              : 0
+            defaultCoordinates?.longitude ? defaultCoordinates?.longitude : 0
           }
         />
       </div>
