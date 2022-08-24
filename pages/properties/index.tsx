@@ -9,7 +9,7 @@ type IndexPropertyProps = {
 const PropertyIndex: NextPage<IndexPropertyProps> = (
   propertiesProps: IndexPropertyProps
 ) => {
-  console.log(propertiesProps); // eslint-disable-line no-console
+  // console.log(propertiesProps); // eslint-disable-line no-console
 
   return (
     <BurgerMenu

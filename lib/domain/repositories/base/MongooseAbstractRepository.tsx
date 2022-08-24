@@ -11,13 +11,11 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
   implements IRepository<ModelGeneric>
 {
   className: string = '';
+  schemaName: string = '';
 
-  constructor(_className: string) {
+  constructor(_className: string, _schemaName: string) {
     this.className = _className;
-  }
-
-  findById(id: string): ModelGeneric {
-    throw new Error('Method not implemented.');
+    this.schemaName = _schemaName;
   }
 
   async _getModelTable() {
@@ -27,7 +25,43 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return ModelTable;
   }
 
-  async create(obj: Record<string, unknown>): Promise<ModelGeneric> {
+  async _getFieldType(fieldName: string): Promise<string> {
+    const connectionValues = await connect();
+    const schemaName: string = this.schemaName;
+    const SchemaTable = (connectionValues as any)[schemaName];
+    return SchemaTable.path(fieldName).instance as string;
+  }
+
+  async getKeys(): Promise<ModelKeys> {
+    const ModelTable = await this._getModelTable();
+    const allfields = Object.keys(ModelTable.schema.tree);
+    const forbiddenFields: string[] = ['_id', '_v', 'id', '__v'];
+
+    const editableFields = allfields.filter(
+      (field: string) =>
+        !forbiddenFields.some((currentField) => currentField === field)
+    );
+
+    const array = await Promise.all(
+      editableFields.map(async (field: string): Promise<FieldData> => {
+        const type: string = await this._getFieldType(field);
+        const unformated = field.replace('_', ' ');
+        const displayValue = unformated[0].toUpperCase() + unformated.slice(1);
+        return {
+          name: field,
+          type: type,
+          display_value: displayValue
+        };
+      }, this)
+    );
+
+    return {
+      all: allfields,
+      editables: array
+    };
+  }
+
+  async create(obj: ModelGeneric): Promise<ModelGeneric> {
     const ModelTable = await this._getModelTable();
     const newObj = new ModelTable(obj);
 
@@ -35,9 +69,26 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return this.toJson(newObj);
   }
 
+  async findOneAndUpdate(id: string, obj: ModelGeneric): Promise<void> {
+    const ModelTable = await this._getModelTable();
+    await ModelTable.findOneAndUpdate({ id: id }, obj);
+  }
+
+  async removeById(id: string): Promise<void> {
+    const ModelTable = await this._getModelTable();
+    await ModelTable.deleteOne({ id: id });
+  }
+
+  async findById(id: string): Promise<ModelGeneric> {
+    const ModelTable = await this._getModelTable();
+    const objDocument = await ModelTable.findById(id).exec();
+    return this.toJson(objDocument);
+  }
+
   async list(): Promise<ModelGeneric[]> {
     const ModelTable = await this._getModelTable();
     const queryResult = await ModelTable.find().lean();
+
     return queryResult.map((obj: any) => {
       return { ...obj, _id: obj._id.toString() };
     });

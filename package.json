@@ -24,6 +24,8 @@
     "prop-types": "15.8.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-hook-form": "7.34.1",
+    "react-icons": "4.4.0",
     "superjson": "1.9.1"
   },
   "devDependencies": {

@@ -1,40 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { Button } from '../Button';
 import styles from './Table.module.css';
 
 type TableProps = {
   tableProperties: TableMapping<IPropertyTable>;
 };
+/*
 
+
+*/
 const Table: React.FC<TableProps> = (props: TableProps) => {
   const { tableName, arrayObj }: TableMapping<IPropertyTable> =
     props.tableProperties;
+  const router = useRouter();
   const labels: string[] = Object.values<string>(tableName);
   const keys = Object.keys(tableName);
 
   const [isSSR, setIsSSR] = useState(true);
+  const onNew = useCallback(() => {
+    router.push('properties/new');
+  }, [router]);
+
+  const onEdit = useCallback(
+    (obj: Record<string, unknown>) => {
+      router.push('properties/' + obj._id); // eslint-disable-line
+    },
+    [router]
+  );
 
   useEffect(() => {
     setIsSSR(false);
   }, []);
 
   if (isSSR) return null;
+
   return (
     <div className={styles.container}>
-      <table>
-        <tr>
+      <Button onClick={onNew}>Create New Property</Button>
+
+      <table className={styles.table}>
+        <tr className={styles.thead}>
           {labels.map((label) => (
-            <th>{label}</th>
+            <th className={styles.th}>{label}</th>
           ))}
         </tr>
-        {arrayObj.map((obj) => {
-          return (
-            <tr key={obj._id}>
-              {keys.map((key) => (
-                <td>{(obj as any)[key]}</td> // eslint-disable-line
-              ))}
-            </tr>
-          );
-        })}
+        {arrayObj &&
+          arrayObj.map((obj) => {
+            return (
+              <tr
+                className={styles.tbody}
+                key={obj._id}
+                onClick={() => {
+                  onEdit(obj);
+                }}
+              >
+                {keys.map((key) => {
+                  if (key === 'coordinates') {
+                    const value = (obj as any)[key] as [number]; // eslint-disable-line
+                    return <td className={styles.td}>{value.join(' , ')}</td>;
+                  }
+                  const value = (obj as any)[key]; // eslint-disable-line
+                  return <td className={styles.td}>{value}</td>;
+                })}
+              </tr>
+            );
+          })}
       </table>
     </div>
   );

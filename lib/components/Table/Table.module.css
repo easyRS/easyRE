@@ -1,6 +1,40 @@
 .container {
   background: white;
+  border-radius: 0.2rem;
+  border-collapse: collapse;
+  box-shadow: 0 0 5px var(--dark-green);
+  text-align: left;
+  overflow: hidden;
+  padding: 2rem 0.3rem;
+}
+
+.table {
   width: 100%;
   color: var(--primary-dark);
-  border-radius: 0.5rem;
+}
+
+.thead {
+  box-shadow: 0 0.8px 1px var(--primary);
+}
+
+.tbody {
+  box-shadow: 0 0.5px 0.7px var(--primary-light);
+}
+.tbody:hover {
+  background-color: var(--sky);
+}
+
+.th {
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.td {
+  padding: 1rem 2rem;
+}
+.td:hover {
+  background-color: var(--sky);
 }

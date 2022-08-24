@@ -1,0 +1,13 @@
+.button {
+  transition-duration: 0.4s;
+  background-color: var(--primary);
+  color: var(--primary-dark);
+  border-style: solid none solid none;
+  border-color: var(--dark-green);
+  border-radius: 0.5rem;
+}
+
+.button:hover {
+  background-color: var(--dark-green); /* Green */
+  color: white;
+}
