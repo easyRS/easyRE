@@ -31,7 +31,7 @@ const EditProperties: NextPage<EditPropertyProps> = (
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { _id } = context.query;
   const formFields = await getFormFields();
-  const property = await getProperty(_id);
+  const property = await getProperty(_id as string);
   return {
     props: { formFields, property }
   };
