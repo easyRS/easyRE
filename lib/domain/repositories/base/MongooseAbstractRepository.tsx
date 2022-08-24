@@ -76,7 +76,7 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
 
   async removeById(id: string): Promise<void> {
     const ModelTable = await this._getModelTable();
-    await ModelTable.deleteOne({ id: id });
+    await ModelTable.deleteOne({ _id: id });
   }
 
   async findById(id: string): Promise<ModelGeneric> {
