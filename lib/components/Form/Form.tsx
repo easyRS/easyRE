@@ -59,7 +59,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         {editableFields.map((fieldData) => {
           const { type, name } = fieldData;
           if (type === 'coordinates') {
-            let coordinates: Coordinates;
+            let coordinates: Coordinates = null;
             if (editObj && editObj.coordinates) {
               const array = editObj.coordinates as number[];
               coordinates = {
