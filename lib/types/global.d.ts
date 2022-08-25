@@ -45,4 +45,10 @@ declare global {
     latitude: number;
     longitude: number;
   };
+
+  type CallApiObject = {
+    endpoint: string;
+    method: string;
+    data: Record<string, unknown>;
+  };
 }

@@ -2,6 +2,11 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FaTrashAlt } from 'react-icons/fa';
+import {
+  createProperty,
+  deleteProperty,
+  updateProperty
+} from '../../drivers/network/properties';
 import Button from '../Button/Button';
 import CoordinatesInput from './CoordinatesInput/CoordinatesInput';
 import styles from './Form.module.css';
@@ -17,30 +22,16 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const { editObj } = propertiesProps;
 
   const onSubmit = async (data: Record<string, unknown>) => {
-    const { latitude, longitude } = data;
-
-    await fetch('/api/properties', {
-      method: editObj ? 'PUT' : 'POST',
-      body: JSON.stringify({
-        ...data,
-        coordinates: `${latitude},${longitude}`
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    if (editObj) await updateProperty(data);
+    else await createProperty(data);
     router.push(propertiesProps.successRedirect);
   };
 
   const onDelete = async () => {
-    await fetch('/api/properties', {
-      method: 'DELETE',
-      body: JSON.stringify(editObj),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    router.push(propertiesProps.successRedirect);
+    if (editObj) {
+      await deleteProperty(editObj);
+      router.push(propertiesProps.successRedirect);
+    }
   };
 
   const editableFields = propertiesProps.formFields.editables;
