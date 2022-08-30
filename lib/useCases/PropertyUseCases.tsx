@@ -10,7 +10,7 @@ export default class PropertyUseCases extends AbstractUseCases<
     return new PropertyRepository();
   }
 
-  /* eslint-disable-line class-methods-use-this */ buildObject(
+  /* eslint-disable-line class-methods-use-this */ buildFrom(
     object: Record<string, unknown>
   ): IProperty {
     return {
@@ -20,30 +20,6 @@ export default class PropertyUseCases extends AbstractUseCases<
       location_details: object.location_details as string,
       description: object.description as string
     };
-  }
-
-  async create(object: Record<string, unknown>): Promise<IProperty> {
-    const newProperties: IProperty = {
-      coordinates: object.coordinates as [number],
-      measure: object.measure as string,
-      name: object.name as string,
-      location_details: object.location_details as string,
-      description: object.description as string
-    };
-    return this.repository.create(newProperties);
-  }
-
-  async update(object: Record<string, unknown>): Promise<void> {
-    const id = object._id as string;
-    const updatedProperty: IProperty = {
-      coordinates: object.coordinates as [number],
-      measure: object.measure as string,
-      name: object.name as string,
-      location_details: object.location_details as string,
-      description: object.description as string
-    };
-
-    return this.repository.findOneAndUpdate(id, updatedProperty);
   }
 
   async remove(object: Record<string, unknown>): Promise<void> {
