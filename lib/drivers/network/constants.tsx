@@ -9,3 +9,6 @@ export const DELETE_METHOD = 'DELETE';
 
 // PROPERTIES
 export const ALL_PROPERTY_METHODS_ENDPOINT = `${API_BASE}/properties`;
+
+// TENANTS
+export const ALL_TENANT_METHODS_ENDPOINT = `${API_BASE}/tenants`;

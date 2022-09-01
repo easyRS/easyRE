@@ -13,7 +13,12 @@ const PropertyIndex: NextPage<IndexPropertyProps> = (
     <BurgerMenu
       content={
         <div>
-          <Table tableProperties={propertiesProps.tableProperties} />
+          <Table
+            tableProperties={propertiesProps.tableProperties}
+            newRedirectUrl="properties/new"
+            editRedirectUrl="properties/"
+            newTitle="Create New Property"
+          />
         </div>
       }
     />

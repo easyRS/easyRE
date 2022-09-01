@@ -4,26 +4,25 @@ import { BurgerMenu } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 import {
   getFormFields,
-  getProperty
-} from '../../lib/controllers/PropertyController';
+  getTenant
+} from '../../lib/controllers/TenantController';
+import callbacks from '../../lib/drivers/network/tenants';
 
-import callbacks from '../../lib/drivers/network/properties';
-
-type EditPropertyProps = {
+type EditTenantProps = {
   formFields: ModelKeys;
-  property: Record<string, unknown>;
+  tenant: Record<string, unknown>;
 };
 
-const EditProperties: NextPage<EditPropertyProps> = (
-  propertiesProps: EditPropertyProps
+const EditProperties: NextPage<EditTenantProps> = (
+  tenantsProps: EditTenantProps
 ) => {
   return (
     <BurgerMenu
       content={
         <Form
-          formFields={propertiesProps.formFields}
-          successRedirect="/properties"
-          editObj={propertiesProps.property}
+          formFields={tenantsProps.formFields}
+          successRedirect="/tenants"
+          editObj={tenantsProps.tenant}
           callbacks={callbacks}
         />
       }
@@ -34,9 +33,9 @@ const EditProperties: NextPage<EditPropertyProps> = (
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { _id } = context.query;
   const formFields = await getFormFields();
-  const property = await getProperty(_id as string);
+  const tenant = await getTenant(_id as string);
   return {
-    props: { formFields, property }
+    props: { formFields, tenant }
   };
 };
 

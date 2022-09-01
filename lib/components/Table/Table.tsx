@@ -5,6 +5,9 @@ import styles from './Table.module.css';
 
 type TableProps = {
   tableProperties: TableMapping<IPropertyTable>;
+  newTitle: string;
+  newRedirectUrl: string;
+  editRedirectUrl: string;
 };
 /*
 
@@ -19,15 +22,15 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 
   const [isSSR, setIsSSR] = useState(true);
   const onNew = useCallback(() => {
-    router.push('properties/new');
-  }, [router]);
+    router.push(props.newRedirectUrl);
+  }, [router, props.newRedirectUrl]);
 
   const onEdit = useCallback(
     (_id: string) => {
       if (!_id) return;
-      router.push('properties/' + _id); // eslint-disable-line
+      router.push(props.editRedirectUrl + _id); // eslint-disable-line
     },
-    [router]
+    [router, props.editRedirectUrl]
   );
 
   useEffect(() => {
@@ -38,7 +41,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 
   return (
     <div className={styles.container}>
-      <Button onClick={onNew}>Create New Property</Button>
+      <Button onClick={onNew}>{props.newTitle}</Button>
 
       <table className={styles.table}>
         <tr className={styles.thead}>

@@ -2,11 +2,6 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FaTrashAlt } from 'react-icons/fa';
-import {
-  createProperty,
-  deleteProperty,
-  updateProperty
-} from '../../drivers/network/properties';
 import Button from '../Button/Button';
 import CoordinatesInput from './CoordinatesInput/CoordinatesInput';
 import styles from './Form.module.css';
@@ -15,21 +10,27 @@ type FormProps = {
   formFields: ModelKeys;
   successRedirect: string;
   editObj?: Record<string, unknown>;
+  callbacks: {
+    createCallback: (data: Record<string, unknown>) => void;
+    updateCallback: (data: Record<string, unknown>) => void;
+    deleteCallback: (data: Record<string, unknown>) => void;
+  };
 };
 const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
-  const { editObj } = propertiesProps;
+  const { editObj, callbacks } = propertiesProps;
+  const { createCallback, updateCallback, deleteCallback } = callbacks;
 
   const onSubmit = async (data: Record<string, unknown>) => {
-    if (editObj) await updateProperty(data);
-    else await createProperty(data);
+    if (editObj) await updateCallback(data);
+    else await createCallback(data);
     router.push(propertiesProps.successRedirect);
   };
 
   const onDelete = async () => {
     if (editObj) {
-      await deleteProperty(editObj);
+      await deleteCallback(editObj);
       router.push(propertiesProps.successRedirect);
     }
   };

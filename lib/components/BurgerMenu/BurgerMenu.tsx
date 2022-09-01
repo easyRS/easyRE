@@ -13,7 +13,7 @@ const defaultMenus: Menu[] = [
   {
     key: '2',
     name: 'Tenants',
-    link: '/'
+    link: '/tenants'
   },
   {
     key: '3',

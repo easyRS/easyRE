@@ -1,10 +1,5 @@
-import { call } from './common';
-import {
-  ALL_PROPERTY_METHODS_ENDPOINT,
-  DELETE_METHOD,
-  POST_METHOD,
-  PUT_METHOD
-} from './constants';
+import { makeDelete, makePost, makePut } from './common';
+import { ALL_PROPERTY_METHODS_ENDPOINT } from './constants';
 
 const _formatUtils = (data: Record<string, unknown>) => {
   const { latitude, longitude } = data;
@@ -13,26 +8,20 @@ const _formatUtils = (data: Record<string, unknown>) => {
     coordinates: `${latitude},${longitude}`
   };
 };
-export const createProperty = async (data: Record<string, unknown>) => {
-  await call({
-    endpoint: ALL_PROPERTY_METHODS_ENDPOINT,
-    method: POST_METHOD,
-    data: _formatUtils(data)
-  });
+const createProperty = async (data: Record<string, unknown>) => {
+  await makePost(_formatUtils(data), ALL_PROPERTY_METHODS_ENDPOINT);
 };
 
-export const updateProperty = async (data: Record<string, unknown>) => {
-  await call({
-    endpoint: ALL_PROPERTY_METHODS_ENDPOINT,
-    method: PUT_METHOD,
-    data: _formatUtils({ ...data })
-  });
+const updateProperty = async (data: Record<string, unknown>) => {
+  await makePut(_formatUtils(data), ALL_PROPERTY_METHODS_ENDPOINT);
 };
 
-export const deleteProperty = async (data: Record<string, unknown>) => {
-  await call({
-    endpoint: ALL_PROPERTY_METHODS_ENDPOINT,
-    method: DELETE_METHOD,
-    data
-  });
+const deleteProperty = async (data: Record<string, unknown>) => {
+  await makeDelete(data, ALL_PROPERTY_METHODS_ENDPOINT);
+};
+
+export default {
+  createCallback: createProperty,
+  updateCallback: updateProperty,
+  deleteCallback: deleteProperty
 };

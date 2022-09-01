@@ -23,7 +23,13 @@ declare global {
     location_details: string;
   };
 
-  type IEntity = IProperty; // add all entities with ORs as required
+  type ITenantTable = {
+    name: string;
+    phone: string;
+    notes: string;
+  };
+
+  type IEntity = IProperty | ITenant; // add all entities with ORs as required
 
   type TableMapping<TableName> = {
     tableName: TableName;

@@ -1,23 +1,23 @@
 import type { NextPage } from 'next';
 import { BurgerMenu } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
-import { getFormFields } from '../../lib/controllers/PropertyController';
+import { getFormFields } from '../../lib/controllers/TenantController';
 
-import callbacks from '../../lib/drivers/network/properties';
+import callbacks from '../../lib/drivers/network/tenants';
 
 type NewPropertyProps = {
   formFields: ModelKeys;
 };
 
-const NewProperties: NextPage<NewPropertyProps> = (
-  propertiesProps: NewPropertyProps
+const NewTenants: NextPage<NewPropertyProps> = (
+  tenantsProps: NewPropertyProps
 ) => {
   return (
     <BurgerMenu
       content={
         <Form
-          formFields={propertiesProps.formFields}
-          successRedirect="/properties"
+          formFields={tenantsProps.formFields}
+          successRedirect="/tenants"
           callbacks={callbacks}
         />
       }
@@ -33,4 +33,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default NewProperties;
+export default NewTenants;

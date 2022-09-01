@@ -21,21 +21,4 @@ export default class PropertyUseCases extends AbstractUseCases<
       description: object.description as string
     };
   }
-
-  async remove(object: Record<string, unknown>): Promise<void> {
-    const id = object._id as string;
-    return this.repository.removeById(id);
-  }
-
-  async list(): Promise<IProperty[]> {
-    return this.repository.list();
-  }
-
-  async findById(_id: string): Promise<IProperty> {
-    return this.repository.findById(_id);
-  }
-
-  async getKeys(): Promise<ModelKeys> {
-    return this.repository.getKeys();
-  }
 }
