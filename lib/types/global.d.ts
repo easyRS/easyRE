@@ -1,5 +1,7 @@
 import React from 'react';
+import IContractDefinition from '../domain/entities/IContractDefinition';
 import IProperty from '../domain/entities/IProperty';
+import ITenant from '../domain/entities/ITenant';
 
 export {};
 
@@ -29,7 +31,18 @@ declare global {
     notes: string;
   };
 
-  type IEntity = IProperty | ITenant; // add all entities with ORs as required
+  type IContractDefTable = {
+    name: string;
+    description: string;
+    timeAmount: string;
+    amount: string;
+    termsConditions: string;
+    state: string;
+  };
+
+  type ITable = IPropertyTable | ITenantTable | IContractDefTable;
+
+  type IEntity = IProperty | ITenant | IContractDefinition; // add all entities with ORs as required
 
   type TableMapping<TableName> = {
     tableName: TableName;

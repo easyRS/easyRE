@@ -1,33 +1,36 @@
-// TODO: think about implement this
+import IContractDefinition from '../domain/entities/IContractDefinition';
+import ContractDefUseCases from '../useCases/ContractDefUseCases';
 
-import ITenant from '../domain/entities/ITenant';
-import TenantUseCases from '../useCases/TenantUseCases';
-
-async function getTenants(): Promise<ITenant[]> {
-  return new TenantUseCases().list();
+async function getContractDefs(): Promise<IContractDefinition[]> {
+  return new ContractDefUseCases().list();
 }
 
-async function getTableTenants(): Promise<TableMapping<ITenantTable>> {
-  const tenants = await getTenants();
+async function getTableContractDefs(): Promise<
+  TableMapping<IContractDefTable>
+> {
+  const contractDefs = await getContractDefs();
 
-  const labelsMapping: ITenantTable = {
+  const labelsMapping: IContractDefTable = {
     name: 'Name',
-    phone: 'Phone',
-    notes: 'Notes'
+    description: 'Description',
+    timeAmount: 'Time Amount',
+    amount: 'Amount',
+    state: 'State',
+    termsConditions: 'Terms & Conditions'
   };
 
   return {
     tableName: labelsMapping,
-    arrayObj: tenants
+    arrayObj: contractDefs
   };
 }
 
-async function getTenant(_id: string): Promise<ITenant> {
-  return new TenantUseCases().findById(_id);
+async function getContractDef(_id: string): Promise<IContractDefinition> {
+  return new ContractDefUseCases().findById(_id);
 }
 
 async function getFormFields(): Promise<ModelKeys> {
-  const keys = await new TenantUseCases().getKeys();
+  const keys = await new ContractDefUseCases().getKeys();
   const editables = keys.editables.map((fieldData) => {
     return {
       ...fieldData,
@@ -41,24 +44,24 @@ async function getFormFields(): Promise<ModelKeys> {
   };
 }
 
-async function createTenant(object: Record<string, unknown>) {
-  return new TenantUseCases().create(object);
+async function createContractDef(object: Record<string, unknown>) {
+  return new ContractDefUseCases().create(object);
 }
 
-async function updateTenant(object: Record<string, unknown>) {
-  return new TenantUseCases().update(object);
+async function updateContractDef(object: Record<string, unknown>) {
+  return new ContractDefUseCases().update(object);
 }
 
-async function removeTenant(object: Record<string, unknown>) {
-  return new TenantUseCases().remove(object);
+async function removeContractDef(object: Record<string, unknown>) {
+  return new ContractDefUseCases().remove(object);
 }
 
 export {
-  getTenants,
-  getTableTenants,
+  getContractDefs,
+  getTableContractDefs,
   getFormFields,
-  createTenant,
-  getTenant,
-  updateTenant,
-  removeTenant
+  createContractDef,
+  getContractDef,
+  updateContractDef,
+  removeContractDef
 };

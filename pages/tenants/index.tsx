@@ -3,7 +3,7 @@ import { BurgerMenu, Table } from '../../lib/components';
 import { getTableTenants } from '../../lib/controllers/TenantController';
 
 type IndexTenantProps = {
-  tableTenants: TableMapping<IPropertyTable>;
+  tableTenants: TableMapping<ITenantTable>;
 };
 
 const TenantIndex: NextPage<IndexTenantProps> = (

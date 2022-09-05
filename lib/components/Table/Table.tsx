@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import styles from './Table.module.css';
 
 type TableProps = {
-  tableProperties: TableMapping<IPropertyTable>;
+  tableProperties: TableMapping<ITable>;
   newTitle: string;
   newRedirectUrl: string;
   editRedirectUrl: string;
@@ -14,8 +14,7 @@ type TableProps = {
 
 */
 const Table: React.FC<TableProps> = (props: TableProps) => {
-  const { tableName, arrayObj }: TableMapping<IPropertyTable> =
-    props.tableProperties;
+  const { tableName, arrayObj }: TableMapping<ITable> = props.tableProperties;
   const router = useRouter();
   const labels: string[] = Object.values<string>(tableName);
   const keys = Object.keys(tableName);

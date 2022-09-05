@@ -18,7 +18,7 @@ const defaultMenus: Menu[] = [
   {
     key: '3',
     name: 'Contracts',
-    link: '/'
+    link: '/contractdefs'
   }
 ];
 
