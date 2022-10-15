@@ -2,6 +2,7 @@ import IProperty from '../../domain/entities/IProperty';
 
 const properties: IProperty[] = [
   {
+    amount: 1,
     coordinates: [42, 4],
     measure: 'measure 1',
     name: 'name 1',
@@ -9,6 +10,7 @@ const properties: IProperty[] = [
     description: 'this is a long description 1'
   },
   {
+    amount: 2,
     coordinates: [52, 43],
     measure: 'measure 2',
     name: 'name 2',
@@ -16,6 +18,7 @@ const properties: IProperty[] = [
     description: 'this is a long description 2'
   },
   {
+    amount: 3,
     coordinates: [432, 53],
     measure: 'measure 3',
     name: 'name 3',
