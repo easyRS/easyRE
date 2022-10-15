@@ -17,7 +17,6 @@ export default class ContractDefUseCases extends AbstractUseCases<
       name: object.name as string,
       description: object.description as string,
       timeAmount: object.timeAmount as string,
-      amount: object.amount as number,
       termsConditions: object.termsConditions as string,
       state: object.state as string
     };

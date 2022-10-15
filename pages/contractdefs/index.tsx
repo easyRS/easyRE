@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { BurgerMenu, Table } from '../../lib/components';
+import { Table, TopNavigation } from '../../lib/components';
 import { getTableContractDefs } from '../../lib/controllers/ContractDefController';
 
 type IndexContractDefProps = {
@@ -10,7 +10,8 @@ const ContractDefIndex: NextPage<IndexContractDefProps> = (
   contractDefProps: IndexContractDefProps
 ) => {
   return (
-    <BurgerMenu
+    <TopNavigation
+      isOpen={false}
       content={
         <div>
           <Table

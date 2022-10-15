@@ -13,6 +13,7 @@ async function getTableProperties(): Promise<TableMapping<IPropertyTable>> {
   const labelsMapping: IPropertyTable = {
     name: 'Name',
     measure: 'Measure',
+    amount: 'Amount',
     location_details: 'Location Details',
     coordinates: 'Coordinates'
   };

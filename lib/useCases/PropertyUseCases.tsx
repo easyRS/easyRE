@@ -17,6 +17,7 @@ export default class PropertyUseCases extends AbstractUseCases<
       coordinates: object.coordinates as [number],
       measure: object.measure as string,
       name: object.name as string,
+      amount: object.amount as number,
       location_details: object.location_details as string,
       description: object.description as string
     };

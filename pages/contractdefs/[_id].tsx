@@ -1,29 +1,32 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { BurgerMenu } from '../../lib/components';
+import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 import {
   getContractDef,
   getFormFields
 } from '../../lib/controllers/ContractDefController';
+import IContractDefinition from '../../lib/domain/entities/IContractDefinition';
 import callbacks from '../../lib/drivers/network/contractdefs';
 
 type EditContractDefProps = {
   formFields: ModelKeys;
-  contractdef: Record<string, unknown>;
+  contractdef: IContractDefinition;
 };
 
-const EditProperties: NextPage<EditContractDefProps> = (
+const EditContract: NextPage<EditContractDefProps> = (
   contractdefsProps: EditContractDefProps
 ) => {
   return (
-    <BurgerMenu
+    <TopNavigation
+      isOpen={false}
       content={
         <Form
           formFields={contractdefsProps.formFields}
           successRedirect="/contractdefs"
           editObj={contractdefsProps.contractdef}
           callbacks={callbacks}
+          canDelete
         />
       }
     />
@@ -39,4 +42,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default EditProperties;
+export default EditContract;

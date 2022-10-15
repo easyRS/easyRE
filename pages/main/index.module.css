@@ -1,0 +1,18 @@
+.contentContainer {
+  background-color: blue;
+}
+
+.summaryContainer {
+  padding: 2rem;
+  width: 500px;
+  text-align: left;
+  background: yellow;
+  float: left;
+  margin-left: 6rem;
+}
+
+.formContainer {
+  width: 500px;
+  float: right;
+  margin-right: 6rem;
+}

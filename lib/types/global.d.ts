@@ -1,4 +1,3 @@
-import React from 'react';
 import IContractDefinition from '../domain/entities/IContractDefinition';
 import IProperty from '../domain/entities/IProperty';
 import ITenant from '../domain/entities/ITenant';
@@ -12,15 +11,10 @@ declare global {
     link: string;
   };
 
-  type BurguerMenuProps = {
-    menus?: Menu[];
-    content: React.ReactNode;
-    isOpen?: boolean;
-  };
-
   type IPropertyTable = {
     name: string;
     measure: string;
+    amount: string;
     coordinates: string;
     location_details: string;
   };
@@ -35,7 +29,6 @@ declare global {
     name: string;
     description: string;
     timeAmount: string;
-    amount: string;
     termsConditions: string;
     state: string;
   };
@@ -68,6 +61,6 @@ declare global {
   type CallApiObject = {
     endpoint: string;
     method: string;
-    data: Record<string, unknown>;
+    data: IEntity;
   };
 }

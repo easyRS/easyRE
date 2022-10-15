@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { BurgerMenu } from '../../lib/components';
+import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 import { getFormFields } from '../../lib/controllers/TenantController';
 
@@ -13,12 +13,14 @@ const NewTenants: NextPage<NewPropertyProps> = (
   tenantsProps: NewPropertyProps
 ) => {
   return (
-    <BurgerMenu
+    <TopNavigation
+      isOpen={false}
       content={
         <Form
           formFields={tenantsProps.formFields}
           successRedirect="/tenants"
           callbacks={callbacks}
+          canDelete={false}
         />
       }
     />

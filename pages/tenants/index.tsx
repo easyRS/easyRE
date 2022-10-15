@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { BurgerMenu, Table } from '../../lib/components';
+import { Table, TopNavigation } from '../../lib/components';
 import { getTableTenants } from '../../lib/controllers/TenantController';
 
 type IndexTenantProps = {
@@ -10,7 +10,8 @@ const TenantIndex: NextPage<IndexTenantProps> = (
   tenantsProps: IndexTenantProps
 ) => {
   return (
-    <BurgerMenu
+    <TopNavigation
+      isOpen={false}
       content={
         <div>
           <Table

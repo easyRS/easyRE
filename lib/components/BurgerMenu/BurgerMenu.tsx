@@ -1,56 +1,27 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useState } from 'react';
+
+import { Dispatch, SetStateAction } from 'react';
 import HeaderButton from './HeaderButton';
 import styles from './styles/BurgerMenu.module.css';
 
-const defaultMenus: Menu[] = [
-  {
-    key: '1',
-    name: 'Properties',
-    link: '/properties'
-  },
-  {
-    key: '2',
-    name: 'Tenants',
-    link: '/tenants'
-  },
-  {
-    key: '3',
-    name: 'Contracts',
-    link: '/contractdefs'
-  }
-];
+type BurguerMenuProps = {
+  menus: Menu[];
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-const BurgerMenu = ({
-  menus = defaultMenus,
-  isOpen = false,
-  content
-}: BurguerMenuProps) => {
-  const [open, setOpen] = useState(isOpen);
+const BurgerMenu = ({ menus, open, setOpen }: BurguerMenuProps) => {
   const menuId = 'main-menu';
 
   const isHidden = !!open;
   const tabIndex = isHidden ? 0 : -1;
 
-  const style = open // eslint-disable-line
-    ? {
-        marginTop: '5rem',
-        marginLeft: '5rem',
-        transform: 'translateX(6rem)',
-        transition: 'transform 0.3s ease-in-out'
-      }
-    : {
-        marginTop: '5rem',
-        marginLeft: '5rem',
-        transition: 'transform 0.3s ease-in-out'
-      };
-
   const wrapperFunction = (value: boolean) => {
     setOpen(value);
   };
 
-  const BurgerMenuWrapper = (
+  return (
     <>
       <HeaderButton
         open={open}
@@ -72,13 +43,6 @@ const BurgerMenu = ({
           </Link>
         ))}
       </div>
-    </>
-  );
-
-  return (
-    <>
-      {BurgerMenuWrapper}
-      <div style={style}>{content}</div>
     </>
   );
 };

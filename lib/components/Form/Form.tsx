@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm, UseFormReturn } from 'react-hook-form';
 import { FaTrashAlt } from 'react-icons/fa';
+import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
 import CoordinatesInput from './CoordinatesInput/CoordinatesInput';
 import styles from './Form.module.css';
@@ -9,28 +10,42 @@ import styles from './Form.module.css';
 type FormProps = {
   formFields: ModelKeys;
   successRedirect: string;
-  editObj?: Record<string, unknown>;
+  editObj?: IEntity;
+  form?: UseFormReturn;
+  onSubmit?: (data: IEntity) => void;
+  canDelete: boolean;
   callbacks: {
-    createCallback: (data: Record<string, unknown>) => void;
-    updateCallback: (data: Record<string, unknown>) => void;
-    deleteCallback: (data: Record<string, unknown>) => void;
+    createCallback: (data: IEntity) => void;
+    updateCallback: (data: IEntity) => void;
+    deleteCallback: (data: IEntity) => void;
   };
 };
 const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
-  const { register, handleSubmit } = useForm();
+  const _form = useForm();
+  const form = propertiesProps.form ? propertiesProps.form : _form;
+  const { register, handleSubmit } = form;
   const router = useRouter();
-  const { editObj, callbacks } = propertiesProps;
+  const { editObj, callbacks, canDelete, onSubmit } = propertiesProps;
   const { createCallback, updateCallback, deleteCallback } = callbacks;
 
-  const onSubmit = async (data: Record<string, unknown>) => {
+  const _defaultOnSubmit = async (data: IEntity) => {
     if (editObj) await updateCallback(data);
     else await createCallback(data);
     router.push(propertiesProps.successRedirect);
   };
 
+  const _onSubmit = async (data: FieldValues) => {
+    const _data = data as IEntity;
+    if (onSubmit) return onSubmit({ ...editObj, ..._data });
+
+    await _defaultOnSubmit(data);
+
+    return 0; // eslint rule
+  };
+
   const onDelete = async () => {
     if (editObj) {
-      await deleteCallback(editObj);
+      await deleteCallback(editObj as IEntity);
       router.push(propertiesProps.successRedirect);
     }
   };
@@ -46,18 +61,19 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           background: 'white',
           textAlign: 'left'
         }}
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(_onSubmit)}
       >
         {editableFields.map((fieldData) => {
           const { type, name } = fieldData;
           if (type === 'coordinates') {
+            const property = editObj as IProperty;
             let coordinates: Coordinates = {
               latitude: 0,
               longitude: 0
             };
 
-            if (editObj && editObj.coordinates) {
-              const array = editObj.coordinates as number[];
+            if (property && property.coordinates) {
+              const array = property.coordinates as number[];
               coordinates = {
                 latitude: array[0],
                 longitude: array[1]
@@ -89,7 +105,9 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 {...register(name, { required: true })}
                 defaultValue={
                   editObj
-                    ? (editObj[name] as string) /* eslint-disable-line*/
+                    ? (editObj[
+                        name as keyof IEntity
+                      ] as string) /* eslint-disable-line*/
                     : ''
                 }
               />
@@ -97,7 +115,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           );
         })}
         <input className={styles.submitButton} type="submit" />
-        {editObj && (
+        {canDelete && editObj && (
           <Button onClick={onDelete}>
             <div
               style={{

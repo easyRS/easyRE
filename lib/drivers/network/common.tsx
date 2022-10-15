@@ -20,7 +20,7 @@ export const call = async (
 };
 
 export const makePost = async (
-  data: Record<string, unknown>,
+  data: IEntity,
   endpoint: string,
   onSuccess?: () => void,
   onError?: () => void
@@ -37,7 +37,7 @@ export const makePost = async (
 };
 
 export const makePut = async (
-  data: Record<string, unknown>,
+  data: IEntity,
   endpoint: string,
   onSuccess?: () => void,
   onError?: () => void
@@ -54,7 +54,7 @@ export const makePut = async (
 };
 
 export const makeDelete = async (
-  data: Record<string, unknown>,
+  data: IEntity,
   endpoint: string,
   onSuccess?: () => void,
   onError?: () => void

@@ -1,29 +1,32 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { BurgerMenu } from '../../lib/components';
+import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 import {
   getFormFields,
   getTenant
 } from '../../lib/controllers/TenantController';
+import ITenant from '../../lib/domain/entities/ITenant';
 import callbacks from '../../lib/drivers/network/tenants';
 
 type EditTenantProps = {
   formFields: ModelKeys;
-  tenant: Record<string, unknown>;
+  tenant: ITenant;
 };
 
 const EditProperties: NextPage<EditTenantProps> = (
   tenantsProps: EditTenantProps
 ) => {
   return (
-    <BurgerMenu
+    <TopNavigation
+      isOpen={false}
       content={
         <Form
           formFields={tenantsProps.formFields}
           successRedirect="/tenants"
           editObj={tenantsProps.tenant}
           callbacks={callbacks}
+          canDelete
         />
       }
     />

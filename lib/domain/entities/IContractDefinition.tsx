@@ -3,7 +3,6 @@ export default interface IContractDefinition {
   name: string;
   description: string;
   timeAmount: string;
-  amount: number;
   termsConditions: string;
   state: string;
 }

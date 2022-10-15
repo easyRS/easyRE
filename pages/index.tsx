@@ -1,10 +1,11 @@
-import { BurgerMenu } from '../lib/components';
+import { TopNavigation } from '../lib/components';
 
 const Home = () => {
   return (
-    <BurgerMenu
+    <TopNavigation
+      isOpen={false}
       content={
-        <div>
+        <div style={{ backgroundColor: 'white' }}>
           <h1>Hello. welcome to EASY RS, this is the homepage</h1>
         </div>
       }

@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
-import { BurgerMenu } from '../../lib/components';
+import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
-import { getFormFields } from '../../lib/controllers/PropertyController';
 
+import { getFormFields } from '../../lib/controllers/PropertyController';
 import callbacks from '../../lib/drivers/network/properties';
 
 type NewPropertyProps = {
@@ -13,12 +13,14 @@ const NewProperties: NextPage<NewPropertyProps> = (
   propertiesProps: NewPropertyProps
 ) => {
   return (
-    <BurgerMenu
+    <TopNavigation
+      isOpen={false}
       content={
         <Form
           formFields={propertiesProps.formFields}
           successRedirect="/properties"
           callbacks={callbacks}
+          canDelete={false}
         />
       }
     />
