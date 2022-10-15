@@ -38,7 +38,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     const _data = data as IEntity;
     if (onSubmit) return onSubmit({ ...editObj, ..._data });
 
-    await _defaultOnSubmit(data);
+    await _defaultOnSubmit(_data);
 
     return 0; // eslint rule
   };
