@@ -3,11 +3,14 @@ import { makeDelete, makePost, makePut } from './common';
 import { ALL_PROPERTY_METHODS_ENDPOINT } from './constants';
 
 const _formatUtils = (data: IEntity) => {
-  const { latitude, longitude } = data as IProperty;
+  const dumpUnknown = data as unknown;
+  const { latitude, longitude } = dumpUnknown as Record<string, unknown>;
+
+  const dumpProperty = data as IProperty;
   return {
-    ...data,
-    coordinates: `${latitude},${longitude}`
-  };
+    ...dumpProperty,
+    coordinates: [latitude, longitude]
+  } as IProperty;
 };
 const createProperty = async (data: IEntity) => {
   await makePost(_formatUtils(data), ALL_PROPERTY_METHODS_ENDPOINT);

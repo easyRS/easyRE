@@ -51,25 +51,11 @@ async function getFormFields(): Promise<ModelKeys> {
 }
 
 async function createProperty(object: Record<string, unknown>) {
-  const { coordinates } = object;
-  const coordinatesFormatted = (
-    (coordinates as string).split(',') as string[]
-  ).map((coordinate) => parseFloat(coordinate));
-  return new PropertyUseCases().create({
-    ...object,
-    coordinates: coordinatesFormatted
-  });
+  return new PropertyUseCases().create(object);
 }
 
 async function updateProperty(object: Record<string, unknown>) {
-  const { coordinates } = object;
-  const coordinatesFormatted = (
-    (coordinates as string).split(',') as string[]
-  ).map((coordinate) => parseFloat(coordinate));
-  return new PropertyUseCases().update({
-    ...object,
-    coordinates: coordinatesFormatted
-  });
+  return new PropertyUseCases().update(object);
 }
 
 async function removeProperty(object: Record<string, unknown>) {
