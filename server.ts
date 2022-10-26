@@ -20,7 +20,7 @@ app.prepare().then(() => {
         // This tells it to parse the query portion of the URL.
         const url: string = req.url ?? '';
         if (url !== '') {
-          const parsedUrl = parse(req.url, true);
+          const parsedUrl = parse(url, true);
           const { pathname, query } = parsedUrl;
 
           if (pathname === '/a') {
