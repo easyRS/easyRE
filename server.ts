@@ -12,7 +12,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   createServer(
     async (
-      req: { url: any },
+      req: { url: string },
       res: { statusCode: number; end: (arg0: string) => void }
     ) => {
       try {
