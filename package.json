@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "node server.ts",
     "build": "next build",
     "test": "jest",
-    "start": "next start",
+    "start": "node server.ts",
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",
