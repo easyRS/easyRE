@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.ts",
+    "dev": "node server.js",
     "build": "next build",
     "test": "jest",
-    "start": "node server.ts",
+    "start": "node server.js",
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",

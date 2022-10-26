@@ -9,14 +9,12 @@ const port = 3000;
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
-type Req = { url: string };
-type Res = { statusCode: number; end: (arg0: string) => void };
 app.prepare().then(() => {
-  createServer(async (req: Req, res: Res) => {
+  createServer(async (req, res) => {
     try {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
-      const url: string = req.url ?? '';
+      const url = req.url ?? '';
       if (url !== '') {
         const parsedUrl = parse(url, true);
         const { pathname, query } = parsedUrl;
