@@ -20,6 +20,11 @@ const defaultMenus: Menu[] = [
   },
   {
     key: '3',
+    name: 'Leases',
+    link: '/leases'
+  },
+  {
+    key: '4',
     name: 'Contracts',
     link: '/contractdefs'
   }

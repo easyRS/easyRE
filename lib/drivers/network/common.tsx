@@ -1,5 +1,7 @@
 import { DELETE_METHOD, POST_METHOD, PUT_METHOD } from './constants';
 
+type AllowedType = IEntity | StepMapper;
+
 export const call = async (
   apiObj: CallApiObject,
   onSuccess?: () => void,
@@ -20,7 +22,7 @@ export const call = async (
 };
 
 export const makePost = async (
-  data: IEntity,
+  data: AllowedType,
   endpoint: string,
   onSuccess?: () => void,
   onError?: () => void
@@ -37,7 +39,7 @@ export const makePost = async (
 };
 
 export const makePut = async (
-  data: IEntity,
+  data: AllowedType,
   endpoint: string,
   onSuccess?: () => void,
   onError?: () => void
@@ -54,7 +56,7 @@ export const makePut = async (
 };
 
 export const makeDelete = async (
-  data: IEntity,
+  data: AllowedType,
   endpoint: string,
   onSuccess?: () => void,
   onError?: () => void

@@ -1,4 +1,5 @@
 import IContractDefinition from '../domain/entities/IContractDefinition';
+import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
 import ITenant from '../domain/entities/ITenant';
 
@@ -33,9 +34,23 @@ declare global {
     state: string;
   };
 
-  type ITable = IPropertyTable | ITenantTable | IContractDefTable;
+  type ILeaseContractTable = {
+    name: string;
+    description: string;
+    timeAmount: string;
+    termsConditions: string;
+    state: string;
+  };
 
-  type IEntity = IProperty | ITenant | IContractDefinition; // add all entities with ORs as required
+  type ITable =
+    | IPropertyTable
+    | ITenantTable
+    | IContractDefTable
+    | ILeaseContractTable;
+
+  type IEntity = IProperty | ITenant | IContractDefinition | ILeaseContract; // add all entities with ORs as required
+
+  type StepMapper = [IEntity, IEntity, IEntity];
 
   type TableMapping<TableName> = {
     tableName: TableName;
@@ -61,6 +76,6 @@ declare global {
   type CallApiObject = {
     endpoint: string;
     method: string;
-    data: IEntity;
+    data: AllowedType;
   };
 }

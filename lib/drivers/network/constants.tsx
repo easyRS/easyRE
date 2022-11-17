@@ -15,3 +15,6 @@ export const ALL_TENANT_METHODS_ENDPOINT = `${API_BASE}/tenants`;
 
 // CONTRACT DEFS
 export const ALL_CONTRACT_DEF_METHODS_ENDPOINT = `${API_BASE}/contractdefs`;
+
+// LEASE DEFS
+export const ALL_LEASE_CONTRACT_METHODS_ENDPOINT = `${API_BASE}/leases`;

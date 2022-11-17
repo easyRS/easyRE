@@ -15,6 +15,7 @@ import {
   getFormFields as tenantFormFields,
   getTenants
 } from '../../lib/controllers/TenantController';
+import leaseCalls from '../../lib/drivers/network/main';
 import callbacks from '../../lib/drivers/network/tenants';
 
 import IContractDefinition from '../../lib/domain/entities/IContractDefinition';
@@ -36,12 +37,12 @@ type ObjValuesHook = [
   onValueChanged: (data: IEntity) => void,
   index: number,
   setIndex: React.Dispatch<React.SetStateAction<number>>,
-  objValues: IEntity[]
+  objValues: StepMapper
 ];
 
 const useObjValues = (selectValues: SelectValue): ObjValuesHook => {
   const [index, setIndex] = useState<number>(0);
-  const [objValues, setObjValues] = useState<IEntity[]>([
+  const [objValues, setObjValues] = useState<StepMapper>([
     {} as IEntity,
     {} as IEntity,
     {} as IEntity
@@ -54,7 +55,7 @@ const useObjValues = (selectValues: SelectValue): ObjValuesHook => {
     const newObjValues = objValues.map((value, _index) => {
       if (_index === index) return { ...data };
       return { ...value };
-    });
+    }) as StepMapper;
     setObjValues(newObjValues);
   };
 
@@ -69,14 +70,27 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   const [values, onValueChanged, index, setIndex, objValues] = useObjValues(
     props.selectValues
   );
+  const [completed, setSetCompleted] = useState<boolean>(false);
   const form = useForm();
 
   const currentObj = objValues[index]; /* eslint-disable-line*/
   const formFields: ModelKeys = props.formFieldsArray[index as number];
 
+  useEffect(() => {
+    async function create() {
+      const { createCallback } = leaseCalls;
+      await createCallback(objValues);
+    }
+
+    if (completed) {
+      create();
+    }
+  }, [completed, objValues]);
+
   const forwardCallBack = (data: IEntity) => {
     onValueChanged(data);
     const _index = index;
+    if (_index === 2) setSetCompleted(true);
     setIndex(_index === 2 ? 0 : _index + 1);
 
     const { reset } = form;
