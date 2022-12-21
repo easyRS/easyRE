@@ -1,12 +1,11 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
-import {
-  getContractDefs,
-  getFormFields as contractFormFields
-} from '../../lib/controllers/ContractDefController';
+import { getContractDefs } from '../../lib/controllers/ContractDefController';
+import { getFormFields as contractFormFields } from '../../lib/controllers/LeaseContractController';
 import {
   getFormFields as propertyFormFields,
   getProperties
@@ -23,6 +22,7 @@ import IProperty from '../../lib/domain/entities/IProperty';
 import ITenant from '../../lib/domain/entities/ITenant';
 
 import Button from '../../lib/components/Button/Button';
+import { useObjValues } from './hooks';
 import styles from './index.module.css';
 
 type SelectValue = [ITenant[], IProperty[], IContractDefinition[]];
@@ -30,40 +30,6 @@ type SelectValue = [ITenant[], IProperty[], IContractDefinition[]];
 type NewPropertyProps = {
   formFieldsArray: ModelKeys[];
   selectValues: SelectValue;
-};
-
-type ObjValuesHook = [
-  values: ITenant[] | IProperty[] | IContractDefinition[],
-  onValueChanged: (data: IEntity) => void,
-  index: number,
-  setIndex: React.Dispatch<React.SetStateAction<number>>,
-  objValues: StepMapper
-];
-
-const useObjValues = (selectValues: SelectValue): ObjValuesHook => {
-  const [index, setIndex] = useState<number>(0);
-  const [objValues, setObjValues] = useState<StepMapper>([
-    {} as IEntity,
-    {} as IEntity,
-    {} as IEntity
-  ]);
-  const [values, setValues] = useState<
-    ITenant[] | IProperty[] | IContractDefinition[]
-  >([]);
-
-  const onValueChanged = (data: IEntity) => {
-    const newObjValues = objValues.map((value, _index) => {
-      if (_index === index) return { ...data };
-      return { ...value };
-    }) as StepMapper;
-    setObjValues(newObjValues);
-  };
-
-  useEffect(() => {
-    setValues(selectValues[index]); /* eslint-disable-line*/
-  }, [index, selectValues]);
-
-  return [values, onValueChanged, index, setIndex, objValues];
 };
 
 const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
@@ -76,20 +42,37 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   const currentObj = objValues[index]; /* eslint-disable-line*/
   const formFields: ModelKeys = props.formFieldsArray[index as number];
 
+  const router = useRouter();
+
   useEffect(() => {
     async function create() {
       const { createCallback } = leaseCalls;
       await createCallback(objValues);
+      router.push('/leases');
     }
 
     if (completed) {
+      // console.log(objValues);
       create();
     }
-  }, [completed, objValues]);
+  }, [completed, objValues, router]);
 
   const forwardCallBack = (data: IEntity) => {
-    onValueChanged(data);
     const _index = index;
+    const unknownTest = data as unknown;
+    const genericData = unknownTest as Record<string, unknown>;
+    onValueChanged(
+      _index === 1
+        ? {
+            ...data,
+            coordinates: [
+              genericData.latitude as number,
+              genericData.longitude as number
+            ]
+          }
+        : data
+    );
+
     if (_index === 2) setSetCompleted(true);
     setIndex(_index === 2 ? 0 : _index + 1);
 

@@ -1,10 +1,10 @@
-export default interface ILeaseContract {
-  _id?: string;
-  name: string;
-  description: string;
-  timeAmount: string;
-  termsConditions: string;
-  state: string;
-  property: Record<string, unknown>;
-  tenant: Record<string, unknown>;
+import { Types } from 'mongoose';
+import IContractDefinition from './IContractDefinition';
+
+export default interface ILeaseContract extends IContractDefinition {
+  startDate: string;
+  nextDate?: string;
+  property: Types.ObjectId;
+  tenant: Types.ObjectId;
+  amount: number;
 }

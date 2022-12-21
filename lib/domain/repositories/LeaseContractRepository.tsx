@@ -7,15 +7,18 @@ export default class LeaseContractRepository extends MongooseAbstractRepository<
     super('LeaseContract', 'LCSchema');
   }
 
-  async list(): Promise<ILeaseContract[]> {
-    const query = await super.list();
+  async getKeys(): Promise<ModelKeys> {
+    return super.getKeys(['property', 'tenant']);
+  }
 
+  async list(): Promise<ILeaseContract[]> {
+    const query = await super.list(['property', 'tenant']);
     return query.map((obj: any /* eslint-disable-line*/) => {
-      // TODO: fetch property and tenant as well
       return {
         ...obj,
-        property: obj.property.toString(),
-        tenant: obj.tenant.toString()
+        startDate: obj.startDate ? obj.startDate.toLocaleString() : '',
+        property: { ...obj.property, _id: obj.property._id.toString() },
+        tenant: { ...obj.tenant, _id: obj.tenant._id.toString() }
       };
     });
   }

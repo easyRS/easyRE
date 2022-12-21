@@ -1,5 +1,7 @@
+import { Types } from 'mongoose';
+
 export default interface IContractDefinition {
-  _id?: string;
+  _id?: Types.ObjectId;
   name: string;
   description: string;
   timeAmount: string;

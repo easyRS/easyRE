@@ -32,10 +32,16 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return SchemaTable.path(fieldName).instance as string;
   }
 
-  async getKeys(): Promise<ModelKeys> {
+  async getKeys(_forbiddenFields: string[] = []): Promise<ModelKeys> {
     const ModelTable = await this._getModelTable();
     const allfields = Object.keys(ModelTable.schema.tree);
-    const forbiddenFields: string[] = ['_id', '_v', 'id', '__v'];
+    const forbiddenFields: string[] = [
+      ..._forbiddenFields,
+      '_id',
+      '_v',
+      'id',
+      '__v'
+    ];
 
     const editableFields = allfields.filter(
       (field: string) =>
@@ -85,9 +91,15 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return this.toJson(objDocument);
   }
 
-  async list(): Promise<ModelGeneric[]> {
+  async findByQuery(query: Record<string, unknown>): Promise<ModelGeneric> {
     const ModelTable = await this._getModelTable();
-    const queryResult = await ModelTable.find().lean();
+    const objDocument = await ModelTable.findOne(query).exec();
+    return this.toJson(objDocument);
+  }
+
+  async list(populateValues: string[] = []): Promise<ModelGeneric[]> {
+    const ModelTable = await this._getModelTable();
+    const queryResult = await ModelTable.find().populate(populateValues).lean();
 
     return queryResult.map((obj: any) => {
       return { ...obj, _id: obj._id.toString() };

@@ -8,6 +8,9 @@ const LeaseContractSchema = new Schema<ILeaseContract>({
   timeAmount: String,
   termsConditions: String,
   state: String,
+  startDate: Date,
+  nextDate: Date,
+  amount: Number,
   property: { type: Schema.Types.ObjectId, ref: 'Property' },
   tenant: { type: Schema.Types.ObjectId, ref: 'Tenant' }
 });

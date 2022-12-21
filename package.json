@@ -10,7 +10,8 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "seed": "npx ts-node  --project tsconfig.seeder.json ./seeder.ts"
+    "seed": "npx ts-node  --project tsconfig.script.json ./seeder.ts",
+    "job": "npx ts-node --project tsconfig.script.json --type-check ./job.ts"
   },
   "engines": {
     "node": ">=14.0.0",
@@ -18,6 +19,7 @@
     "npm": "please-use-yarn"
   },
   "dependencies": {
+    "agenda": "5.0.0",
     "classnames": "2.3.1",
     "mongoose": "6.3.6",
     "next": "12.1.6",

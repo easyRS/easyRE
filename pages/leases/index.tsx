@@ -28,7 +28,7 @@ const LeaseContractIndex: NextPage<IndexLeaseContractProps> = (
 
 export async function getServerSideProps() {
   const tableLeaseContracts = await getTableLeaseContracts();
-  console.log(tableLeaseContracts);
+
   return {
     props: { tableLeaseContracts }
   };

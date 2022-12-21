@@ -8,13 +8,27 @@ export default async function executeSeeder() {
   })();
 
   const importData = async () => {
+    // docker exec main yarn run seed
     try {
-      const { Property } = await builder();
+      const {
+        Task,
+        LeaseContract,
+        Property,
+        TaskType,
+        ContractDefinition,
+        Tenant
+      } = await builder();
       // delete ALL data
+      await Task.deleteMany();
+      await LeaseContract.deleteMany();
+      await TaskType.deleteMany();
+      await ContractDefinition.deleteMany();
+      await Tenant.deleteMany();
       await Property.deleteMany();
 
       // Seed fake data
       await Property.insertMany(all.properties);
+      await TaskType.insertMany(all.taskTypes);
 
       console.log('Fake Data sucessfully migrated!'); // eslint-disable-line no-console
     } catch (error) {

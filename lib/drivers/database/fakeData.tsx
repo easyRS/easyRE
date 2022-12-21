@@ -1,4 +1,11 @@
 import IProperty from '../../domain/entities/IProperty';
+import ITaskType from '../../domain/entities/ITaskType';
+
+import IConfig from '../../domain/entities/IConfig';
+
+const config: IConfig = {
+  isDailyJobRunning: false
+};
 
 const properties: IProperty[] = [
   {
@@ -27,4 +34,27 @@ const properties: IProperty[] = [
   }
 ];
 
-export default { properties };
+const taskTypes: ITaskType[] = [
+  {
+    name: 'Alquiler',
+    description: 'Pago de alquiler'
+  },
+  {
+    name: 'Electricidad',
+    description: 'Pago de electricidad'
+  },
+  {
+    name: 'Agua',
+    description: 'Pago de agua'
+  },
+  {
+    name: 'Gas',
+    description: 'Pago de gas'
+  },
+  {
+    name: 'Mantenimiento',
+    description: 'Mantenimiento de algo'
+  }
+];
+
+export default { properties, taskTypes, config };

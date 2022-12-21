@@ -38,6 +38,10 @@ export default abstract class AbstractUseCases<
     return this.repository.findById(_id);
   }
 
+  async findByQuery(query: Record<string, unknown>): Promise<Model> {
+    return this.repository.findByQuery(query);
+  }
+
   async getKeys(): Promise<ModelKeys> {
     return this.repository.getKeys();
   }

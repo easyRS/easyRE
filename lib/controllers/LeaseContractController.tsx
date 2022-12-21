@@ -1,5 +1,3 @@
-// TODO: think about implement this
-
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import LeaseContractUseCases from '../useCases/LeaseContractUseCases';
 
@@ -18,7 +16,10 @@ async function getTableLeaseContracts(): Promise<
 
   const labelsMapping: ILeaseContractTable = {
     name: 'Name',
+    amount: 'Amount',
     description: 'Description',
+    startDate: 'Start Date',
+    nextDate: 'Next Date',
     timeAmount: 'Time Amount',
     state: 'State',
     termsConditions: 'Terms & Conditions'

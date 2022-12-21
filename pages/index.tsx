@@ -1,16 +1,35 @@
-import { TopNavigation } from '../lib/components';
+import type { NextPage } from 'next';
+import { Table, TopNavigation } from '../lib/components';
+import { getTableTasks } from '../lib/controllers/TaskController';
 
-const Home = () => {
+type IndexTaskProps = {
+  tableTasks: TableMapping<ITaskTable>;
+};
+
+const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
   return (
     <TopNavigation
       isOpen={false}
       content={
-        <div style={{ backgroundColor: 'white' }}>
-          <h1>Hello. welcome to EASY RS, this is the homepage</h1>
+        <div>
+          <Table
+            tableProperties={tasksProps.tableTasks}
+            newRedirectUrl="tasks/new"
+            editRedirectUrl="tasks/"
+            newTitle="Create New Task"
+          />
         </div>
       }
     />
   );
 };
+
+export async function getServerSideProps() {
+  const tableTasks = await getTableTasks();
+
+  return {
+    props: { tableTasks }
+  };
+}
 
 export default Home;

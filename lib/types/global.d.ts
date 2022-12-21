@@ -1,6 +1,8 @@
+import { JobAttributesData } from 'agenda';
 import IContractDefinition from '../domain/entities/IContractDefinition';
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
+import ITask from '../domain/entities/ITask';
 import ITenant from '../domain/entities/ITenant';
 
 export {};
@@ -36,19 +38,34 @@ declare global {
 
   type ILeaseContractTable = {
     name: string;
+    amount: string;
     description: string;
+    startDate: string;
+    nextDate: string;
     timeAmount: string;
     termsConditions: string;
     state: string;
+  };
+
+  type ITaskTable = {
+    created_at: string;
+    taskType: string;
+    description: string;
   };
 
   type ITable =
     | IPropertyTable
     | ITenantTable
     | IContractDefTable
-    | ILeaseContractTable;
+    | ILeaseContractTable
+    | ITaskTable;
 
-  type IEntity = IProperty | ITenant | IContractDefinition | ILeaseContract; // add all entities with ORs as required
+  type IEntity =
+    | IProperty
+    | ITenant
+    | IContractDefinition
+    | ILeaseContract
+    | ITask; // add all entities with ORs as required
 
   type StepMapper = [IEntity, IEntity, IEntity];
 
@@ -78,4 +95,8 @@ declare global {
     method: string;
     data: AllowedType;
   };
+
+  interface CreateTask extends JobAttributesData {
+    task: ITask; // app-specific type
+  }
 }

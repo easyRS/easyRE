@@ -1,5 +1,3 @@
-// TODO: think about implement this
-
 import IProperty from '../domain/entities/IProperty';
 import PropertyUseCases from '../useCases/PropertyUseCases';
 

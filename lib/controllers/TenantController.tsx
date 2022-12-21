@@ -1,5 +1,3 @@
-// TODO: think about implement this
-
 import ITenant from '../domain/entities/ITenant';
 import TenantUseCases from '../useCases/TenantUseCases';
 

@@ -1,8 +1,7 @@
 import { Types } from 'mongoose';
 
-export default interface ITenant {
+export default interface ITaskType {
   _id?: Types.ObjectId;
   name: string;
-  phone: string;
-  notes: string;
+  description: string;
 }
