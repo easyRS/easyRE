@@ -87,6 +87,11 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
               />
             );
           }
+          const defaultValue = editObj
+            ? (editObj[
+                name as keyof IEntity
+              ] as unknown as string) /* eslint-disable-line*/
+            : '';
 
           return (
             <div
@@ -103,13 +108,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 type={fieldData.type}
                 className={styles.textInput}
                 {...register(name, { required: true })}
-                defaultValue={
-                  editObj
-                    ? (editObj[
-                        name as keyof IEntity
-                      ] as string) /* eslint-disable-line*/
-                    : ''
-                }
+                defaultValue={defaultValue}
               />
             </div>
           );
