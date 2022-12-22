@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import IContractDefinition from '../../lib/domain/entities/IContractDefinition';
-import IProperty from '../../lib/domain/entities/IProperty';
-import ITenant from '../../lib/domain/entities/ITenant';
+import IContractDefinition from '../domain/entities/IContractDefinition';
+import IProperty from '../domain/entities/IProperty';
+import ITenant from '../domain/entities/ITenant';
 
 type ObjValuesHook = [
   values: ITenant[] | IProperty[] | IContractDefinition[],

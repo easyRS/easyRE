@@ -22,7 +22,7 @@ import IProperty from '../../lib/domain/entities/IProperty';
 import ITenant from '../../lib/domain/entities/ITenant';
 
 import Button from '../../lib/components/Button/Button';
-import { useObjValues } from './hooks';
+import { useObjValues } from '../../lib/utils/mainHooks';
 import styles from './index.module.css';
 
 type SelectValue = [ITenant[], IProperty[], IContractDefinition[]];
