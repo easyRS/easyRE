@@ -27,5 +27,7 @@ jobs:
         run: yarn prettier
       - name: lint
         run: yarn lint
+      - name: typescript
+        run: tsc --noEmit
       - name: build
         run: yarn build

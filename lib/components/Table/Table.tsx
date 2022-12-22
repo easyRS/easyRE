@@ -53,9 +53,9 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
             return (
               <tr
                 className={styles.tbody}
-                key={obj._id}
+                key={obj._id?.toString()}
                 onClick={() => {
-                  onEdit(obj._id || '');
+                  onEdit(obj._id?.toString() || '');
                 }}
               >
                 {keys.map((key) => {

@@ -90,7 +90,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     const selectedObj = (values as Array<IEntity>).find(
-      (value) => value._id === event.target.value
+      (value) => value._id?.toString() === event.target.value
     );
 
     if (selectedObj) onValueChanged(selectedObj);

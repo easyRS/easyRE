@@ -5,3 +5,5 @@ describe('Fake', () => {
     expect(fake).toBe(true);
   });
 });
+
+export {};

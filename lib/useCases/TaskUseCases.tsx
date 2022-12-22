@@ -35,6 +35,7 @@ export default class TaskUseCases extends AbstractUseCases<
     return {
       created_at: object.created_at as string,
       description: object.description as string,
+      state: object.state as string,
       leaseContract: object.leaseContract as Types.ObjectId,
       taskType: object.taskType as Types.ObjectId,
       property: object.taskType as Types.ObjectId

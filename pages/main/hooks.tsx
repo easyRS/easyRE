@@ -12,6 +12,8 @@ type ObjValuesHook = [
   objValues: StepMapper
 ];
 
+type SelectValue = [ITenant[], IProperty[], IContractDefinition[]];
+
 export const useObjValues = (selectValues: SelectValue): ObjValuesHook => {
   const [index, setIndex] = useState<number>(0);
   const [objValues, setObjValues] = useState<StepMapper>([
