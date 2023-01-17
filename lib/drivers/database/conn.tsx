@@ -10,7 +10,7 @@ export const connect = async (): Promise<Connection> => {
   let connection: Mongoose;
 
   try {
-    connection = await mongoose.connect(DATABASE_URL);
+    connection = await mongoose.connect(DATABASE_URL as string);
   } catch (err) {
     console.log(err); // eslint-disable-line no-console
     throw new Error('Cannot cannot to DB');
