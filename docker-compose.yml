@@ -10,6 +10,7 @@ services:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/.next
+      - ./jobs/midnight:/etc/periodic/midnight
     ports:
       - '3000:3000'
     depends_on:

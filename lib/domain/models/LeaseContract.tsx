@@ -6,6 +6,7 @@ const LeaseContractSchema = new Schema<ILeaseContract>({
   name: String,
   description: String,
   timeAmount: String,
+  timeType: String,
   termsConditions: String,
   state: String,
   startDate: Date,

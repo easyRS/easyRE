@@ -6,6 +6,7 @@ const ContractDefinitionSchema = new Schema<IContractDefinition>({
   name: String,
   description: String,
   timeAmount: String,
+  timeType: String,
   termsConditions: String,
   state: String
 });

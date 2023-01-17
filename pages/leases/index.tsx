@@ -16,7 +16,7 @@ const LeaseContractIndex: NextPage<IndexLeaseContractProps> = (
         <div>
           <Table
             tableProperties={contractDefProps.tableLeaseContracts}
-            newRedirectUrl="leases/new"
+            newRedirectUrl="main"
             editRedirectUrl="leases/"
             newTitle="Create New Lease Contract"
           />

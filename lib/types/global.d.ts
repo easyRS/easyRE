@@ -1,4 +1,3 @@
-import { JobAttributesData } from 'agenda';
 import IContractDefinition from '../domain/entities/IContractDefinition';
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
@@ -32,6 +31,7 @@ declare global {
     name: string;
     description: string;
     timeAmount: string;
+    timeType: string;
     termsConditions: string;
     state: string;
   };
@@ -95,8 +95,4 @@ declare global {
     method: string;
     data: AllowedType;
   };
-
-  interface CreateTask extends JobAttributesData {
-    task: ITask; // app-specific type
-  }
 }

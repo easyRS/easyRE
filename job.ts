@@ -1,3 +1,3 @@
-import startDailyJob from './lib/drivers/jobs/tasks';
+import startMidnightDailyJob from './lib/drivers/jobs/tasks';
 
-startDailyJob();
+startMidnightDailyJob();

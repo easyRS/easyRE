@@ -15,7 +15,15 @@ RUN yarn install
 # Copying source files
 COPY . /usr/src/app
 
-
 EXPOSE 3000
 
-CMD [ "yarn", "dev" ]
+# Create Crontab directories : 0 0 * * *
+RUN mkdir /etc/periodic/midnight
+
+# Copy in customized crontab file 
+COPY /jobs/root /etc/crontabs/root
+
+CMD  [ "yarn", "dev" ] 
+
+
+

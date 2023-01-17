@@ -24,7 +24,9 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       name: object.name as string,
       description: object.description as string,
       startDate: object.startDate as string,
+      nextDate: object.nextDate as string,
       timeAmount: object.timeAmount as string,
+      timeType: object.timeType as string,
       termsConditions: object.termsConditions as string,
       state: object.state as string,
       amount: object.amount as number,
@@ -62,11 +64,15 @@ export default class LeaseContractUseCases extends AbstractUseCases<
         property,
         tenant,
         ...objValues[2],
-        state: 'activado' // TODO: work with states later
+        state: 'activado' // TODO: work with states later,
       };
-      const lease = await super.create(leaseContract);
-      await this.generateMonthlyRecurringTasks(lease);
-      return lease;
+      const leaseTmp = await super.create(leaseContract);
+      if (leaseTmp._id) {
+        const lease = await this.findById(leaseTmp._id.toString());
+        await this.generateMonthlyRecurringTasks(lease);
+        return lease;
+      }
+      throw new Error('Lease not found');
     } catch (error) {
       await session.abortTransaction();
       await session.endSession();
@@ -74,7 +80,27 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     }
   }
 
-  async /* eslint-disable-line class-methods-use-this */ generateMonthlyRecurringTasks(
+  async calculateNextDate(leaseContract: ILeaseContract) {
+    const { timeType, startDate, nextDate } = leaseContract;
+
+    const startingDate = new Date(nextDate || startDate);
+
+    const newDate = new Date(startingDate);
+
+    if (timeType === 'daily') {
+      newDate.setDate(startingDate.getDate() + 1);
+    } else if (timeType === 'monthly') {
+      newDate.setMonth(startingDate.getMonth() + 1);
+    }
+    const finalDate = newDate.toLocaleString();
+    await this.update({
+      ...leaseContract,
+      _id: leaseContract._id?.toString(),
+      nextDate: finalDate
+    });
+  }
+
+  async generateMonthlyRecurringTasks(
     leaseContract: ILeaseContract
   ): Promise<void> {
     const { startDate, nextDate } = leaseContract;
@@ -83,15 +109,17 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     const tenantUseCases = new TenantUseCases();
 
     const now = new Date();
+
     const startingDate = new Date(nextDate || startDate);
     const tenant = await tenantUseCases.findById(
-      leaseContract.tenant.toString()
+      leaseContract.tenant._id.toString()
     );
     if (now >= startingDate) {
       await taskUseCases._createLeaseTask(leaseContract, tenant);
       await taskUseCases._createElectricityTask(leaseContract, tenant);
       await taskUseCases._createGasTask(leaseContract, tenant);
       await taskUseCases._createWaterTask(leaseContract, tenant);
+      await this.calculateNextDate(leaseContract);
     }
   }
 }

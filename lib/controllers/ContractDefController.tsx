@@ -14,6 +14,7 @@ async function getTableContractDefs(): Promise<
     name: 'Name',
     description: 'Description',
     timeAmount: 'Time Amount',
+    timeType: 'Time Type',
     state: 'State',
     termsConditions: 'Terms & Conditions'
   };

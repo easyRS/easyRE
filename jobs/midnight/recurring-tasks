@@ -1,0 +1,9 @@
+#!/bin/sh
+touch /tmp/midnightlog.txt
+
+now=$(date +"%T")
+
+echo "Midnight Job: Started $now" >>/tmp/midnightlog.txt
+cd /usr/src/app
+yarn run job
+echo "Midnight Job: End $now" >>/tmp/midnightlog.txt

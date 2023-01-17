@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "dev": "node cronconfig.js && node server.js",
     "build": "next build",
     "test": "jest",
     "start": "node server.js",

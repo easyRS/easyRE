@@ -31,6 +31,7 @@ export default async function executeSeeder() {
       await TaskType.insertMany(all.taskTypes);
 
       console.log('Fake Data sucessfully migrated!'); // eslint-disable-line no-console
+      process.exit(0);
     } catch (error) {
       console.log('error'); // eslint-disable-line no-console
       process.exit(1);

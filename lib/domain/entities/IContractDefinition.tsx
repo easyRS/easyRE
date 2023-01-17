@@ -5,6 +5,7 @@ export default interface IContractDefinition {
   name: string;
   description: string;
   timeAmount: string;
+  timeType: string; // TODO: make this a dropdown field!
   termsConditions: string;
   state: string;
 }
