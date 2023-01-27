@@ -5,8 +5,11 @@ import ITask from '../domain/entities/ITask';
 import ITaskType from '../domain/entities/ITaskType';
 import ITenant from '../domain/entities/ITenant';
 import TaskRepository from '../domain/repositories/TaskRepository';
+import { getNowDate } from '../utils/datesHelper';
 import AbstractUseCases from './AbstractUseCases';
 import TaskTypeUseCases from './TaskTypeUseCases';
+import TransactionTypeUseCases from './TransactionTypeUseCases';
+import TransactionUseCases from './TransactionUseCases';
 
 // TODO: export this in a ENV file.
 const LEASE = 'Alquiler';
@@ -18,6 +21,7 @@ const MAINTENANCE = 'Mantenimiento';
 type CreateParams = {
   taskTypeName: string;
   description: string;
+  amount: number;
   leaseContract?: ILeaseContract;
   property?: IProperty;
 };
@@ -34,6 +38,7 @@ export default class TaskUseCases extends AbstractUseCases<
   ): ITask {
     return {
       created_at: object.created_at as string,
+      amount: object.amount as number,
       description: object.description as string,
       state: object.state as string,
       leaseContract: object.leaseContract as Types.ObjectId,
@@ -43,19 +48,18 @@ export default class TaskUseCases extends AbstractUseCases<
   }
 
   async _create(createParam: CreateParams): Promise<ITask> {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
-    const day = now.getDay();
     const taskTypeUseCases = new TaskTypeUseCases();
-    const { taskTypeName, leaseContract, property, description } = createParam;
+    const { taskTypeName, leaseContract, property, description, amount } =
+      createParam;
 
     const taskType = (await taskTypeUseCases.findByQuery({
       name: taskTypeName
     })) as ITaskType;
 
+    const now = getNowDate();
     let task: Record<string, unknown> = {
-      created_at: `${year}-${month}-${day}`,
+      created_at: now,
+      amount,
       description
     };
 
@@ -85,11 +89,13 @@ export default class TaskUseCases extends AbstractUseCases<
 
   async _createLeaseTask(
     leaseContract: ILeaseContract,
-    tenant: ITenant
+    tenant: ITenant,
+    amount: number
   ): Promise<ITask> {
     const createParam: CreateParams = {
       taskTypeName: LEASE,
-      description: `${tenant.name} debe ${leaseContract.amount}bs de alquiler`,
+      description: `${tenant.name} debe ${amount}bs de alquiler`,
+      amount,
       leaseContract
     };
 
@@ -102,6 +108,7 @@ export default class TaskUseCases extends AbstractUseCases<
   ): Promise<ITask> {
     const createParam: CreateParams = {
       taskTypeName: ELECTRICITY,
+      amount: 0,
       description: `${tenant.name} debe electricidad`,
       leaseContract
     };
@@ -115,6 +122,7 @@ export default class TaskUseCases extends AbstractUseCases<
   ): Promise<ITask> {
     const createParam: CreateParams = {
       taskTypeName: GAS,
+      amount: 0,
       description: `${tenant.name} debe gas`,
       leaseContract
     };
@@ -128,6 +136,7 @@ export default class TaskUseCases extends AbstractUseCases<
   ): Promise<ITask> {
     const createParam: CreateParams = {
       taskTypeName: WATER,
+      amount: 0,
       description: `${tenant.name} debe agua`,
       leaseContract
     };
@@ -138,17 +147,53 @@ export default class TaskUseCases extends AbstractUseCases<
   async _createMaintenanceTask(property: IProperty): Promise<ITask> {
     const createParam: CreateParams = {
       taskTypeName: MAINTENANCE,
+      amount: 0,
       description: `${property.name} necesita mantenimiento`,
       property
     };
 
     return this._create(createParam);
   }
-  /*
-    build:
-      https://refactoring.guru/design-patterns/builder/typescript/example
-      * When a lease is created: create a group of tasks: create taks for: leasing, water, gas, electricity
-      * Every night create a group of tasks: create taks for: leasing, water, gas, electricity 
-      * Create a task that can be associated to a property
-  */
+
+  async remove(object: Record<string, unknown>): Promise<void> {
+    const unknownVar = object as unknown;
+    const task = unknownVar as ITask;
+    if (task._id) {
+      const transactionUseCase = new TransactionUseCases();
+      transactionUseCase.removeByQuery({ task: task._id.toString() });
+      super.remove(object);
+    }
+  }
+
+  async update(object: Record<string, unknown>): Promise<void> {
+    /* eslint-disable */
+    const {
+      taskType: removetaskType,
+      property: removeproperty,
+      leaseContract: removeleaseContract,
+      ...newObj
+    } = object;
+    /* eslint-disable */
+
+    await super.update(newObj);
+    const unknownVar = newObj as unknown;
+    const task = unknownVar as ITask;
+
+    if (task._id) {
+      const transactionTypeUseCases = new TransactionTypeUseCases();
+      const transactionType = await transactionTypeUseCases.findByQuery({});
+
+      if (transactionType._id) {
+        const now = getNowDate();
+        const transactionUseCase = new TransactionUseCases();
+        await transactionUseCase.create({
+          created_at: now,
+          amount: task.amount,
+          notes: task.description,
+          task: task._id,
+          transactionType: transactionType._id
+        });
+      }
+    }
+  }
 }

@@ -29,7 +29,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const { createCallback, updateCallback, deleteCallback } = callbacks;
 
   const _defaultOnSubmit = async (data: IEntity) => {
-    if (editObj) await updateCallback(data);
+    if (editObj) await updateCallback({ ...editObj, ...data });
     else await createCallback(data);
     router.push(propertiesProps.successRedirect);
   };
@@ -87,11 +87,32 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
               />
             );
           }
+
           const defaultValue = editObj
             ? (editObj[
                 name as keyof IEntity
               ] as unknown as string) /* eslint-disable-line*/
             : '';
+
+          if (type === 'readonly') {
+            return (
+              <div
+                style={{
+                  marginBottom: '10px',
+                  display: 'flex',
+                  alignItems: 'left',
+                  justifyContent: 'left',
+                  flexDirection: 'column',
+                  textAlign: 'left'
+                }}
+              >
+                <label htmlFor={fieldData.name}>
+                  {`${fieldData.display_value}:`}
+                </label>
+                <label htmlFor={fieldData.name}>{defaultValue}</label>
+              </div>
+            );
+          }
 
           return (
             <div

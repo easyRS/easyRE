@@ -85,9 +85,19 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     await ModelTable.deleteOne({ _id: id });
   }
 
-  async findById(id: string): Promise<ModelGeneric> {
+  async removeByQuery(query: Record<string, unknown>): Promise<void> {
     const ModelTable = await this._getModelTable();
-    const objDocument = await ModelTable.findById(id).exec();
+    await ModelTable.deleteMany(query);
+  }
+
+  async findById(
+    id: string,
+    populateValues: Record<string, unknown>[] = []
+  ): Promise<ModelGeneric> {
+    const ModelTable = await this._getModelTable();
+    const objDocument = await ModelTable.findById(id)
+      .populate(populateValues)
+      .exec();
     return this.toJson(objDocument);
   }
 

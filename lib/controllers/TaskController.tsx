@@ -27,6 +27,20 @@ async function getTask(_id: string): Promise<ITask> {
 async function getFormFields(): Promise<ModelKeys> {
   const keys = await new TaskUseCases().getKeys();
   const editables = keys.editables.map((fieldData) => {
+    const { name } = fieldData;
+
+    const readOnlyFields = [
+      'leaseContract',
+      'taskType',
+      'property',
+      'created_at'
+    ];
+    if (readOnlyFields.includes(name)) {
+      return {
+        ...fieldData,
+        type: 'readonly'
+      };
+    }
     return {
       ...fieldData,
       type: 'text'

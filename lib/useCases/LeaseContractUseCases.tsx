@@ -103,7 +103,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
   async generateMonthlyRecurringTasks(
     leaseContract: ILeaseContract
   ): Promise<void> {
-    const { startDate, nextDate } = leaseContract;
+    const { startDate, nextDate, amount } = leaseContract;
 
     const taskUseCases = new TaskUseCases();
     const tenantUseCases = new TenantUseCases();
@@ -115,7 +115,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       leaseContract.tenant._id.toString()
     );
     if (now >= startingDate) {
-      await taskUseCases._createLeaseTask(leaseContract, tenant);
+      await taskUseCases._createLeaseTask(leaseContract, tenant, amount);
       await taskUseCases._createElectricityTask(leaseContract, tenant);
       await taskUseCases._createGasTask(leaseContract, tenant);
       await taskUseCases._createWaterTask(leaseContract, tenant);

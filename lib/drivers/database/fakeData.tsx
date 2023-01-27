@@ -1,10 +1,15 @@
 import IProperty from '../../domain/entities/IProperty';
 import ITaskType from '../../domain/entities/ITaskType';
+import ITransactionType from '../../domain/entities/ITransactionType';
 
 import IConfig from '../../domain/entities/IConfig';
 
 const config: IConfig = {
   isDailyJobRunning: false
+};
+
+const transactionType: ITransactionType = {
+  name: 'Test'
 };
 
 const properties: IProperty[] = [
@@ -57,4 +62,4 @@ const taskTypes: ITaskType[] = [
   }
 ];
 
-export default { properties, taskTypes, config };
+export default { properties, taskTypes, config, transactionType };

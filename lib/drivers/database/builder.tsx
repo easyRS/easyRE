@@ -7,6 +7,8 @@ import IProperty from '../../domain/entities/IProperty';
 import ITask from '../../domain/entities/ITask';
 import ITaskType from '../../domain/entities/ITaskType';
 import ITenant from '../../domain/entities/ITenant';
+import ITransaction from '../../domain/entities/ITransaction';
+import ITransactionType from '../../domain/entities/ITransactionType';
 import ConfigSchema from '../../domain/models/Config';
 import ContractDefinitionSchema from '../../domain/models/ContractDefinition';
 import LeaseContractSchema from '../../domain/models/LeaseContract';
@@ -14,6 +16,8 @@ import PropertySchema from '../../domain/models/Property';
 import TaskSchema from '../../domain/models/Task';
 import TaskTypeSchema from '../../domain/models/TaskType';
 import TenantSchema from '../../domain/models/Tenant';
+import TransactionSchema from '../../domain/models/Transaction';
+import TransactionTypeSchema from '../../domain/models/TransactionType';
 
 export type SchemaType = {
   Property: Model<IProperty>;
@@ -23,6 +27,8 @@ export type SchemaType = {
   Task: Model<ITask>;
   TaskType: Model<ITaskType>;
   Config: Model<IConfig>;
+  Transaction: Model<ITransaction>;
+  TransactionType: Model<ITransactionType>;
   PSchema: Schema<IProperty>;
   TSchema: Schema<ITenant>;
   CSchema: Schema<IContractDefinition>;
@@ -30,6 +36,8 @@ export type SchemaType = {
   TskSchema: Schema<ITask>;
   TTSchema: Schema<ITaskType>;
   ConfSchema: Schema<IConfig>;
+  TraSchema: Schema<ITransaction>;
+  TraTSchema: Schema<ITransactionType>;
 };
 
 const build = async (): Promise<SchemaType> => {
@@ -61,6 +69,14 @@ const build = async (): Promise<SchemaType> => {
   const Config =
     mongoose.models.Config || mongoose.model<IConfig>('Config', ConfigSchema);
 
+  const Transaction =
+    mongoose.models.Transaction ||
+    mongoose.model<ITransaction>('Transaction', TransactionSchema);
+
+  const TransactionType =
+    mongoose.models.TransactionType ||
+    mongoose.model<ITransactionType>('TransactionType', TransactionTypeSchema);
+
   return {
     Property,
     Tenant,
@@ -69,13 +85,17 @@ const build = async (): Promise<SchemaType> => {
     Task,
     TaskType,
     Config,
+    Transaction,
+    TransactionType,
     PSchema: PropertySchema,
     TSchema: TenantSchema,
     CSchema: ContractDefinitionSchema,
     LCSchema: LeaseContractSchema,
     TskSchema: TaskSchema,
     TTSchema: TaskTypeSchema,
-    ConfSchema: ConfigSchema
+    ConfSchema: ConfigSchema,
+    TraSchema: TransactionSchema,
+    TraTSchema: TransactionTypeSchema
   };
 };
 

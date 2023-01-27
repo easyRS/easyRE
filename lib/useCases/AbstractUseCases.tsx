@@ -30,6 +30,10 @@ export default abstract class AbstractUseCases<
     return this.repository.removeById(id);
   }
 
+  async removeByQuery(query: Record<string, unknown>): Promise<void> {
+    return this.repository.removeByQuery(query);
+  }
+
   async list(): Promise<Model[]> {
     return this.repository.list();
   }

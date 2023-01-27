@@ -7,12 +7,33 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
     super('Task', 'TskSchema');
   }
 
+  async findById(id: string): Promise<ITask> {
+    const nameTransform = (doc: any /* eslint-disable-line*/) =>
+      doc && doc.name;
+    const populateValues = [
+      {
+        path: 'taskType',
+        transform: nameTransform
+      },
+      {
+        path: 'leaseContract',
+        transform: nameTransform
+      },
+      {
+        path: 'property',
+        transform: nameTransform
+      }
+    ];
+    return super.findById(id, populateValues);
+  }
+
   async getKeys(): Promise<ModelKeys> {
-    return super.getKeys(['leaseContract', 'taskType', 'property']);
+    return super.getKeys();
   }
 
   async list(): Promise<ITask[]> {
-    const query = await super.list(['leaseContract', 'taskType', 'property']);
+    const populateValues = ['leaseContract', 'taskType', 'property'];
+    const query = await super.list(populateValues);
     return query.map((obj: any /* eslint-disable-line*/) => {
       let task = {
         ...obj,
