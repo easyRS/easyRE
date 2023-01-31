@@ -38,6 +38,15 @@ async function getLeaseContract(_id: string): Promise<ILeaseContract> {
 async function getFormFields(): Promise<ModelKeys> {
   const keys = await new LeaseContractUseCases().getKeys();
   const editablesUnfiltered = keys.editables.map((fieldData) => {
+    const { name } = fieldData;
+
+    if (name === 'timeType') {
+      return {
+        ...fieldData,
+        type: 'timeType'
+      };
+    }
+
     return {
       ...fieldData,
       type: 'text'

@@ -20,6 +20,8 @@ type FormProps = {
     deleteCallback: (data: IEntity) => void;
   };
 };
+
+// TODO: format this code!
 const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const _form = useForm();
   const form = propertiesProps.form ? propertiesProps.form : _form;
@@ -36,6 +38,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
 
   const _onSubmit = async (data: FieldValues) => {
     const _data = data as IEntity;
+
     if (onSubmit) return onSubmit({ ...editObj, ..._data });
 
     await _defaultOnSubmit(_data);
@@ -110,6 +113,37 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   {`${fieldData.display_value}:`}
                 </label>
                 <label htmlFor={fieldData.name}>{defaultValue}</label>
+              </div>
+            );
+          }
+
+          if (type === 'timeType') {
+            return (
+              <div
+                style={{
+                  marginBottom: '10px',
+                  display: 'flex',
+                  alignItems: 'left',
+                  justifyContent: 'left',
+                  flexDirection: 'column',
+                  textAlign: 'left'
+                }}
+              >
+                <label htmlFor={fieldData.name}>
+                  {`${fieldData.display_value}:`}
+                </label>
+                <select
+                  {...register(name, { required: true })}
+                  defaultValue={defaultValue}
+                >
+                  {' '}
+                  <option value="Daily" selected={defaultValue === 'Daily'}>
+                    Daily
+                  </option>
+                  <option value="Monthly" selected={defaultValue === 'Monthly'}>
+                    Monthly
+                  </option>
+                </select>
               </div>
             );
           }

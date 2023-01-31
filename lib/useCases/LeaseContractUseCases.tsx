@@ -87,9 +87,9 @@ export default class LeaseContractUseCases extends AbstractUseCases<
 
     const newDate = new Date(startingDate);
 
-    if (timeType === 'daily') {
+    if (timeType === 'Daily') {
       newDate.setDate(startingDate.getDate() + 1);
-    } else if (timeType === 'monthly') {
+    } else if (timeType === 'Monthly') {
       newDate.setMonth(startingDate.getMonth() + 1);
     }
     const finalDate = newDate.toLocaleString();

@@ -61,17 +61,26 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     const _index = index;
     const unknownTest = data as unknown;
     const genericData = unknownTest as Record<string, unknown>;
-    onValueChanged(
-      _index === 1
-        ? {
-            ...data,
-            coordinates: [
-              genericData.latitude as number,
-              genericData.longitude as number
-            ]
-          }
-        : data
-    );
+    let dataParam = data;
+    if (_index === 1) {
+      const latitude = parseFloat(genericData.latitude as string);
+      const longitude = parseFloat(genericData.longitude as string);
+      const coordinates = [
+        latitude > 0
+          ? latitude
+          : parseFloat((genericData.coordinates as string[])[0]),
+        longitude > 0
+          ? longitude
+          : parseFloat((genericData.coordinates as string[])[1])
+      ];
+
+      dataParam = {
+        ...dataParam,
+        coordinates
+      };
+    }
+
+    onValueChanged(dataParam);
 
     if (_index === 2) setSetCompleted(true);
     setIndex(_index === 2 ? 0 : _index + 1);

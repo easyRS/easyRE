@@ -32,6 +32,15 @@ async function getContractDef(_id: string): Promise<IContractDefinition> {
 async function getFormFields(): Promise<ModelKeys> {
   const keys = await new ContractDefUseCases().getKeys();
   const editables = keys.editables.map((fieldData) => {
+    const { name } = fieldData;
+
+    if (name === 'timeType') {
+      return {
+        ...fieldData,
+        type: 'timeType'
+      };
+    }
+
     return {
       ...fieldData,
       type: 'text'
