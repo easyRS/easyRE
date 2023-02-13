@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
-import { getContractDefs } from '../../lib/controllers/ContractDefController';
+import { getActiveContractDefs } from '../../lib/controllers/ContractDefController';
 import { getFormFields as contractFormFields } from '../../lib/controllers/LeaseContractController';
 import {
   getFormFields as propertyFormFields,
@@ -158,11 +158,11 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
 export async function getServerSideProps() {
   const _tenantFormFields = await tenantFormFields();
   const _propertyFormFields = await propertyFormFields();
-  const _contractFormFields = await contractFormFields();
+  const _contractFormFields = await contractFormFields(true);
 
   const tenants = await getTenants();
   const properties = await getProperties();
-  const contracts = await getContractDefs();
+  const contracts = await getActiveContractDefs();
 
   const selectValues = [tenants, properties, contracts];
 
@@ -171,6 +171,7 @@ export async function getServerSideProps() {
     _propertyFormFields,
     _contractFormFields
   ];
+
   return {
     props: { formFieldsArray, selectValues }
   };

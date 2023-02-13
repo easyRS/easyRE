@@ -46,7 +46,7 @@ export default abstract class AbstractUseCases<
     return this.repository.findByQuery(query);
   }
 
-  async getKeys(): Promise<ModelKeys> {
-    return this.repository.getKeys();
+  async getKeys(_forbiddenFields: string[] = []): Promise<ModelKeys> {
+    return this.repository.getKeys(_forbiddenFields);
   }
 }

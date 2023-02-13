@@ -28,7 +28,8 @@ const NewContractDefs: NextPage<NewPropertyProps> = (
 };
 
 export async function getServerSideProps() {
-  const formFields = await getFormFields();
+  const isNew = true;
+  const formFields = await getFormFields(isNew);
 
   return {
     props: { formFields }

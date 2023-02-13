@@ -47,6 +47,10 @@ export default class TaskUseCases extends AbstractUseCases<
     };
   }
 
+  async listWorkInProgress(): Promise<ITask[]> {
+    return (this.repository as TaskRepository).listWorkInProgress();
+  }
+
   async _create(createParam: CreateParams): Promise<ITask> {
     const taskTypeUseCases = new TaskTypeUseCases();
     const { taskTypeName, leaseContract, property, description, amount } =
@@ -55,10 +59,14 @@ export default class TaskUseCases extends AbstractUseCases<
     const taskType = (await taskTypeUseCases.findByQuery({
       name: taskTypeName
     })) as ITaskType;
+    const workInProgressState = (
+      this.repository as TaskRepository
+    ).getWorkInProgressState();
 
     const now = getNowDate();
     let task: Record<string, unknown> = {
       created_at: now,
+      state: workInProgressState,
       amount,
       description
     };
@@ -178,8 +186,12 @@ export default class TaskUseCases extends AbstractUseCases<
     await super.update(newObj);
     const unknownVar = newObj as unknown;
     const task = unknownVar as ITask;
+    const { state } = task;
+    const closeCompleted = (
+      this.repository as TaskRepository
+    ).getCloseCompletedState();
 
-    if (task._id) {
+    if (task._id && state === closeCompleted) {
       const transactionTypeUseCases = new TransactionTypeUseCases();
       const transactionType = await transactionTypeUseCases.findByQuery({});
 

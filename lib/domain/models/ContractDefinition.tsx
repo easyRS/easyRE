@@ -1,16 +1,18 @@
 import { Schema } from 'mongoose';
 
-import IContractDefinition from '../entities/IContractDefinition';
+import IContractDefinition, {
+  CONTRACT_DEFINTION_STATES
+} from '../entities/IContractDefinition';
 
-export const timeType = ['Daily', 'Monthly'];
+import TIME_TYPE_OPTIONS from '../entities/TimeType';
 
 const ContractDefinitionSchema = new Schema<IContractDefinition>({
   name: String,
   description: String,
   timeAmount: String,
-  timeType: { type: String, enum: timeType },
+  timeType: { type: String, enum: TIME_TYPE_OPTIONS },
   termsConditions: String,
-  state: String
+  state: { type: String, enum: CONTRACT_DEFINTION_STATES }
 });
 
 export default ContractDefinitionSchema;

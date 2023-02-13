@@ -5,6 +5,10 @@ async function getContractDefs(): Promise<IContractDefinition[]> {
   return new ContractDefUseCases().list();
 }
 
+async function getActiveContractDefs(): Promise<IContractDefinition[]> {
+  return new ContractDefUseCases().listActives();
+}
+
 async function getTableContractDefs(): Promise<
   TableMapping<IContractDefTable>
 > {
@@ -29,15 +33,16 @@ async function getContractDef(_id: string): Promise<IContractDefinition> {
   return new ContractDefUseCases().findById(_id);
 }
 
-async function getFormFields(): Promise<ModelKeys> {
-  const keys = await new ContractDefUseCases().getKeys();
+async function getFormFields(isNew = false): Promise<ModelKeys> {
+  const forbbidenFields = isNew ? ['state'] : [];
+  const keys = await new ContractDefUseCases().getKeys(forbbidenFields);
   const editables = keys.editables.map((fieldData) => {
     const { name } = fieldData;
 
-    if (name === 'timeType') {
+    if (name === 'state' || name === 'timeType') {
       return {
         ...fieldData,
-        type: 'timeType'
+        type: 'state'
       };
     }
 
@@ -66,6 +71,7 @@ async function removeContractDef(object: Record<string, unknown>) {
 }
 
 export {
+  getActiveContractDefs,
   getContractDefs,
   getTableContractDefs,
   getFormFields,

@@ -32,6 +32,13 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return SchemaTable.path(fieldName).instance as string;
   }
 
+  async _getEnumValues(fieldName: string): Promise<string[]> {
+    const connectionValues = await connect();
+    const schemaName: string = this.schemaName;
+    const SchemaTable = (connectionValues as any)[schemaName];
+    return SchemaTable.path(fieldName).enumValues as string[];
+  }
+
   async getKeys(_forbiddenFields: string[] = []): Promise<ModelKeys> {
     const ModelTable = await this._getModelTable();
     const allfields = Object.keys(ModelTable.schema.tree);
@@ -51,12 +58,14 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     const array = await Promise.all(
       editableFields.map(async (field: string): Promise<FieldData> => {
         const type: string = await this._getFieldType(field);
+        const enumValues: string[] = await this._getEnumValues(field);
         const unformated = field.replace('_', ' ');
         const displayValue = unformated[0].toUpperCase() + unformated.slice(1);
         return {
           name: field,
           type: type,
-          display_value: displayValue
+          display_value: displayValue,
+          options: enumValues || null
         };
       }, this)
     );
@@ -107,9 +116,14 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return this.toJson(objDocument);
   }
 
-  async list(populateValues: string[] = []): Promise<ModelGeneric[]> {
+  async list(
+    populateValues: string[] = [],
+    query: Record<string, unknown> = {}
+  ): Promise<ModelGeneric[]> {
     const ModelTable = await this._getModelTable();
-    const queryResult = await ModelTable.find().populate(populateValues).lean();
+    const queryResult = await ModelTable.find(query)
+      .populate(populateValues)
+      .lean();
 
     return queryResult.map((obj: any) => {
       return { ...obj, _id: obj._id.toString() };

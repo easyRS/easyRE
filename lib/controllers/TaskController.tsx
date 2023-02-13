@@ -1,16 +1,21 @@
 import ITask from '../domain/entities/ITask';
 import TaskUseCases from '../useCases/TaskUseCases';
 
-async function getTasks(): Promise<ITask[]> {
-  return new TaskUseCases().list();
+async function getTasks(workInProgress = false): Promise<ITask[]> {
+  return workInProgress
+    ? new TaskUseCases().listWorkInProgress()
+    : new TaskUseCases().list();
 }
 
-async function getTableTasks(): Promise<TableMapping<ITaskTable>> {
-  const task = await getTasks();
+async function getTableTasks(
+  workInProgress = false
+): Promise<TableMapping<ITaskTable>> {
+  const task = await getTasks(workInProgress);
 
   const labelsMapping: ITaskTable = {
     created_at: 'Created At',
     taskType: 'Type',
+    state: 'State',
     description: 'Description'
   };
 
@@ -28,6 +33,13 @@ async function getFormFields(): Promise<ModelKeys> {
   const keys = await new TaskUseCases().getKeys();
   const editables = keys.editables.map((fieldData) => {
     const { name } = fieldData;
+
+    if (name === 'state') {
+      return {
+        ...fieldData,
+        type: 'state'
+      };
+    }
 
     const readOnlyFields = [
       'leaseContract',

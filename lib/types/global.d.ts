@@ -50,6 +50,7 @@ declare global {
   type ITaskTable = {
     created_at: string;
     taskType: string;
+    state: string;
     description: string;
   };
 
@@ -78,6 +79,7 @@ declare global {
     name: string;
     type: string;
     display_value: string;
+    options?: string[] = [];
   };
 
   type ModelKeys = {

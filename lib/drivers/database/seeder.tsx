@@ -17,6 +17,7 @@ export default async function executeSeeder() {
         TaskType,
         ContractDefinition,
         Tenant,
+        Transaction,
         TransactionType
       } = await builder();
       // delete ALL data
@@ -27,6 +28,7 @@ export default async function executeSeeder() {
       await Tenant.deleteMany();
       await Property.deleteMany();
       await TransactionType.deleteMany();
+      await Transaction.deleteMany();
 
       // Seed fake data
       const transactionType = new TransactionType(all.transactionType);

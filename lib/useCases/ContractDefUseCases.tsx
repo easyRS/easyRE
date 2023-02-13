@@ -22,4 +22,23 @@ export default class ContractDefUseCases extends AbstractUseCases<
       state: object.state as string
     };
   }
+
+  async listActives(): Promise<IContractDefinition[]> {
+    return (this.repository as ContractDefRepository).listActives();
+  }
+
+  async create(
+    unknownObj: Record<string, unknown>
+  ): Promise<IContractDefinition> {
+    const activeState = (
+      this.repository as ContractDefRepository
+    ).getActiveState();
+
+    const leaseContract = {
+      ...unknownObj,
+      state: activeState
+    };
+
+    return super.create(leaseContract);
+  }
 }

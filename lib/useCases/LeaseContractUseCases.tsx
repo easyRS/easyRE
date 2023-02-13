@@ -5,6 +5,7 @@ import ITenant from '../domain/entities/ITenant';
 import LeaseContractRepository from '../domain/repositories/LeaseContractRepository';
 import AbstractUseCases from './AbstractUseCases';
 
+import { daysBetween, monthsBetween } from '../utils/datesHelper';
 import PropertyUseCases from './PropertyUseCases';
 import TaskUseCases from './TaskUseCases';
 import TenantUseCases from './TenantUseCases';
@@ -35,6 +36,10 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     };
   }
 
+  async listWorkInProgress(): Promise<ILeaseContract[]> {
+    return (this.repository as LeaseContractRepository).listWorkInProgress();
+  }
+
   async create(unknownObj: Record<string, unknown>): Promise<ILeaseContract> {
     const session = await mongoose.startSession();
     await session.startTransaction();
@@ -60,11 +65,14 @@ export default class LeaseContractUseCases extends AbstractUseCases<
           unknownObj[1] as Record<string, unknown>
         );
 
+      const workInProgressState = (
+        this.repository as LeaseContractRepository
+      ).getWorkInProgressState();
       const leaseContract = {
         property,
         tenant,
         ...objValues[2],
-        state: 'activado' // TODO: work with states later,
+        state: workInProgressState
       };
       const leaseTmp = await super.create(leaseContract);
       if (leaseTmp._id) {
@@ -81,18 +89,43 @@ export default class LeaseContractUseCases extends AbstractUseCases<
   }
 
   async calculateNextDate(leaseContract: ILeaseContract) {
-    const { timeType, startDate, nextDate } = leaseContract;
+    const { timeType, startDate, nextDate, timeAmount } = leaseContract;
 
     const startingDate = new Date(nextDate || startDate);
 
     const newDate = new Date(startingDate);
+    const dailyOption = (
+      this.repository as LeaseContractRepository
+    ).getDailyOption();
+    const monthlyOption = (
+      this.repository as LeaseContractRepository
+    ).getMonthlyOption();
 
-    if (timeType === 'Daily') {
+    if (timeType === dailyOption) {
       newDate.setDate(startingDate.getDate() + 1);
-    } else if (timeType === 'Monthly') {
+    } else if (timeType === monthlyOption) {
       newDate.setMonth(startingDate.getMonth() + 1);
     }
     const finalDate = newDate.toLocaleString();
+
+    const currentTime =
+      timeType === monthlyOption
+        ? monthsBetween(new Date(startDate), startingDate || undefined)
+        : daysBetween(new Date(startDate), startingDate || undefined);
+
+    const count = parseInt(timeAmount, 10) - 1;
+    if (currentTime === count) {
+      const closeCompletedState = (
+        this.repository as LeaseContractRepository
+      ).getCloseCompletedState();
+      await this.update({
+        ...leaseContract,
+        _id: leaseContract._id?.toString(),
+        nextDate: finalDate,
+        state: closeCompletedState
+      });
+      return;
+    }
     await this.update({
       ...leaseContract,
       _id: leaseContract._id?.toString(),
@@ -114,6 +147,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     const tenant = await tenantUseCases.findById(
       leaseContract.tenant._id.toString()
     );
+
     if (now >= startingDate) {
       await taskUseCases._createLeaseTask(leaseContract, tenant, amount);
       await taskUseCases._createElectricityTask(leaseContract, tenant);

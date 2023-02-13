@@ -7,5 +7,5 @@ export default interface IRepository<Model> {
   removeById(id: string): Promise<void>;
   removeByQuery(query: Record<string, unknown>): Promise<void>;
   list(): Promise<Model[]>;
-  getKeys(): Promise<ModelKeys>;
+  getKeys(forbiddenFields?: string[]): Promise<ModelKeys>;
 }

@@ -67,7 +67,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         onSubmit={handleSubmit(_onSubmit)}
       >
         {editableFields.map((fieldData) => {
-          const { type, name } = fieldData;
+          const { type, name, options } = fieldData;
           if (type === 'coordinates') {
             const property = editObj as IProperty;
             let coordinates: Coordinates = {
@@ -117,7 +117,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             );
           }
 
-          if (type === 'timeType') {
+          if (type === 'state' && options) {
             return (
               <div
                 style={{
@@ -137,12 +137,14 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   defaultValue={defaultValue}
                 >
                   {' '}
-                  <option value="Daily" selected={defaultValue === 'Daily'}>
-                    Daily
-                  </option>
-                  <option value="Monthly" selected={defaultValue === 'Monthly'}>
-                    Monthly
-                  </option>
+                  {options.map((optionValue) => (
+                    <option
+                      value={optionValue}
+                      selected={defaultValue === optionValue}
+                    >
+                      {optionValue}
+                    </option>
+                  ))}
                 </select>
               </div>
             );

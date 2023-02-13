@@ -25,7 +25,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
 };
 
 export async function getServerSideProps() {
-  const tableTasks = await getTableTasks();
+  const tableTasks = await getTableTasks(true);
 
   return {
     props: { tableTasks }
