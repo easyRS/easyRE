@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { Table, TopNavigation } from '../lib/components';
-import { getTableTasks } from '../lib/controllers/TaskController';
+import { getCurrentTableTasks } from '../lib/controllers/TaskController';
 
 type IndexTaskProps = {
   tableTasks: TableMapping<ITaskTable>;
@@ -25,7 +25,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
 };
 
 export async function getServerSideProps() {
-  const tableTasks = await getTableTasks(true);
+  const tableTasks = await getCurrentTableTasks();
 
   return {
     props: { tableTasks }

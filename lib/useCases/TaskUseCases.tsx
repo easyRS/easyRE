@@ -51,6 +51,14 @@ export default class TaskUseCases extends AbstractUseCases<
     return (this.repository as TaskRepository).listWorkInProgress();
   }
 
+  async createdLastTwoWeeks(): Promise<ITask[]> {
+    return (this.repository as TaskRepository).createdLastTwoWeeks();
+  }
+
+  async createdBeforeTwoWeeks(): Promise<ITask[]> {
+    return (this.repository as TaskRepository).createdBeforeTwoWeeks();
+  }
+
   async _create(createParam: CreateParams): Promise<ITask> {
     const taskTypeUseCases = new TaskTypeUseCases();
     const { taskTypeName, leaseContract, property, description, amount } =

@@ -1,17 +1,9 @@
 import ITask from '../domain/entities/ITask';
 import TaskUseCases from '../useCases/TaskUseCases';
 
-async function getTasks(workInProgress = false): Promise<ITask[]> {
-  return workInProgress
-    ? new TaskUseCases().listWorkInProgress()
-    : new TaskUseCases().list();
-}
-
 async function getTableTasks(
-  workInProgress = false
+  tasks: ITask[]
 ): Promise<TableMapping<ITaskTable>> {
-  const task = await getTasks(workInProgress);
-
   const labelsMapping: ITaskTable = {
     created_at: 'Created At',
     taskType: 'Type',
@@ -21,8 +13,15 @@ async function getTableTasks(
 
   return {
     tableName: labelsMapping,
-    arrayObj: task
+    arrayObj: tasks
   };
+}
+
+async function getCurrentTableTasks(): Promise<TableMapping<ITaskTable>> {
+  const taskUseCase = new TaskUseCases();
+  const tasks = await taskUseCase.createdLastTwoWeeks();
+
+  return getTableTasks(tasks);
 }
 
 async function getTask(_id: string): Promise<ITask> {
@@ -78,8 +77,7 @@ async function removeTask(object: Record<string, unknown>) {
 }
 
 export {
-  getTasks,
-  getTableTasks,
+  getCurrentTableTasks,
   getFormFields,
   createTask,
   getTask,
