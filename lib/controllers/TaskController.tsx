@@ -24,6 +24,12 @@ async function getCurrentTableTasks(): Promise<TableMapping<ITaskTable>> {
   return getTableTasks(tasks);
 }
 
+async function getBeforeTwoTableTasks(): Promise<TableMapping<ITaskTable>> {
+  const taskUseCase = new TaskUseCases();
+  const tasks = await taskUseCase.createdBeforeTwoWeeks();
+  return getTableTasks(tasks);
+}
+
 async function getTask(_id: string): Promise<ITask> {
   return new TaskUseCases().findById(_id);
 }
@@ -78,6 +84,7 @@ async function removeTask(object: Record<string, unknown>) {
 
 export {
   getCurrentTableTasks,
+  getBeforeTwoTableTasks,
   getFormFields,
   createTask,
   getTask,
