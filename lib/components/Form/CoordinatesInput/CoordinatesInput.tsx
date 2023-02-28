@@ -35,7 +35,7 @@ const Coordinate = (props: LabelProps) => {
 type Props = {
   register: UseFormRegister<FieldValues>;
   fieldData: FieldData;
-  defaultCoordinates?: Coordinates /* eslint-disable-line*/;
+  defaultCoordinates?: number[] /* eslint-disable-line*/;
 };
 
 const CoordinatesInput: NextPage<Props> = (props: Props) => {
@@ -63,17 +63,13 @@ const CoordinatesInput: NextPage<Props> = (props: Props) => {
           displayValue="Latitude"
           field="latitude"
           register={register}
-          defaultValue={
-            defaultCoordinates?.latitude ? defaultCoordinates?.latitude : 0
-          }
+          defaultValue={defaultCoordinates ? defaultCoordinates[0] : 0}
         />
         <Coordinate
           displayValue="Longitude"
           field="longitude"
           register={register}
-          defaultValue={
-            defaultCoordinates?.longitude ? defaultCoordinates?.longitude : 0
-          }
+          defaultValue={defaultCoordinates ? defaultCoordinates[1] : 0}
         />
       </div>
     </div>

@@ -102,7 +102,11 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
       (value) => value._id?.toString() === event.target.value
     );
 
-    if (selectedObj) onValueChanged(selectedObj);
+    if (selectedObj) {
+      onValueChanged(selectedObj);
+      const { reset } = form;
+      reset();
+    }
   };
 
   const pickTitle = (): string => {
