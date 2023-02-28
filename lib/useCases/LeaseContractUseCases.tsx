@@ -40,6 +40,13 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     return (this.repository as LeaseContractRepository).listWorkInProgress();
   }
 
+  async activeContracts(): Promise<number> {
+    const wip = await (
+      this.repository as LeaseContractRepository
+    ).listWorkInProgress();
+    return wip.length;
+  }
+
   async create(unknownObj: Record<string, unknown>): Promise<ILeaseContract> {
     const session = await mongoose.startSession();
     await session.startTransaction();

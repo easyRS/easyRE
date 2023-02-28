@@ -60,6 +60,10 @@ async function removeProperty(object: Record<string, unknown>) {
   return new PropertyUseCases().remove(object);
 }
 
+async function allOccupancyRate() {
+  return new PropertyUseCases().allOccupancyRate();
+}
+
 export {
   getProperties,
   getTableProperties,
@@ -67,5 +71,6 @@ export {
   createProperty,
   getProperty,
   updateProperty,
-  removeProperty
+  removeProperty,
+  allOccupancyRate
 };

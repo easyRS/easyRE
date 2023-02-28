@@ -1,0 +1,14 @@
+.circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  box-shadow: 0 0 4px var(--bubblegum-green);
+  background-color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+}

@@ -91,6 +91,10 @@ async function removeLeaseContract(object: Record<string, unknown>) {
   return new LeaseContractUseCases().remove(object);
 }
 
+async function activeContracts() {
+  return new LeaseContractUseCases().activeContracts();
+}
+
 export {
   createLeaseContract,
   getLeaseContracts,
@@ -99,5 +103,6 @@ export {
   getFormFields,
   getLeaseContract,
   updateLeaseContract,
-  removeLeaseContract
+  removeLeaseContract,
+  activeContracts
 };

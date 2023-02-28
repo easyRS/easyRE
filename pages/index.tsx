@@ -1,9 +1,18 @@
 import type { NextPage } from 'next';
-import { Table, TopNavigation } from '../lib/components';
-import { getCurrentTableTasks } from '../lib/controllers/TaskController';
+import { Counter, Table, TopNavigation } from '../lib/components';
+import {
+  getBeforeTwoTableTasks,
+  getCurrentTableTasks
+} from '../lib/controllers/TaskController';
+
+import { activeContracts } from '../lib/controllers/LeaseContractController';
+import { allOccupancyRate } from '../lib/controllers/PropertyController';
 
 type IndexTaskProps = {
-  tableTasks: TableMapping<ITaskTable>;
+  currentTableTasks: TableMapping<ITaskTable>;
+  outdateTableTasks: TableMapping<ITaskTable>;
+  occupancyRate: number;
+  nroContracts: number;
 };
 
 const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
@@ -13,11 +22,31 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
       content={
         <div>
           <Table
-            tableProperties={tasksProps.tableTasks}
+            tableProperties={tasksProps.currentTableTasks}
             newRedirectUrl="tasks/new"
             editRedirectUrl="tasks/"
             newTitle="Create New Task"
             headerTitle="Last two week tasks"
+          />
+          <div
+            style={{
+              margin: '1rem 0 1rem 0',
+              display: 'flex',
+              justifyContent: 'space-around'
+            }}
+          >
+            <Counter
+              value={`${tasksProps.nroContracts}`}
+              title="Active Contracts"
+            />
+            <Counter value={`${tasksProps.occupancyRate}%`} title="Occupancy" />
+          </div>
+
+          <Table
+            tableProperties={tasksProps.outdateTableTasks}
+            newRedirectUrl="tasks/new"
+            editRedirectUrl="tasks/"
+            headerTitle="Outdate two week tasks"
           />
         </div>
       }
@@ -26,10 +55,14 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
 };
 
 export async function getServerSideProps() {
-  const tableTasks = await getCurrentTableTasks();
+  const currentTableTasks = await getCurrentTableTasks();
+  const outdateTableTasks = await getBeforeTwoTableTasks();
+  const occupancyRateRaw = await allOccupancyRate();
+  const occupancyRate = Math.round(occupancyRateRaw * 100) / 100;
+  const nroContracts = await activeContracts();
 
   return {
-    props: { tableTasks }
+    props: { currentTableTasks, outdateTableTasks, occupancyRate, nroContracts }
   };
 }
 

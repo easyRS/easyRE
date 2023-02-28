@@ -85,7 +85,7 @@ export default async function executeSeeder() {
       await task2.save();
 
       const task3 = new Task({
-        created_at: '2023-02-23',
+        created_at: '2022-02-23',
         leaseContract: leaseContract?._id,
         amount: 43,
         description: 'Task 3',

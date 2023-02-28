@@ -12,7 +12,7 @@ export const TASK_DEFINTION_STATES = [
 
 export default interface ITask {
   _id?: Types.ObjectId;
-  created_at: Date;
+  created_at: string;
   leaseContract?: Types.ObjectId;
   property?: Types.ObjectId;
   amount: number;

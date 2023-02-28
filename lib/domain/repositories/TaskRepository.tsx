@@ -35,7 +35,11 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
         transform: nameTransform
       }
     ];
-    return super.findById(id, populateValues);
+    const task = await super.findById(id, populateValues);
+    return {
+      ...task,
+      created_at: task.created_at ? task.created_at.toLocaleString() : ''
+    };
   }
 
   async getKeys(): Promise<ModelKeys> {

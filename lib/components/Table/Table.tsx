@@ -5,9 +5,9 @@ import styles from './Table.module.css';
 
 type TableProps = {
   tableProperties: TableMapping<ITable>;
-  newTitle: string;
+  newTitle?: string;
   headerTitle?: string;
-  newRedirectUrl: string;
+  newRedirectUrl?: string;
   editRedirectUrl: string;
 };
 
@@ -20,7 +20,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 
   const [isSSR, setIsSSR] = useState(true);
   const onNew = useCallback(() => {
-    router.push(props.newRedirectUrl);
+    if (props.newRedirectUrl) router.push(props.newRedirectUrl);
   }, [router, props.newRedirectUrl]);
 
   const onEdit = useCallback(
@@ -40,7 +40,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Button onClick={onNew}>{props.newTitle}</Button>
+        {props.newTitle && <Button onClick={onNew}>{props.newTitle}</Button>}
         {headerTitle && (
           <div className={styles.headerTitle}>
             <h2>{headerTitle}</h2>
@@ -81,7 +81,9 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 };
 
 Table.defaultProps = {
-  headerTitle: ''
+  headerTitle: '',
+  newTitle: '',
+  newRedirectUrl: ''
 };
 
 export default Table;
