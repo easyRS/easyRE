@@ -37,7 +37,7 @@ export default class TaskUseCases extends AbstractUseCases<
     object: Record<string, unknown>
   ): ITask {
     return {
-      created_at: new Date(object.created_at as string),
+      created_at: object.created_at as string,
       amount: object.amount as number,
       description: object.description as string,
       state: object.state as string,
