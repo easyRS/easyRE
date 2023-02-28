@@ -17,6 +17,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
             newRedirectUrl="tasks/new"
             editRedirectUrl="tasks/"
             newTitle="Create New Task"
+            headerTitle="Last two week tasks"
           />
         </div>
       }

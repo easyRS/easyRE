@@ -36,7 +36,7 @@ const BurgerMenu = ({ menus, open, setOpen }: BurguerMenuProps) => {
         aria-hidden={!isHidden}
       >
         {menus.map((menu) => (
-          <Link key={menu.key} href={menu.link}>
+          <Link key={menu.key} href={menu.link} legacyBehavior>
             <a className={classNames(styles.a)} tabIndex={tabIndex}>
               {menu.name}
             </a>

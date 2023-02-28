@@ -6,15 +6,14 @@ import styles from './Table.module.css';
 type TableProps = {
   tableProperties: TableMapping<ITable>;
   newTitle: string;
+  headerTitle?: string;
   newRedirectUrl: string;
   editRedirectUrl: string;
 };
-/*
 
-
-*/
 const Table: React.FC<TableProps> = (props: TableProps) => {
   const { tableName, arrayObj }: TableMapping<ITable> = props.tableProperties;
+  const { headerTitle } = props;
   const router = useRouter();
   const labels: string[] = Object.values<string>(tableName);
   const keys = Object.keys(tableName);
@@ -40,7 +39,14 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 
   return (
     <div className={styles.container}>
-      <Button onClick={onNew}>{props.newTitle}</Button>
+      <div className={styles.header}>
+        <Button onClick={onNew}>{props.newTitle}</Button>
+        {headerTitle && (
+          <div className={styles.headerTitle}>
+            <h2>{headerTitle}</h2>
+          </div>
+        )}
+      </div>
 
       <table className={styles.table}>
         <tr className={styles.thead}>
@@ -72,6 +78,10 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
       </table>
     </div>
   );
+};
+
+Table.defaultProps = {
+  headerTitle: ''
 };
 
 export default Table;

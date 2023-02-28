@@ -38,7 +38,7 @@ export default class LeaseContractRepository extends MongooseAbstractRepository<
   async listWorkInProgress(): Promise<ILeaseContract[]> {
     const workInProgressState = this.getWorkInProgressState();
     const query = { state: workInProgressState };
-    return super.list(['property', 'tenant'], query);
+    return this.list(['property', 'tenant'], query);
   }
 
   async list(

@@ -5,6 +5,10 @@ export const daysBetween = (startingDate: Date, lastestDate?: Date) => {
   return Math.ceil(difference / (1000 * 3600 * 24));
 };
 
+export const isInTheCurrentYear = (date: Date) => {
+  return new Date().getFullYear() === date.getFullYear();
+};
+
 export const monthsBetween = (startingDate: Date, lastestDate?: Date) => {
   if (!lastestDate) return 0;
   let months;

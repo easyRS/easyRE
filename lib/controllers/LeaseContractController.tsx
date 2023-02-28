@@ -9,11 +9,9 @@ async function getLeaseContracts(): Promise<ILeaseContract[]> {
   return new LeaseContractUseCases().list();
 }
 
-async function getTableLeaseContracts(): Promise<
-  TableMapping<ILeaseContractTable>
-> {
-  const leaseContracts = await getLeaseContracts();
-
+async function getTableLeaseContracts(
+  leaseContracts: ILeaseContract[]
+): Promise<TableMapping<ILeaseContractTable>> {
   const labelsMapping: ILeaseContractTable = {
     name: 'Name',
     amount: 'Amount',
@@ -29,6 +27,24 @@ async function getTableLeaseContracts(): Promise<
     tableName: labelsMapping,
     arrayObj: leaseContracts
   };
+}
+
+async function getActiveLeaseContracts(): Promise<
+  TableMapping<ILeaseContractTable>
+> {
+  const leaseContractUseCase = new LeaseContractUseCases();
+  const leaseContracts = await leaseContractUseCase.listWorkInProgress();
+
+  return getTableLeaseContracts(leaseContracts);
+}
+
+async function getAllLeaseContracts(): Promise<
+  TableMapping<ILeaseContractTable>
+> {
+  const leaseContractUseCase = new LeaseContractUseCases();
+  const leaseContracts = await leaseContractUseCase.list();
+
+  return getTableLeaseContracts(leaseContracts);
 }
 
 async function getLeaseContract(_id: string): Promise<ILeaseContract> {
@@ -78,7 +94,8 @@ async function removeLeaseContract(object: Record<string, unknown>) {
 export {
   createLeaseContract,
   getLeaseContracts,
-  getTableLeaseContracts,
+  getAllLeaseContracts,
+  getActiveLeaseContracts,
   getFormFields,
   getLeaseContract,
   updateLeaseContract,

@@ -1,11 +1,23 @@
 .container {
   background: white;
-  border-radius: 0.2rem;
+  border-radius: 0.8rem;
   border-collapse: collapse;
   box-shadow: 0 0 5px var(--dark-green);
   text-align: left;
   overflow: hidden;
-  padding: 2rem 0.3rem;
+  padding: 3rem 1.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.headerTitle {
+  position: absolute;
+  left: 40%;
 }
 
 .table {
@@ -14,11 +26,11 @@
 }
 
 .thead {
-  box-shadow: 0 0.8px 1px var(--primary);
+  box-shadow: 0 2px 1px var(--primary);
 }
 
 .tbody {
-  box-shadow: 0 0.5px 0.7px var(--primary-light);
+  box-shadow: 0 1px 0.7px var(--primary-light);
 }
 .tbody:hover {
   background-color: var(--sky);
@@ -30,10 +42,12 @@
   letter-spacing: 0.1rem;
   font-size: 0.7rem;
   font-weight: bold;
+  height: 3.5rem;
 }
 
 .td {
   padding: 1rem 2rem;
+  height: 3.25rem;
 }
 .td:hover {
   background-color: var(--sky);

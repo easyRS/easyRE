@@ -12,7 +12,8 @@ const Header = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end'
+          justifyContent: 'flex-end',
+          margin: '0.5rem 0 1rem 0'
         }}
       >
         <Button onClick={onDelete}>
@@ -23,7 +24,7 @@ const Header = () => {
               justifyContent: 'center'
             }}
           >
-            New
+            Create New Lease
           </div>
         </Button>
       </nav>

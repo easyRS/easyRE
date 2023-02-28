@@ -1,4 +1,5 @@
 import IProperty from '../domain/entities/IProperty';
+import LeaseContractRepository from '../domain/repositories/LeaseContractRepository';
 import PropertyRepository from '../domain/repositories/PropertyRepository';
 import AbstractUseCases from './AbstractUseCases';
 
@@ -21,5 +22,15 @@ export default class PropertyUseCases extends AbstractUseCases<
       location_details: object.location_details as string,
       description: object.description as string
     };
+  }
+
+  async allOccupancyRate(): Promise<number> {
+    const leaseContractRepository = new LeaseContractRepository();
+    const leaseContracts = await leaseContractRepository.listWorkInProgress();
+    const allProperties = await this.repository.list();
+
+    const leaseContractsCount = leaseContracts.length;
+    const allPropertiesCount = allProperties.length;
+    return (leaseContractsCount / allPropertiesCount) * 100;
   }
 }
