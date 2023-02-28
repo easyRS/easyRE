@@ -70,25 +70,21 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           const { type, name, options } = fieldData;
           if (type === 'coordinates') {
             const property = editObj as IProperty;
-            let coordinates: Coordinates = {
-              latitude: 0,
-              longitude: 0
-            };
-
             if (property && property.coordinates) {
               const array = property.coordinates as number[];
-              coordinates = {
+              const coordinates = {
                 latitude: array[0],
                 longitude: array[1]
               };
+              return (
+                <CoordinatesInput
+                  register={register}
+                  fieldData={fieldData}
+                  defaultCoordinates={coordinates}
+                />
+              );
             }
-            return (
-              <CoordinatesInput
-                register={register}
-                fieldData={fieldData}
-                defaultCoordinates={coordinates}
-              />
-            );
+            return null;
           }
 
           const defaultValue = editObj
