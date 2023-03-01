@@ -1,12 +1,12 @@
 .container {
   position: absolute;
-  top: 5%;
-  left: 2rem;
+  top: 4%;
+  left: 1.8rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -15,7 +15,7 @@
 }
 
 .span {
-  width: 2rem;
+  width: 1.5rem;
   height: 0.25rem;
   border-radius: 10px;
   transition: all 0.3s linear;

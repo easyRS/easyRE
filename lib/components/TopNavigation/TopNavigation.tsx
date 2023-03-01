@@ -44,7 +44,7 @@ const TopNavigation = ({ content, isOpen }: TopNavigationProps) => {
       };
   return (
     <>
-      <Header />
+      <Header open={open} />
       <div style={style}>{content}</div>
       <BurgerMenu menus={defaultMenus} open={open} setOpen={setOpen} />
     </>

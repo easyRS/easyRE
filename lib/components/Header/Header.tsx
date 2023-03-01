@@ -1,7 +1,23 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Button from '../Button/Button';
 
-const Header = () => {
+type HeaderProps = {
+  open: boolean;
+};
+
+const Header = (props: HeaderProps) => {
+  const { open } = props;
+  const containerStyle = open // eslint-disable-line
+    ? {
+        marginLeft: '5rem',
+        transform: 'translateX(6rem)',
+        transition: 'transform 0.4s ease-in-out'
+      }
+    : {
+        marginLeft: '3rem',
+        transition: 'transform 0.4s ease-in-out'
+      };
   const router = useRouter();
   const onDelete = () => {
     router.push('/main');
@@ -10,12 +26,24 @@ const Header = () => {
     <header>
       <nav
         style={{
+          ...containerStyle,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end',
-          margin: '0.5rem 0 1rem 0'
+          justifyContent: 'space-between',
+          margin: '0 0 0 3rem'
         }}
       >
+        <Image
+          src="/images/logo.png"
+          style={{
+            width: '5.5rem',
+            height: '5.5rem'
+          }}
+          alt="My Image"
+          width={200}
+          height={200}
+        />
+
         <Button onClick={onDelete}>
           <div
             style={{
