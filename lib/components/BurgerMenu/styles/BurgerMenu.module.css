@@ -3,12 +3,13 @@
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  padding: 2rem;
   position: absolute;
   top: 0;
   left: 0;
   transition: transform 0.3s ease-in-out;
   background: var(--primary);
+  box-shadow: 0 0 8px var(--bubblegum-green);
+  border-radius: 0.4rem;
   height: 100vh;
 }
 
@@ -23,12 +24,19 @@
 .a {
   font-size: 1.5rem;
   text-transform: capitalize;
-  padding: 2rem 0;
+  padding: 2rem 1.5rem;
   font-weight: bold;
   color: var(--primary-dark);
   text-decoration: none;
   text-align: left;
   transition: color 0.3s linear;
+}
+
+.a:hover {
+  background-color: var(--primary-light);
+  border-left-color: var(--primary-dark);
+  border-width: 0.5rem;
+  border-left-style: solid;
 }
 
 @media (max-width: 576px) {
