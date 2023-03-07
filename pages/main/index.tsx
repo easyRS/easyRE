@@ -18,6 +18,7 @@ import leaseCalls from '../../lib/drivers/network/main';
 import callbacks from '../../lib/drivers/network/tenants';
 
 import IContractDefinition from '../../lib/domain/entities/IContractDefinition';
+import ILeaseContract from '../../lib/domain/entities/ILeaseContract';
 import IProperty from '../../lib/domain/entities/IProperty';
 import ITenant from '../../lib/domain/entities/ITenant';
 
@@ -37,6 +38,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     props.selectValues
   );
   const [completed, setSetCompleted] = useState<boolean>(false);
+  const [summaryRaw, setSummary] = useState<string>('');
   const form = useForm();
 
   const currentObj = objValues[index]; /* eslint-disable-line*/
@@ -115,20 +117,63 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     return 'Contract';
   };
 
+  useEffect(() => {
+    if (!objValues) return;
+    let summary = '';
+    if (objValues[0] && Object.keys(objValues[0]).length > 0) {
+      const tenant = objValues[0] as ITenant; /* eslint-disable-line*/
+      summary += '* Tenant Info:';
+      summary += `\n ${tenant.name} ${tenant.phone}`;
+    }
+
+    if (objValues[1] && Object.keys(objValues[1]).length > 0) {
+      const property = objValues[1] as IProperty; /* eslint-disable-line*/
+      summary += '\n* Property Name:';
+      summary += `\n ${property.name}`;
+    }
+
+    if (objValues[2] && Object.keys(objValues[2]).length > 0) {
+      const contractDefinition =
+        objValues[2] as ILeaseContract; /* eslint-disable-line*/
+      summary += '\n* Lease Info:';
+      summary += `\n Start Date: ${contractDefinition.startDate} Time Amount: ${contractDefinition.timeAmount}`;
+    }
+    setSummary(summary);
+  }, [objValues]);
+
+  const summary = summaryRaw
+    ? summaryRaw
+        .toString()
+        .split('\n')
+        .map((line, index2) => <p key={`${index2.toString()}`}>{line}</p>)
+    : null;
+
+  const submitTitle = index === 2 ? 'SUBMIT' : 'NEXT';
   return (
     <TopNavigation
       isOpen={false}
       content={
-        <div>
+        <div
+          style={{ background: 'white', padding: '2rem', borderRadius: '1rem' }}
+        >
           <div>
-            <h1>Dynamic header here</h1>
+            <h1>Create a lease</h1>
           </div>
 
           <div className={styles.contentContainer}>
-            <div className={styles.summaryContainer}>
-              <h3>Here comes the summary</h3>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <div className={styles.summaryContainer}>
+                <h3>Summary:</h3>
+                <div style={{ flexGrow: 3, textAlign: 'start' }}>{summary}</div>
+              </div>
               <Button onClick={backwardCallBack}>Back</Button>
             </div>
+
             <div className={styles.formContainer}>
               <div>
                 <h4>
@@ -149,6 +194,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
                 callbacks={callbacks}
                 canDelete={false}
                 onSubmit={forwardCallBack}
+                submitTitle={submitTitle}
                 editObj={currentObj} /* eslint-disable-line*/
               />
             </div>

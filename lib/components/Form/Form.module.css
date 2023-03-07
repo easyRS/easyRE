@@ -10,15 +10,18 @@
 }
 
 .submitButton {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid white;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  margin-top: 40px;
-  padding: 20px;
-  letter-spacing: 10px;
+  transition-duration: 0.4s;
+  background-color: var(--primary);
+  color: var(--primary-dark);
+  border-style: solid none solid none;
+
+  height: 2.5rem;
+  padding: 0.5rem 3rem;
+  box-shadow: 0 0 2px var(--bubblegum-green);
+  border-radius: 0.5rem;
+}
+
+.submitButton:hover {
+  background-color: var(--dark-green); /* Green */
+  color: white;
 }

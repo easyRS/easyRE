@@ -4,6 +4,7 @@
   color: var(--primary-dark);
   border-style: solid none solid none;
   border-color: var(--dark-green);
+  box-shadow: 0 0 2px var(--bubblegum-green);
   border-radius: 0.5rem;
 }
 

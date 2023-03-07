@@ -1,18 +1,28 @@
 .contentContainer {
-  background-color: blue;
+  background: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 .summaryContainer {
+  display: flex;
+  flex-direction: column;
   padding: 2rem;
+  margin-bottom: 1rem;
   width: 500px;
   text-align: left;
-  background: yellow;
-  float: left;
-  margin-left: 6rem;
+  background: var(--primary-light);
+  border-radius: 1rem;
+  min-height: 400px;
+  max-height: 500px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .formContainer {
   width: 500px;
-  float: right;
-  margin-right: 6rem;
+  background: var(--primary-light);
+  border-radius: 1rem;
+  padding: 1rem;
 }

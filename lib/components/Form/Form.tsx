@@ -13,6 +13,7 @@ type FormProps = {
   editObj?: IEntity;
   form?: UseFormReturn;
   onSubmit?: (data: IEntity) => void;
+  submitTitle?: string;
   canDelete: boolean;
   callbacks: {
     createCallback: (data: IEntity) => void;
@@ -27,8 +28,10 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const form = propertiesProps.form ? propertiesProps.form : _form;
   const { register, handleSubmit } = form;
   const router = useRouter();
-  const { editObj, callbacks, canDelete, onSubmit } = propertiesProps;
+  const { editObj, callbacks, canDelete, onSubmit, submitTitle } =
+    propertiesProps;
   const { createCallback, updateCallback, deleteCallback } = callbacks;
+  const _submitTitle = submitTitle || 'SUBMIT';
 
   const _defaultOnSubmit = async (data: IEntity) => {
     if (editObj) await updateCallback({ ...editObj, ...data });
@@ -62,7 +65,8 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           maxWidth: '500px',
           margin: '0 auto',
           background: 'white',
-          textAlign: 'left'
+          textAlign: 'left',
+          borderRadius: '1rem'
         }}
         onSubmit={handleSubmit(_onSubmit)}
       >
@@ -162,21 +166,34 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             </div>
           );
         })}
-        <input className={styles.submitButton} type="submit" />
-        {canDelete && editObj && (
-          <Button onClick={onDelete}>
-            <div
-              style={{
-                display: 'flex',
-                gap: '0.5rem',
-                justifyContent: 'center'
-              }}
-            >
-              <FaTrashAlt />
-              DELETE
-            </div>
-          </Button>
-        )}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: '1rem',
+            justifyContent: canDelete && editObj ? 'space-between' : 'right'
+          }}
+        >
+          {canDelete && editObj && (
+            <Button onClick={onDelete} width="9rem">
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '0.5rem',
+                  justifyContent: 'center'
+                }}
+              >
+                <FaTrashAlt />
+                DELETE
+              </div>
+            </Button>
+          )}
+          <input
+            className={styles.submitButton}
+            type="submit"
+            value={_submitTitle}
+          />
+        </div>
       </form>
     </div>
   );
