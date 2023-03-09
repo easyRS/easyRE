@@ -213,8 +213,8 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   {' '}
                   <textarea
                     id="my-textarea"
-                    rows="4"
-                    cols="40"
+                    rows={4}
+                    cols={40}
                     className={styles.textInput}
                     {...register(name, { required: true })}
                     defaultValue={defaultValue}
