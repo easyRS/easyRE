@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaExpandArrowsAlt, FaTrashAlt } from 'react-icons/fa';
+import Modal from 'react-modal';
 import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
 import CoordinatesInput from './CoordinatesInput/CoordinatesInput';
@@ -22,8 +24,24 @@ type FormProps = {
   };
 };
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
+
 // TODO: format this code!
 const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const modalRef = useRef<HTMLTextAreaElement>(null);
+  const [multilineName, setMultilineName] = useState('');
+  const [multilineValue, setMultilineValue] = useState('');
+
   const _form = useForm();
   const form = propertiesProps.form ? propertiesProps.form : _form;
   const { register, handleSubmit } = form;
@@ -54,6 +72,31 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
       await deleteCallback(editObj as IEntity);
       router.push(propertiesProps.successRedirect);
     }
+  };
+
+  const openModal = (name) => {
+    const values = form.getValues();
+
+    setIsOpen(true);
+    setMultilineName(name);
+    setMultilineValue(values[name]); /* eslint-disable-line*/
+  };
+
+  const afterOpenModal = () => {
+    // references are now sync'd and can be accessed.
+  };
+
+  const closeModal = () => {
+    const { reset } = form;
+    const values = form.getValues() as Record<string, unknown>;
+
+    reset({
+      ...values,
+      [multilineName]: modalRef.current?.value
+    });
+    setMultilineName('');
+    setMultilineValue('');
+    setIsOpen(false);
   };
 
   const editableFields = propertiesProps.formFields.editables;
@@ -145,6 +188,52 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
               </div>
             );
           }
+          if (type === 'multiline') {
+            const openMultiline = () => {
+              openModal(name);
+            };
+            return (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'left',
+                  justifyContent: 'left',
+                  flexDirection: 'column',
+                  textAlign: 'left'
+                }}
+              >
+                <label htmlFor={fieldData.name}>
+                  {fieldData.display_value}
+                </label>
+                <div
+                  style={{
+                    position: 'relative'
+                  }}
+                >
+                  {' '}
+                  <textarea
+                    id="my-textarea"
+                    rows="4"
+                    cols="40"
+                    className={styles.textInput}
+                    {...register(name, { required: true })}
+                    defaultValue={defaultValue}
+                  />
+                  <FaExpandArrowsAlt
+                    style={{
+                      position: 'absolute',
+                      margin: '0.3rem',
+                      top: '0',
+                      right: '0',
+                      zIndex: '1'
+                    }}
+                    title={name}
+                    onClick={openMultiline}
+                  />
+                </div>
+              </div>
+            );
+          }
 
           return (
             <div
@@ -195,6 +284,33 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           />
         </div>
       </form>
+      <div>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              flexDirection: 'column'
+            }}
+          >
+            <h3>Write extensively:</h3>
+            <textarea
+              id="my-textarea"
+              rows={20}
+              cols={80}
+              ref={modalRef}
+              className={styles.textInput}
+              defaultValue={multilineValue}
+            />
+          </div>
+        </Modal>
+      </div>
     </div>
   );
 };

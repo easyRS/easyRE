@@ -27,6 +27,15 @@ async function getTenant(_id: string): Promise<ITenant> {
 async function getFormFields(): Promise<ModelKeys> {
   const keys = await new TenantUseCases().getKeys();
   const editables = keys.editables.map((fieldData) => {
+    const { name } = fieldData;
+
+    if (name === 'notes') {
+      return {
+        ...fieldData,
+        type: 'multiline'
+      };
+    }
+
     return {
       ...fieldData,
       type: 'text'

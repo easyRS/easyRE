@@ -46,6 +46,14 @@ async function getFormFields(isNew = false): Promise<ModelKeys> {
       };
     }
 
+    const multilineTexts = ['termsConditions', 'description'];
+    if (multilineTexts.includes(name)) {
+      return {
+        ...fieldData,
+        type: 'multiline'
+      };
+    }
+
     return {
       ...fieldData,
       type: 'text'

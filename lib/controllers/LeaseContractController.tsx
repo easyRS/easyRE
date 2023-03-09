@@ -66,6 +66,21 @@ async function getFormFields(isNew = false): Promise<ModelKeys> {
       };
     }
 
+    if (name === 'startDate') {
+      return {
+        ...fieldData,
+        type: 'date'
+      };
+    }
+
+    const multilineTexts = ['termsConditions', 'description'];
+    if (multilineTexts.includes(name)) {
+      return {
+        ...fieldData,
+        type: 'multiline'
+      };
+    }
+
     return {
       ...fieldData,
       type: 'text'

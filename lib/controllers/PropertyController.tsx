@@ -29,10 +29,18 @@ async function getProperty(_id: string): Promise<IProperty> {
 async function getFormFields(): Promise<ModelKeys> {
   const keys = await new PropertyUseCases().getKeys();
   const editables = keys.editables.map((fieldData) => {
+    const { name } = fieldData;
     if (fieldData.name === 'coordinates') {
       return {
         ...fieldData,
         type: 'coordinates'
+      };
+    }
+    const multilineTexts = ['location_details', 'description'];
+    if (multilineTexts.includes(name)) {
+      return {
+        ...fieldData,
+        type: 'multiline'
       };
     }
 
