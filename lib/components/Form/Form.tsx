@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form';
 import { FaExpandArrowsAlt, FaTrashAlt } from 'react-icons/fa';
-import Modal from 'react-modal';
 import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
+import Modal from '../Modal/Modal';
 import CoordinatesInput from './CoordinatesInput/CoordinatesInput';
 import styles from './Form.module.css';
 
@@ -22,17 +22,6 @@ type FormProps = {
     updateCallback: (data: IEntity) => void;
     deleteCallback: (data: IEntity) => void;
   };
-};
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
 };
 
 // TODO: format this code!
@@ -82,10 +71,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     setMultilineValue(values[name]); /* eslint-disable-line*/
   };
 
-  const afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-  };
-
   const closeModal = () => {
     const { reset } = form;
     const values = form.getValues() as Record<string, unknown>;
@@ -130,11 +115,12 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             );
           }
 
-          const defaultValue = editObj
-            ? (editObj[
-                name as keyof IEntity
-              ] as unknown as string) /* eslint-disable-line*/
-            : '';
+          const defaultValue =
+            editObj && editObj[name] /* eslint-disable-line*/
+              ? (editObj[
+                  name as keyof IEntity
+                ] as unknown as string) /* eslint-disable-line*/
+              : '';
 
           if (type === 'readonly') {
             return (
@@ -285,13 +271,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         </div>
       </form>
       <div>
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
+        <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
           <div
             style={{
               display: 'flex',

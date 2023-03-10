@@ -54,6 +54,14 @@ async function getFormFields(isNew = false): Promise<ModelKeys> {
       };
     }
 
+    const numbers = ['timeAmount'];
+    if (numbers.includes(name)) {
+      return {
+        ...fieldData,
+        type: 'number'
+      };
+    }
+
     return {
       ...fieldData,
       type: 'text'
