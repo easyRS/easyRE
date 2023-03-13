@@ -35,6 +35,43 @@ export default class LeaseContractRepository extends MongooseAbstractRepository<
     return TIME_TYPE_MONTHLY_OPTION;
   }
 
+  async findOneAndUpdate(id: string, obj: ILeaseContract): Promise<void> {
+    const oldObj = await super.findById(id, []);
+    const {
+      tenant: /* eslint-disable */ removedId,
+      property: removedV,
+      ...newRet
+    } = obj; /* eslint-disable */
+    console.log(newRet);
+    console.log({ ...oldObj, ...newRet });
+    super.findOneAndUpdate(id, { ...oldObj, ...newRet });
+  }
+
+  async findById(id: string): Promise<ILeaseContract> {
+    const nameTransform = (doc: any /* eslint-disable-line*/) =>
+      doc && doc.name;
+    const populateValues = [
+      {
+        path: 'tenant',
+        transform: nameTransform
+      },
+      {
+        path: 'property',
+        transform: nameTransform
+      }
+    ];
+    const lease = await super.findById(id, populateValues);
+    return {
+      ...lease,
+      startDate: lease.startDate
+        ? (lease.startDate as Date).toISOString().split('T')[0]
+        : '',
+      nextDate: lease.nextDate
+        ? (lease.nextDate as Date).toISOString().split('T')[0]
+        : ''
+    };
+  }
+
   async listWorkInProgress(): Promise<ILeaseContract[]> {
     const workInProgressState = this.getWorkInProgressState();
     const query = { state: workInProgressState };

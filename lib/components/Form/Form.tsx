@@ -100,6 +100,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
       >
         {editableFields.map((fieldData) => {
           const { type, name, options, isRequired } = fieldData;
+          console.log(name + editObj[name]);
           if (type === 'coordinates') {
             const property = editObj as IProperty;
             const coordinates =

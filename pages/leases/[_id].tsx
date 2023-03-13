@@ -3,15 +3,15 @@ import { GetServerSideProps } from 'next';
 import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 import {
-  getContractDef,
-  getFormFields
-} from '../../lib/controllers/ContractDefController';
-import IContractDefinition from '../../lib/domain/entities/IContractDefinition';
-import callbacks from '../../lib/drivers/network/contractdefs';
+  getFormFields,
+  getLeaseContract
+} from '../../lib/controllers/LeaseContractController';
+import ILeaseContract from '../../lib/domain/entities/ILeaseContract';
+import callbacks from '../../lib/drivers/network/leases';
 
 type EditContractDefProps = {
   formFields: ModelKeys;
-  contractdef: IContractDefinition;
+  leasecontract: ILeaseContract;
 };
 
 const EditContract: NextPage<EditContractDefProps> = (
@@ -23,10 +23,10 @@ const EditContract: NextPage<EditContractDefProps> = (
       content={
         <Form
           formFields={contractdefsProps.formFields}
-          successRedirect="/contractdefs"
-          editObj={contractdefsProps.contractdef}
+          successRedirect="/leases"
+          editObj={contractdefsProps.leasecontract}
           callbacks={callbacks}
-          canDelete
+          canDelete={false}
         />
       }
     />
@@ -36,9 +36,9 @@ const EditContract: NextPage<EditContractDefProps> = (
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { _id } = context.query;
   const formFields = await getFormFields();
-  const contractdef = await getContractDef(_id as string);
+  const leasecontract = await getLeaseContract(_id as string);
   return {
-    props: { formFields, contractdef }
+    props: { formFields, leasecontract }
   };
 };
 

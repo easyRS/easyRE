@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createLeaseContract } from '../../../lib/controllers/LeaseContractController';
+import {
+  createLeaseContract,
+  updateLeaseContract
+} from '../../../lib/controllers/LeaseContractController';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req;
@@ -11,6 +14,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case 'POST':
       response = await createLeaseContract(body);
+      return res.json(response);
+    case 'PUT':
+      response = await updateLeaseContract(body);
       return res.json(response);
     default:
       res.setHeader('Allow', ['GET', 'POST']);
