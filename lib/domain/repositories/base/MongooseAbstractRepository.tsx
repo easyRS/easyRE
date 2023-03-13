@@ -39,6 +39,13 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return SchemaTable.path(fieldName).enumValues as string[];
   }
 
+  async _getIsRequired(fieldName: string): Promise<boolean> {
+    const connectionValues = await connect();
+    const schemaName: string = this.schemaName;
+    const SchemaTable = (connectionValues as any)[schemaName];
+    return SchemaTable.path(fieldName).isRequired as boolean;
+  }
+
   async getKeys(_forbiddenFields: string[] = []): Promise<ModelKeys> {
     const ModelTable = await this._getModelTable();
     const allfields = Object.keys(ModelTable.schema.tree);
@@ -61,10 +68,12 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
         const enumValues: string[] = await this._getEnumValues(field);
         const unformated = field.replace('_', ' ');
         const displayValue = unformated[0].toUpperCase() + unformated.slice(1);
+        const isRequired: boolean = await this._getIsRequired(field);
         return {
           name: field,
           type: type,
           display_value: displayValue,
+          isRequired: isRequired || false,
           options: enumValues || null
         };
       }, this)

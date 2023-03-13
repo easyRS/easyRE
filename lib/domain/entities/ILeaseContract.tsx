@@ -14,8 +14,8 @@ export const LEASE_DEFINTION_STATES = [
 ];
 
 export default interface ILeaseContract extends IContractDefinition {
-  startDate: string;
-  nextDate?: string;
+  startDate: Date;
+  nextDate?: Date;
   property: Types.ObjectId;
   tenant: Types.ObjectId;
   amount: number;

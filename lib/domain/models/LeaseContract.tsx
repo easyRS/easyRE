@@ -7,17 +7,17 @@ import ILeaseContract, {
 import TIME_TYPE_OPTIONS from '../entities/TimeType';
 
 const LeaseContractSchema = new Schema<ILeaseContract>({
-  name: String,
+  name: { type: String, required: true },
   description: String,
-  timeAmount: String,
-  timeType: { type: String, enum: TIME_TYPE_OPTIONS },
-  termsConditions: String,
-  state: { type: String, enum: LEASE_DEFINTION_STATES },
-  startDate: Date,
+  timeAmount: { type: String, required: true },
+  timeType: { type: String, enum: TIME_TYPE_OPTIONS, required: true },
+  termsConditions: { type: String, required: true },
+  state: { type: String, enum: LEASE_DEFINTION_STATES, required: true },
+  startDate: { type: Date, required: true },
   nextDate: Date,
-  amount: Number,
-  property: { type: Schema.Types.ObjectId, ref: 'Property' },
-  tenant: { type: Schema.Types.ObjectId, ref: 'Tenant' }
+  amount: { type: Number, required: true },
+  property: { type: Schema.Types.ObjectId, ref: 'Property', required: true },
+  tenant: { type: Schema.Types.ObjectId, ref: 'Tenant', required: true }
 });
 
 export default LeaseContractSchema;

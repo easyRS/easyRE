@@ -79,6 +79,7 @@ declare global {
     name: string;
     type: string;
     display_value: string;
+    isRequired: boolean;
     options?: string[] = [];
   };
 

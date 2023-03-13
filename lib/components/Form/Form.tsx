@@ -99,7 +99,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         onSubmit={handleSubmit(_onSubmit)}
       >
         {editableFields.map((fieldData) => {
-          const { type, name, options } = fieldData;
+          const { type, name, options, isRequired } = fieldData;
           if (type === 'coordinates') {
             const property = editObj as IProperty;
             const coordinates =
@@ -158,7 +158,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   {`${fieldData.display_value}:`}
                 </label>
                 <select
-                  {...register(name, { required: true })}
+                  {...register(name, { required: isRequired })}
                   defaultValue={defaultValue}
                 >
                   {' '}
@@ -202,7 +202,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                     rows={4}
                     cols={40}
                     className={styles.textInput}
-                    {...register(name, { required: true })}
+                    {...register(name, { required: isRequired })}
                     defaultValue={defaultValue}
                   />
                   <FaExpandArrowsAlt
@@ -235,7 +235,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
               <input
                 type={fieldData.type}
                 className={styles.textInput}
-                {...register(name, { required: true })}
+                {...register(name, { required: isRequired })}
                 defaultValue={defaultValue}
               />
             </div>
