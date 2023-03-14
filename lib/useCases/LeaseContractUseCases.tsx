@@ -83,7 +83,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       };
       const leaseTmp = await super.create(leaseContract);
       if (leaseTmp._id) {
-        const lease = await this.findById(leaseTmp._id.toString());
+        const lease = await this.findById(leaseTmp._id.toString(), []);
         await this.generateMonthlyRecurringTasks(lease);
         return lease;
       }

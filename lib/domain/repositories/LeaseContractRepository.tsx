@@ -42,15 +42,16 @@ export default class LeaseContractRepository extends MongooseAbstractRepository<
       property: removedV,
       ...newRet
     } = obj; /* eslint-disable */
-    console.log(newRet);
-    console.log({ ...oldObj, ...newRet });
     super.findOneAndUpdate(id, { ...oldObj, ...newRet });
   }
 
-  async findById(id: string): Promise<ILeaseContract> {
+  async findById(
+    id: string,
+    populateValuesParam?: Record<string, unknown>[]
+  ): Promise<ILeaseContract> {
     const nameTransform = (doc: any /* eslint-disable-line*/) =>
       doc && doc.name;
-    const populateValues = [
+    const populateValues = populateValuesParam || [
       {
         path: 'tenant',
         transform: nameTransform

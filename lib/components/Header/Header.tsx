@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from '../Button/Button';
 
@@ -33,16 +34,18 @@ const Header = (props: HeaderProps) => {
           margin: '0 0 0 3rem'
         }}
       >
-        <Image
-          src="/images/logo.png"
-          style={{
-            width: '5.5rem',
-            height: '5.5rem'
-          }}
-          alt="My Image"
-          width={200}
-          height={200}
-        />
+        <Link href="/" legacyBehavior>
+          <Image
+            src="/images/logo.png"
+            style={{
+              width: '5.5rem',
+              height: '5.5rem'
+            }}
+            alt="My Image"
+            width={200}
+            height={200}
+          />
+        </Link>
 
         <Button onClick={onDelete}>
           <div

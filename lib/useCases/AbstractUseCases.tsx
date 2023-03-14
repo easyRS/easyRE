@@ -38,8 +38,11 @@ export default abstract class AbstractUseCases<
     return this.repository.list();
   }
 
-  async findById(_id: string): Promise<Model> {
-    return this.repository.findById(_id);
+  async findById(
+    _id: string,
+    populateValuesParam?: Record<string, unknown>[]
+  ): Promise<Model> {
+    return this.repository.findById(_id, populateValuesParam);
   }
 
   async findByQuery(query: Record<string, unknown>): Promise<Model> {
