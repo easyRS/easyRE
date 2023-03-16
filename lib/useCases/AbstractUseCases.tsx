@@ -35,7 +35,7 @@ export default abstract class AbstractUseCases<
   }
 
   async list(): Promise<Model[]> {
-    return this.repository.list();
+    return this.repository.list([], {});
   }
 
   async findById(

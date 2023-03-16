@@ -27,7 +27,7 @@ export default class PropertyUseCases extends AbstractUseCases<
   async allOccupancyRate(): Promise<number> {
     const leaseContractRepository = new LeaseContractRepository();
     const leaseContracts = await leaseContractRepository.listWorkInProgress();
-    const allProperties = await this.repository.list();
+    const allProperties = await this.repository.list([], {});
 
     const leaseContractsCount = leaseContracts.length;
     const allPropertiesCount = allProperties.length;
