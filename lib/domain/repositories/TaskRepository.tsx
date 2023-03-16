@@ -51,7 +51,21 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
     const query = {
       state: workInProgressState
     };
-    return this.list(['leaseContract', 'taskType', 'property'], query);
+    return this.list(
+      [
+        {
+          path: 'leaseContract',
+          model: 'LeaseContract',
+          populate: {
+            path: 'tenant',
+            model: 'Tenant'
+          }
+        },
+        { path: 'taskType' },
+        { path: 'property' }
+      ],
+      query
+    );
   }
 
   async createdLastTwoWeeks(): Promise<ITask[]> {
@@ -63,7 +77,21 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
         $gte: lastTwoWeeks
       }
     };
-    return this.list(['leaseContract', 'taskType', 'property'], query);
+    return this.list(
+      [
+        {
+          path: 'leaseContract',
+          model: 'LeaseContract',
+          populate: {
+            path: 'tenant',
+            model: 'Tenant'
+          }
+        },
+        { path: 'taskType' },
+        { path: 'property' }
+      ],
+      query
+    );
   }
 
   async createdBeforeTwoWeeks(): Promise<ITask[]> {
@@ -75,11 +103,35 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
         $lt: lastTwoWeeks
       }
     };
-    return this.list(['leaseContract', 'taskType', 'property'], query);
+    return this.list(
+      [
+        {
+          path: 'leaseContract',
+          model: 'LeaseContract',
+          populate: [
+            {
+              path: 'tenant',
+              model: 'Tenant'
+            },
+            {
+              path: 'property',
+              model: 'Property'
+            }
+          ]
+        },
+        { path: 'taskType' },
+        { path: 'property' }
+      ],
+      query
+    );
   }
 
   async list(
-    populateValues: string[] = ['leaseContract', 'taskType', 'property'],
+    populateValues: Record<string, unknown>[] = [
+      { path: 'leaseContract' },
+      { path: 'taskType' },
+      { path: 'property' }
+    ],
     query: Record<string, unknown> = {}
   ): Promise<ITask[]> {
     const result = await super.list(populateValues, query);
@@ -104,8 +156,16 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
             startDate: obj.startDate ? obj.startDate.toLocaleString() : '',
             nextDate: obj.nextDate ? obj.nextDate.toLocaleString() : '',
             _id: obj.leaseContract._id.toString(),
-            property: obj.property ? obj.property.toString() : null,
-            tenant: obj.tenant ? obj.tenant.toString() : null
+            tenant: obj.leaseContract.tenant
+              ? typeof obj.leaseContract.tenant === 'object'
+                ? { ...obj.leaseContract.tenant }
+                : obj.leaseContract.tenant.toString()
+              : null,
+            property: obj.leaseContract.property
+              ? typeof obj.leaseContract.property === 'object'
+                ? { ...obj.leaseContract.property }
+                : obj.leaseContract.property.toString()
+              : null
           }
         };
       return task;

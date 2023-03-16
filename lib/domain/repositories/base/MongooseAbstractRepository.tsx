@@ -126,17 +126,17 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
   }
 
   async list(
-    populateValues: string[] = [],
+    populateValues: Record<string, unknown>[] = [],
     query: Record<string, unknown> = {}
   ): Promise<ModelGeneric[]> {
     const ModelTable = await this._getModelTable();
     const queryResult = await ModelTable.find(query)
       .populate(populateValues)
-      .lean();
+      .exec();
 
     return queryResult.map((obj: any) => {
-      return { ...obj, _id: obj._id.toString() };
-    });
+      return this.toJson(obj);
+    }, this);
   }
 
   toJson(obj: Document) {

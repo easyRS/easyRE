@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '../Button';
 import styles from './Table.module.css';
 
@@ -70,7 +71,12 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
                     return <td className={styles.td}>{value.join(' , ')}</td>;
                   }
                   const value = (obj as any)[key]; // eslint-disable-line
-                  return <td className={styles.td}>{value}</td>;
+                  return (
+                    <td className={styles.td}>
+                      {value}
+                      {value === undefined && <FaWhatsapp />}
+                    </td>
+                  );
                 })}
               </tr>
             );

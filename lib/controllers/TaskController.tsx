@@ -8,9 +8,10 @@ async function getTableTasks(
     created_at: 'Created At',
     taskType: 'Type',
     state: 'State',
-    description: 'Description'
+    description: 'Description',
+    actions: 'Actions'
   };
-
+  console.log(tasks);
   return {
     tableName: labelsMapping,
     arrayObj: tasks
@@ -20,7 +21,7 @@ async function getTableTasks(
 async function getCurrentTableTasks(): Promise<TableMapping<ITaskTable>> {
   const taskUseCase = new TaskUseCases();
   const tasks = await taskUseCase.createdLastTwoWeeks();
-
+  // console.log(tasks);
   return getTableTasks(tasks);
 }
 

@@ -47,12 +47,16 @@ declare global {
     state: string;
   };
 
+  type IActionsTable = {
+    actions: string;
+  };
+
   type ITaskTable = {
     created_at: string;
     taskType: string;
     state: string;
     description: string;
-  };
+  } & IActionsTable;
 
   type ITable =
     | IPropertyTable
