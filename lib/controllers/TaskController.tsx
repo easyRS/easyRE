@@ -11,7 +11,7 @@ async function getTableTasks(
     description: 'Description',
     actions: 'Actions'
   };
-  console.log(tasks);
+
   return {
     tableName: labelsMapping,
     arrayObj: tasks
