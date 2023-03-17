@@ -82,10 +82,16 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
         {
           path: 'leaseContract',
           model: 'LeaseContract',
-          populate: {
-            path: 'tenant',
-            model: 'Tenant'
-          }
+          populate: [
+            {
+              path: 'tenant',
+              model: 'Tenant'
+            },
+            {
+              path: 'property',
+              model: 'Property'
+            }
+          ]
         },
         { path: 'taskType' },
         { path: 'property' }

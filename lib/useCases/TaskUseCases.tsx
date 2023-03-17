@@ -51,12 +51,35 @@ export default class TaskUseCases extends AbstractUseCases<
     return (this.repository as TaskRepository).listWorkInProgress();
   }
 
-  async createdLastTwoWeeks(): Promise<ITask[]> {
-    return (this.repository as TaskRepository).createdLastTwoWeeks();
+  /* eslint-disable-line class-methods-use-this */ addActionToTasks(
+    task: ITask
+  ): ITask | IAction {
+    if (task.leaseContract) {
+      const leaseContractUnknown = task.leaseContract as unknown;
+      const whatsappAction = (
+        (leaseContractUnknown as ILeaseContract).tenant as ITenant
+      ).phone;
+
+      return {
+        ...task,
+        actions: `whatsapp=${whatsappAction}`
+      } as ITask | IAction;
+    }
+    return task;
   }
 
-  async createdBeforeTwoWeeks(): Promise<ITask[]> {
-    return (this.repository as TaskRepository).createdBeforeTwoWeeks();
+  async createdLastTwoWeeks(): Promise<ITask | IAction[]> {
+    const tasks = await (
+      this.repository as TaskRepository
+    ).createdLastTwoWeeks();
+    return tasks.map(this.addActionToTasks) as ITask | IAction[];
+  }
+
+  async createdBeforeTwoWeeks(): Promise<ITask | IAction[]> {
+    const tasks = await (
+      this.repository as TaskRepository
+    ).createdBeforeTwoWeeks();
+    return tasks.map(this.addActionToTasks) as ITask | IAction[];
   }
 
   async _create(createParam: CreateParams): Promise<ITask> {

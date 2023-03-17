@@ -21,7 +21,6 @@ async function getTableTasks(
 async function getCurrentTableTasks(): Promise<TableMapping<ITaskTable>> {
   const taskUseCase = new TaskUseCases();
   const tasks = await taskUseCase.createdLastTwoWeeks();
-  // console.log(tasks);
   return getTableTasks(tasks);
 }
 

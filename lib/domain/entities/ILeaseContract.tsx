@@ -1,5 +1,7 @@
 import { Types } from 'mongoose';
 import IContractDefinition from './IContractDefinition';
+import IProperty from './IProperty';
+import ITenant from './ITenant';
 
 export const LEASE_DRAFT_STATE = 'Draft';
 export const LEASE_WORK_IN_PROGRESS_STATE = 'Work In Progress';
@@ -16,7 +18,7 @@ export const LEASE_DEFINTION_STATES = [
 export default interface ILeaseContract extends IContractDefinition {
   startDate: Date | string;
   nextDate?: Date | string;
-  property: Types.ObjectId;
-  tenant: Types.ObjectId;
+  property: Types.ObjectId | IProperty;
+  tenant: Types.ObjectId | ITenant;
   amount: number;
 }

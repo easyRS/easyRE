@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
@@ -70,13 +71,36 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
                     const value = (obj as any)[key] as [number]; // eslint-disable-line
                     return <td className={styles.td}>{value.join(' , ')}</td>;
                   }
+
+                  if (key === 'actions') {
+                    const value = (obj as any)[key] as string; // eslint-disable-line
+                    const actions = value.split(',');
+
+                    return (
+                      <td className={styles.td}>
+                        {actions.map((action) => {
+                          const stopPropagationCallback = (event) => {
+                            event.stopPropagation();
+                          };
+                          const keyValue = action.split('=');
+                          if (keyValue[0] === 'whatsapp')
+                            return (
+                              <Link
+                                href={`https://wa.me/${keyValue[1]}`}
+                                target="_blank"
+                                onClick={stopPropagationCallback}
+                              >
+                                <FaWhatsapp />
+                              </Link>
+                            );
+                          return null;
+                        })}
+                      </td>
+                    );
+                  }
+
                   const value = (obj as any)[key]; // eslint-disable-line
-                  return (
-                    <td className={styles.td}>
-                      {value}
-                      {value === undefined && <FaWhatsapp />}
-                    </td>
-                  );
+                  return <td className={styles.td}>{value}</td>;
                 })}
               </tr>
             );

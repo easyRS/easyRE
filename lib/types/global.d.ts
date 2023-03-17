@@ -47,7 +47,7 @@ declare global {
     state: string;
   };
 
-  type IActionsTable = {
+  type IAction = {
     actions: string;
   };
 
@@ -56,7 +56,7 @@ declare global {
     taskType: string;
     state: string;
     description: string;
-  } & IActionsTable;
+  } & IAction;
 
   type ITable =
     | IPropertyTable
