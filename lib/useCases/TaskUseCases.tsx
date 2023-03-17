@@ -68,18 +68,18 @@ export default class TaskUseCases extends AbstractUseCases<
     return task;
   }
 
-  async createdLastTwoWeeks(): Promise<ITask | IAction[]> {
+  async createdLastTwoWeeks(): Promise<ITask[] | IAction[]> {
     const tasks = await (
       this.repository as TaskRepository
     ).createdLastTwoWeeks();
-    return tasks.map(this.addActionToTasks) as ITask | IAction[];
+    return tasks.map(this.addActionToTasks) as ITask[] | IAction[];
   }
 
-  async createdBeforeTwoWeeks(): Promise<ITask | IAction[]> {
+  async createdBeforeTwoWeeks(): Promise<ITask[] | IAction[]> {
     const tasks = await (
       this.repository as TaskRepository
     ).createdBeforeTwoWeeks();
-    return tasks.map(this.addActionToTasks) as ITask | IAction[];
+    return tasks.map(this.addActionToTasks) as ITask[] | IAction[];
   }
 
   async _create(createParam: CreateParams): Promise<ITask> {
