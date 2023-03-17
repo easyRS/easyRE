@@ -151,16 +151,18 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     const now = new Date();
 
     const startingDate = new Date(nextDate || startDate);
-    const tenant = await tenantUseCases.findById(
-      leaseContract.tenant._id.toString()
-    );
+    if (leaseContract.tenant && leaseContract.tenant._id) {
+      const tenant = await tenantUseCases.findById(
+        leaseContract.tenant._id.toString()
+      );
 
-    if (now >= startingDate) {
-      await taskUseCases._createLeaseTask(leaseContract, tenant, amount);
-      await taskUseCases._createElectricityTask(leaseContract, tenant);
-      await taskUseCases._createGasTask(leaseContract, tenant);
-      await taskUseCases._createWaterTask(leaseContract, tenant);
-      await this.calculateNextDate(leaseContract);
+      if (now >= startingDate) {
+        await taskUseCases._createLeaseTask(leaseContract, tenant, amount);
+        await taskUseCases._createElectricityTask(leaseContract, tenant);
+        await taskUseCases._createGasTask(leaseContract, tenant);
+        await taskUseCases._createWaterTask(leaseContract, tenant);
+        await this.calculateNextDate(leaseContract);
+      }
     }
   }
 }
