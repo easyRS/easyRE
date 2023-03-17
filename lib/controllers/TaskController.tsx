@@ -2,7 +2,7 @@ import ITask from '../domain/entities/ITask';
 import TaskUseCases from '../useCases/TaskUseCases';
 
 async function getTableTasks(
-  tasks: ITask[]
+  tasks: ITask | IAction[]
 ): Promise<TableMapping<ITaskTable>> {
   const labelsMapping: ITaskTable = {
     created_at: 'Created At',

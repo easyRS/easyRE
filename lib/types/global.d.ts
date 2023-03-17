@@ -76,7 +76,7 @@ declare global {
 
   type TableMapping<TableName> = {
     tableName: TableName;
-    arrayObj?: IEntity[];
+    arrayObj?: IEntity | IAction[];
   };
 
   type FieldData = {
