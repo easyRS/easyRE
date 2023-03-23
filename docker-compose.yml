@@ -2,7 +2,7 @@ version: '3'
 
 services:
   webserver:
-    image: nginx:lastest
+    image: nginx:1.15-alpine
     ports:
       - 80:80
       - 443:443
