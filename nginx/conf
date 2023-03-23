@@ -1,0 +1,29 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name easyrstate.com www.easyrstate.com;
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        proxy_pass http://localhost:3000;
+    }
+}
+
+server {
+    listen 443 default_server ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name easyrstate.com;
+
+    ssl_certificate /etc/nginx/ssl/live/easyrstate.com/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/easyrstate.com/privkey.pem;
+    
+    location / {
+    	proxy_pass http://localhost:3000;
+    }
+}
