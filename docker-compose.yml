@@ -5,7 +5,7 @@ services:
     image: nginx:1.15-alpine
     ports:
       - 80:80
-      - 443:443
+      - 443:3000
     restart: always
     volumes:
       - ./nginx/conf/:/etc/nginx/conf.d/:ro
