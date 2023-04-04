@@ -13,6 +13,8 @@ services:
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
       - main
+    networks:
+      - nginx-proxy
   certbot:
     image: certbot/certbot:latest
     volumes:
@@ -20,6 +22,8 @@ services:
       - ./certbot/conf/:/etc/letsencrypt/:rw
     depends_on:
       - webserver
+    networks:
+      - nginx-proxy
   main:
     build:
       context: .
@@ -36,6 +40,8 @@ services:
       - database
     env_file:
       - .env
+    networks:
+      - nginx-proxy
   database:
     container_name: database
     image: mongo
@@ -44,3 +50,8 @@ services:
       - ./data:/data/db
     ports:
       - '27017:27017'
+    networks:
+      - nginx-proxy
+networks:
+  nginx-proxy:
+    driver: bridge
