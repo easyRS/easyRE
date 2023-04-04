@@ -2,28 +2,27 @@ version: '3'
 
 services:
   webserver:
-    image: nginx:1.21-alpine
+    image: nginx:1.14.2-alpine
     ports:
       - 80:80
       - 443:443
     restart: always
     volumes:
       - ./nginx/default.conf/:/etc/nginx/conf.d/:ro
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
+      - ./dhparam:/etc/nginx/dhparam
+      - ./certbot/conf:/etc/nginx/ssl
+      - ./certbot/data/:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
-    networks:
-      - nginx-proxy
   certbot:
     image: certbot/certbot:latest
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email luifer.2341@gmail.com --agree-tos --no-eff-email -d easyrstate.com
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./certbot/conf/:/etc/letsencrypt/
+      - ./certbot/logs/:/var/log/letsencrypt/
+      - ./certbot/data/:/usr/share/nginx/html/letsencrypt
     depends_on:
       - webserver
-    networks:
-      - nginx-proxy
   main:
     build:
       context: .
@@ -40,8 +39,6 @@ services:
       - database
     env_file:
       - .env
-    networks:
-      - nginx-proxy
   database:
     container_name: database
     image: mongo
@@ -50,8 +47,3 @@ services:
       - ./data:/data/db
     ports:
       - '27017:27017'
-    networks:
-      - nginx-proxy
-networks:
-  nginx-proxy:
-    driver: bridge
