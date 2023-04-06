@@ -8,7 +8,7 @@ services:
       - 443:443
     restart: always
     volumes:
-      - ./nginx/default.conf/:/etc/nginx/conf.d/:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/:ro
       - ./dhparam:/etc/nginx/dhparam/:ro
       - ./certbot/conf:/etc/nginx/ssl/:ro
       - ./certbot/data/:/usr/share/nginx/html/letsencrypt/:ro
