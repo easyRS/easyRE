@@ -30,7 +30,6 @@ RUN mkdir /etc/periodic/midnight
 # Copy in customized crontab file 
 COPY /jobs/root /etc/crontabs/root
 
-RUN yarn run seed
 
 CMD ["yarn", "start"]
 
