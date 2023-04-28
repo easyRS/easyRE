@@ -1,0 +1,65 @@
+- name: Install Docker and Docker Compose on Ubuntu
+  become: true
+  hosts: all
+  tasks:
+    - name: Update package list
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - curl
+          - gnupg-agent
+          - ca-certificates
+          - software-properties-common
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Add user to docker group
+      user:
+        name: '{{ ansible_user }}'
+        append: yes
+        groups: docker
+
+    - name: Reload group membership
+      user:
+        name: '{{ ansible_user }}'
+        state: present
+        groups: docker
+
+    - name: Check Docker version
+      command: docker version
+
+    - name: Install Docker Compose
+      file:
+        path: ~/.docker/cli-plugins/
+        state: directory
+
+    - name: Download Docker Compose binary
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64
+        dest: ~/.docker/cli-plugins/docker-compose
+        mode: 'u+x'
+
+    - name: Check Docker Compose version
+      command: docker compose version
