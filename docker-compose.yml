@@ -23,6 +23,7 @@ services:
       - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
+      - web
   main:
     build:
       context: .

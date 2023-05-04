@@ -63,3 +63,27 @@
 
     - name: Check Docker Compose version
       command: docker compose version
+    - name: Copy SSH key pair
+      copy:
+        src: '~/.ssh/id_test'
+        dest: '~/.ssh/id_test'
+        mode: '0600'
+    - name: Copy public key
+      copy:
+        src: '~/.ssh/id_test.pub'
+        dest: '~/.ssh/id_test.pub'
+        mode: '0644'
+    - name: Start ssh-agent and add key
+      shell: |
+        eval "$(ssh-agent -s)" 
+        ssh-add ~/.ssh/id_test
+    - name: Git clone
+      git:
+        repo: git@github.com:easyRS/easyRS.git
+        dest: ~/
+        accept_hostkey: yes
+        key_file: ~/.ssh/id_test
+    - name: Start Docker Compose services
+      shell: |
+        cd /easyRS
+        docker compose up -d
