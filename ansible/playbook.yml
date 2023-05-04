@@ -80,7 +80,7 @@
     - name: Git clone
       git:
         repo: git@github.com:easyRS/easyRS.git
-        dest: ~/
+        dest: /home/luifer_2341
         accept_hostkey: yes
         key_file: ~/.ssh/id_test
     - name: Start Docker Compose services
