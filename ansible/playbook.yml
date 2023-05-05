@@ -1,6 +1,5 @@
 - name: Install Docker and Docker Compose on Ubuntu
   become: true
-  become_user: luifer_2341
   hosts: all
   tasks:
     - name: Update package list
@@ -65,30 +64,41 @@
     - name: Check Docker Compose version
       command: docker compose version
     - name: Copy SSH key pair
+      become: true
+      become_user: luifer_2341
       copy:
         src: '~/.ssh/id_test'
         dest: '~/.ssh/id_test'
         mode: '0600'
     - name: Copy public key
+      become: true
+      become_user: luifer_2341
       copy:
         src: '~/.ssh/id_test.pub'
         dest: '~/.ssh/id_test.pub'
         mode: '0644'
     - name: Start ssh-agent and add key
+      become: true
+      become_user: luifer_2341
       shell: |
         eval "$(ssh-agent -s)" 
         ssh-add ~/.ssh/id_test
     - name: Git clone
+      become: true
+      become_user: luifer_2341
       git:
         repo: git@github.com:easyRS/easyRS.git
-        dest: /home/luifer_2341
+        dest: /home/luifer_2341/easyRS
         accept_hostkey: yes
-        key_file: ~/.ssh/id_test
+        key_file: /home/luifer_2341/.ssh/id_test
     - name: Checkout ft-ansible-configuration
+      become: true
+      become_user: luifer_2341
       command:
         cmd: git checkout origin/ft-ansible-configuration
         chdir: /home/luifer_2341/easyRS
     - name: Start Docker Compose services
+      become: true
       shell: |
-        cd /easyRS
+        cd /home/luifer_2341/easyRS
         docker compose up -d
