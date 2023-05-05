@@ -84,6 +84,10 @@
         dest: /home/luifer_2341
         accept_hostkey: yes
         key_file: ~/.ssh/id_test
+    - name: Checkout ft-ansible-configuration
+      command: git checkout origin/ft-ansible-configuration
+        args:
+          chdir: /home/luifer_2341/easyRS
     - name: Start Docker Compose services
       shell: |
         cd /easyRS
