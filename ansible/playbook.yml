@@ -98,9 +98,12 @@
         cmd: git checkout origin/ft-ansible-configuration
         chdir: /home/luifer_2341/easyRS
     - name: Copy Certbot Conf Generation
+      become: true
+      become_user: luifer_2341
       copy:
         src: /home/luifer_2341/easyRS/nginx/configs/certbot-generation.conf
         dest: /home/luifer_2341/easyRS/nginx/config.d/default.conf
+        remote_src: true
     - name: Generate Cerbot Certs
       become: true
       shell: |
@@ -112,9 +115,12 @@
         cd /home/luifer_2341/easyRS
         docker compose down
     - name: Copy Certbot Conf Generation
+      become: true
+      become_user: luifer_2341
       copy:
         src: /home/luifer_2341/easyRS/nginx/configs/full-conf.conf
         dest: /home/luifer_2341/easyRS/nginx/config.d/default.conf
+        remote_src: true
     - name: Deploy Docker Compose
       become: true
       shell: |
