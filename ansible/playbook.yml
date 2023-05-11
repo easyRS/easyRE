@@ -101,8 +101,8 @@
       become: true
       become_user: luifer_2341
       copy:
-        src: /home/luifer_2341/easyRS/nginx/configs/certbot-generation.conf
-        dest: /home/luifer_2341/easyRS/nginx/config.d/default.conf
+        src: /home/luifer_2341/easyRS/nginx/configs/certbot-generation/
+        dest: /home/luifer_2341/easyRS/nginx/config.d/
         remote_src: true
     - name: Generate Cerbot Certs
       become: true
@@ -118,8 +118,8 @@
       become: true
       become_user: luifer_2341
       copy:
-        src: /home/luifer_2341/easyRS/nginx/configs/full-conf.conf
-        dest: /home/luifer_2341/easyRS/nginx/config.d/default.conf
+        src: /home/luifer_2341/easyRS/nginx/configs/full-conf/
+        dest: /home/luifer_2341/easyRS/nginx/config.d/
         remote_src: true
     - name: Deploy Docker Compose
       become: true
