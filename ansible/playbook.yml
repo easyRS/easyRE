@@ -105,7 +105,6 @@
         dest: '~/easyRS/nginx/conf.d/default.conf'
         remote_src: true
     - name: Generate Cerbot Certs
-      become: true
       shell: |
         cd home/luifer_2341/easyRS
         docker compose up -d
