@@ -88,41 +88,41 @@
       become_user: luifer_2341
       git:
         repo: git@github.com:easyRS/easyRS.git
-        dest: /home/luifer_2341/easyRS
+        dest: ~/easyRS
         accept_hostkey: yes
-        key_file: /home/luifer_2341/.ssh/id_test
+        key_file: ~/.ssh/id_test
     - name: Checkout ft-ansible-configuration
       become: true
       become_user: luifer_2341
       command:
         cmd: git checkout origin/ft-ansible-configuration
-        chdir: /home/luifer_2341/easyRS
+        chdir: ~/easyRS
     - name: Copy Certbot Conf Generation
       become: true
       become_user: luifer_2341
       copy:
-        src: /home/luifer_2341/easyRS/nginx/configs/certbot-generation/
-        dest: /home/luifer_2341/easyRS/nginx/config.d/
+        src: '~/easyRS/nginx/configs/cerbot-generation/default.conf'
+        dest: '~/easyRS/nginx/conf.d/default.conf'
         remote_src: true
     - name: Generate Cerbot Certs
       become: true
       shell: |
-        cd /home/luifer_2341/easyRS
+        cd home/luifer_2341/easyRS
         docker compose up -d
     - name: Pause Docker Compose
       become: true
       shell: |
-        cd /home/luifer_2341/easyRS
+        cd home/luifer_2341/easyRS
         docker compose down
-    - name: Copy Certbot Conf Generation
+    - name: Full Certbot Conf
       become: true
       become_user: luifer_2341
       copy:
-        src: /home/luifer_2341/easyRS/nginx/configs/full-conf/
-        dest: /home/luifer_2341/easyRS/nginx/config.d/
+        src: '~/easyRS/nginx/configs/full-conf/default.conf'
+        dest: '~/easyRS/nginx/conf.d/default.conf'
         remote_src: true
     - name: Deploy Docker Compose
       become: true
       shell: |
-        cd /home/luifer_2341/easyRS
+        cd home/luifer_2341/easyRS
         docker compose up -d
