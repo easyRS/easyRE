@@ -37,13 +37,13 @@
 
     - name: Add user to docker group
       user:
-        name: '{{ ansible_user }}'
+        name: luifer_2341
         append: yes
         groups: docker
 
     - name: Reload group membership
       user:
-        name: '{{ ansible_user }}'
+        name: luifer_2341
         state: present
         groups: docker
 
@@ -104,16 +104,25 @@
         src: '~/easyRS/nginx/configs/cerbot-generation/default.conf'
         dest: '~/easyRS/nginx/conf.d/default.conf'
         remote_src: true
+    - name: Set Docker socket permissions
+      become: true
+      become_user: root
+      file:
+        path: /var/run/docker.sock
+        mode: '0777'
     - name: Generate Cerbot Certs
+      become: true
+      become_user: luifer_2341
       shell: |
-        cd home/luifer_2341/easyRS
+        cd ~/easyRS
         docker compose up -d
     - name: Pause Docker Compose
       become: true
+      become_user: luifer_2341
       shell: |
-        cd home/luifer_2341/easyRS
+        cd ~/easyRS
         docker compose down
-    - name: Full Certbot Conf
+    - name: Copy Full Certbot Conf
       become: true
       become_user: luifer_2341
       copy:
@@ -122,6 +131,7 @@
         remote_src: true
     - name: Deploy Docker Compose
       become: true
+      become_user: luifer_2341
       shell: |
-        cd home/luifer_2341/easyRS
+        cd ~/easyRS
         docker compose up -d
