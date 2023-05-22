@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: main
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+      - ./jobs/midnight:/etc/periodic/midnight
+    ports:
+      - '3000:3000'
+    depends_on:
+      - database
+    env_file:
+      - .env
+  database:
+    container_name: database
+    image: mongo
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'

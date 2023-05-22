@@ -91,11 +91,11 @@
         dest: ~/easyRS
         accept_hostkey: yes
         key_file: ~/.ssh/id_test
-    - name: Checkout ft-ansible-configuration
+    - name: Checkout ft-docker-versions
       become: true
       become_user: luifer_2341
       command:
-        cmd: git checkout origin/ft-ansible-configuration
+        cmd: git checkout origin/ft-docker-versions
         chdir: ~/easyRS
     - name: Copy Certbot Conf Generation
       become: true
@@ -115,7 +115,7 @@
       become_user: luifer_2341
       shell: |
         cd ~/easyRS
-        docker compose up -d
+        docker compose -f docker/prod/docker-compose.yml up
     - name: Pause Docker Compose
       become: true
       become_user: luifer_2341
@@ -134,4 +134,4 @@
       become_user: luifer_2341
       shell: |
         cd ~/easyRS
-        docker compose up -d
+        docker compose -f docker/prod/docker-compose.yml up
