@@ -121,7 +121,7 @@
       become_user: luifer_2341
       shell: |
         cd ~/easyRS
-        docker compose down
+        docker compose -f docker/prod/docker-compose.yml down
     - name: Copy Full Certbot Conf
       become: true
       become_user: luifer_2341
