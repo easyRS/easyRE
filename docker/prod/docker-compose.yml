@@ -8,19 +8,19 @@ services:
       - 443:443
     restart: always
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./dhparam:/etc/nginx/dhparam
-      - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - ../../nginx/conf.d:/etc/nginx/conf.d
+      - ../../dhparam:/etc/nginx/dhparam
+      - ../../certbot/conf:/etc/nginx/ssl
+      - ../../certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
   certbot:
     image: certbot/certbot:latest
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d luifermoron.com
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/logs:/var/log/letsencrypt
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - ../../certbot/conf:/etc/letsencrypt
+      - ../../certbot/logs:/var/log/letsencrypt
+      - ../../certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
       - web
@@ -30,10 +30,10 @@ services:
       dockerfile: Dockerfile
     container_name: main
     volumes:
-      - ./:/usr/src/app
+      - ../../:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/.next
-      - ./jobs/midnight:/etc/periodic/midnight
+      - ../../jobs/midnight:/etc/periodic/midnight
     ports:
       - '3000:3000'
     depends_on:
@@ -45,6 +45,6 @@ services:
     image: mongo
     restart: always
     volumes:
-      - ./data:/data/db
+      - ../../data:/data/db
     ports:
       - '27017:27017'
