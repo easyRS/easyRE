@@ -6,7 +6,8 @@ type CounterProps = {
 };
 
 const Counter = (props: CounterProps) => {
-  return (
+  const { title, value } = props;
+  return title && value ? (
     <div
       style={{
         display: 'flex',
@@ -19,11 +20,11 @@ const Counter = (props: CounterProps) => {
       }}
     >
       <div className={styles.circle}>
-        <span>{props.value}</span>
+        <span>{value}</span>
       </div>
-      <h5>{props.title}</h5>
+      <h5>{title}</h5>
     </div>
-  );
+  ) : null;
 };
 
 export default Counter;

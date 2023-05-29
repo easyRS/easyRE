@@ -39,7 +39,10 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
               value={`${tasksProps.nroContracts}`}
               title="Active Contracts"
             />
-            <Counter value={`${tasksProps.occupancyRate}%`} title="Occupancy" />
+            <Counter
+              value={`${tasksProps.occupancyRate || 0}%`}
+              title="Occupancy"
+            />
           </div>
 
           <Table
