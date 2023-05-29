@@ -30,7 +30,7 @@ ENV PORT 3000
 RUN mkdir /etc/periodic/midnight
 
 # Copy in customized crontab file 
-COPY ../jobs/root /etc/crontabs/root
+COPY /jobs/root /etc/crontabs/root
 
 
 CMD ["yarn", "start"]
