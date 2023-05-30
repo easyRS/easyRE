@@ -15,8 +15,6 @@ RUN yarn install --frozen-lockfile --production
 # Copying source files
 COPY . /usr/src/app
 
-RUN ls -l /usr/src/app
-
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN yarn build
 
