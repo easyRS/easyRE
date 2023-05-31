@@ -2,8 +2,6 @@ version: '3.4'
 
 services:
   web:
-    build:
-      context: ../../
     image: nginx:1.14.2-alpine
     ports:
       - 80:80
@@ -17,8 +15,6 @@ services:
     depends_on:
       - main
   certbot:
-    build:
-      context: ../../
     image: certbot/certbot:latest
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d easyrstate.com
     volumes:
