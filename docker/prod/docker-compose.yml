@@ -8,19 +8,19 @@ services:
       - 443:443
     restart: always
     volumes:
-      - ../../nginx/conf.d:/etc/nginx/conf.d
-      - ../../dhparam:/etc/nginx/dhparam
-      - ../../certbot/conf:/etc/nginx/ssl
-      - ../../certbot/data:/usr/share/nginx/html/letsencrypt
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./dhparam:/etc/nginx/dhparam
+      - ./certbot/conf:/etc/nginx/ssl
+      - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
   certbot:
     image: certbot/certbot:latest
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d easyrstate.com
     volumes:
-      - ../../certbot/conf:/etc/letsencrypt
-      - ../../certbot/logs:/var/log/letsencrypt
-      - ../../certbot/data:/usr/share/nginx/html/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/logs:/var/log/letsencrypt
+      - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
       - web
