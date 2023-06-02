@@ -26,14 +26,14 @@ services:
       - web
   main:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../../
+      dockerfile: ../../docker/prod/Dockerfile
     container_name: main
     volumes:
-      - ./:/usr/src/app
+      - ../../:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/.next
-      - ./jobs/midnight:/etc/periodic/midnight
+      - ../../jobs/midnight:/etc/periodic/midnight
     ports:
       - '3000:3000'
     depends_on:
@@ -45,6 +45,6 @@ services:
     image: mongo
     restart: always
     volumes:
-      - ./data:/data/db
+      - ../../data:/data/db
     ports:
       - '27017:27017'
