@@ -27,7 +27,7 @@ services:
   main:
     build:
       context: ../../
-      dockerfile: ../../docker/prod/Dockerfile
+      dockerfile: ./docker/prod/Dockerfile
     container_name: main
     volumes:
       - ../../:/usr/src/app
