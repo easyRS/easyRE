@@ -115,7 +115,7 @@
       become_user: luifer_2341
       shell: |
         cd ~/easyRS
-        docker compose -f docker/prod/docker-compose.yml up
+        docker compose -f docker/prod/docker-compose.yml up -d
     - name: Pause Docker Compose
       become: true
       become_user: luifer_2341
@@ -134,4 +134,4 @@
       become_user: luifer_2341
       shell: |
         cd ~/easyRS
-        docker compose -f docker/prod/docker-compose.yml up
+        docker compose -f docker/prod/docker-compose.yml up -d
