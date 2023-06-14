@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: nginx:1.14.2-alpine
+    image: nginx:1.19.10-alpine
     ports:
       - 80:80
       - 443:443
@@ -14,6 +14,8 @@ services:
       - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
+    environment:
+      - NGINX_HOST=easyrstate.com
   certbot:
     image: certbot/certbot:latest
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d easyrstate.com --keep
