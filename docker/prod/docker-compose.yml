@@ -16,8 +16,6 @@ services:
       - main
     env_file:
       - .env
-    environment:
-      - NGINX_HOST=easyrstate.com
   certbot:
     image: certbot/certbot:latest
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d ${NGINX_HOST} --keep
