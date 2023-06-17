@@ -14,8 +14,9 @@ services:
       - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
-    env_file:
-      - .env
+    environment:
+      - NGINX_HOST=laollitabolivia.org
+      - NGINX_PORT=80
   certbot:
     image: certbot/certbot:latest
     command: "certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d ${NGINX_HOST} --keep"
@@ -26,8 +27,9 @@ services:
     depends_on:
       - main
       - web
-    env_file:
-      - .env
+    environment:
+      - NGINX_HOST=laollitabolivia.org
+      - NGINX_PORT=80
   main:
     build:
       context: ../../
