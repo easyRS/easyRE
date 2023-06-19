@@ -1,8 +1,8 @@
-version: '3.9'
+version: '3.4'
 
 services:
   web:
-    image: nginx:1.25.1-alpine
+    image: nginx:1.19.10-alpine
     ports:
       - 80:80
       - 443:443
@@ -19,7 +19,7 @@ services:
       - NGINX_PORT=80
   certbot:
     image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d ${NGINX_PORT} --keep
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d laollitabolivia.org --keep
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
