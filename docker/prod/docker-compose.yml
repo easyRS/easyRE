@@ -15,7 +15,7 @@ services:
     depends_on:
       - main
     environment:
-      - NGINX_HOST=laollitabolivia.org
+      - nginx_host=laollitabolivia.org
   certbot:
     image: certbot/certbot:latest
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d laollitabolivia.org --keep
@@ -27,7 +27,7 @@ services:
       - main
       - web
     environment:
-      - NGINX_HOST=laollitabolivia.org
+      - nginx_host=laollitabolivia.org
   main:
     build:
       context: ../../
