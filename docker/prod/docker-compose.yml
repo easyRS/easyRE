@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: nginx:1.19.10-alpine
+    image: nginx:1.14.2-alpine
     ports:
       - 80:80
       - 443:443
