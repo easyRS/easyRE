@@ -101,8 +101,8 @@
       become: true
       become_user: luifer_2341
       copy:
-        src: '~/easyRS/docker/prod/nginx/configs/cerbot-generation/default.conf'
-        dest: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
+        src: '~/easyRS/nginx/configs/cerbot-generation/default.conf'
+        dest: '~/easyRS/nginx/conf.d/default.conf'
         remote_src: true
     - name: Set Docker socket permissions
       become: true
@@ -126,8 +126,8 @@
       become: true
       become_user: luifer_2341
       copy:
-        src: '~/easyRS/docker/prod/nginx/configs/full-conf/default.conf'
-        dest: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
+        src: '~/easyRS/nginx/configs/full-conf/default.conf'
+        dest: '~/easyRS/nginx/conf.d/default.conf'
         remote_src: true
     - name: Deploy Docker Compose
       become: true
