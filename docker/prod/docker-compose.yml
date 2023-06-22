@@ -1,15 +1,17 @@
 version: '3.4'
 
 services:
-  web:
-    image: nginx:1.14.2-alpine
+  nginx:
+    build:
+      context: ../../
+      dockerfile: ./docker/prod/Dockerfile.nginx
     ports:
       - 80:80
       - 443:443
     restart: always
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./dhparam:/etc/nginx/dhparam
+      - ../../nginx/conf.d:/etc/nginx/conf.d
+      - ../../dhparam:/etc/nginx/dhparam
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
@@ -18,14 +20,14 @@ services:
       - NGINX_HOST=laollitabolivia.org
   certbot:
     image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d laollitabolivia.org --keep
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d ${NGINX_HOST} --keep
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
       - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
-      - web
+      - nginx
     environment:
       - NGINX_HOST=laollitabolivia.org
   main:
