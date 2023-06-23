@@ -12,8 +12,8 @@ services:
     volumes:
       - ../../nginx/conf.d:/etc/nginx/conf.d
       - ../../dhparam:/etc/nginx/dhparam
-      - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - ../../certbot/conf:/etc/nginx/ssl
+      - ../../certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
     environment:
@@ -22,9 +22,9 @@ services:
     image: certbot/certbot:latest
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d ${NGINX_HOST} --keep
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/logs:/var/log/letsencrypt
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - ../../certbot/conf:/etc/letsencrypt
+      - ../../certbot/logs:/var/log/letsencrypt
+      - ../../certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - main
       - nginx
