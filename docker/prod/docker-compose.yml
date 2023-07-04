@@ -3,8 +3,8 @@ version: '3.4'
 services:
   nginx:
     build:
-      context: .
-      dockerfile: .Dockerfile.nginx
+      context: ../../
+      dockerfile: ./docker/prod/Dockerfile.nginx
     ports:
       - 80:80
       - 443:443

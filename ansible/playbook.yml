@@ -127,7 +127,7 @@
       become_user: luifer_2341
       copy:
         src: '~/easyRS/docker/prod/nginx/configs/full-conf/default.conf'
-        dest: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
+        dest: '~/easyRS/nginx/conf.d/default.conf'
         remote_src: true
     - name: Deploy Docker Compose
       become: true
