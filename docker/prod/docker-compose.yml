@@ -14,6 +14,7 @@ services:
       - ./dhparam:/etc/nginx/dhparam
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - ./nginx/nginx.sh:/nginx.sh
     depends_on:
       - main
     environment:
