@@ -18,7 +18,7 @@ services:
     depends_on:
       - main
     environment:
-      - NGINX_HOST=laollitabolivia.org
+      - NGINX_HOST=easyrstate.com
   certbot:
     container_name: certbot
     image: certbot/certbot:latest
@@ -32,7 +32,7 @@ services:
       - main
       - nginx
     environment:
-      - NGINX_HOST=laollitabolivia.org
+      - NGINX_HOST=easyrstate.com
   main:
     build:
       context: ../../
