@@ -5,4 +5,4 @@ COPY nginx/nginx.sh /nginx.sh
 RUN chmod +x /nginx.sh
 
 ENTRYPOINT ["/nginx.sh"]
-CMD ["nginx"]
+CMD ["nginx", "-g", "daemon off;"]
