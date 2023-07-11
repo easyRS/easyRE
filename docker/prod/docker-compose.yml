@@ -17,8 +17,8 @@ services:
       - ../../nginx/nginx.sh:/nginx.sh
     depends_on:
       - main
-    environment:
-      - NGINX_HOST=easyrstate.com
+    env_file:
+      - .env
   certbot:
     container_name: certbot
     image: certbot/certbot:latest
@@ -30,8 +30,8 @@ services:
     depends_on:
       - main
       - nginx
-    environment:
-      - NGINX_HOST=easyrstate.com
+    env_file:
+      - .env
   main:
     build:
       context: ../../
