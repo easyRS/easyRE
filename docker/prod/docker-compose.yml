@@ -22,7 +22,7 @@ services:
   certbot:
     container_name: certbot
     image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email contact@luifermoron.com --agree-tos --no-eff-email -d ${NGINX_HOST} --keep
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d ${NGINX_HOST} --keep
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
