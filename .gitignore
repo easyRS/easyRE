@@ -120,7 +120,7 @@ data/*
 # End of https://www.toptal.com/developers/gitignore/api/react,yarn,git,visualstudiocode,macos,nextjs
 #.env
 
-docker/prod/nginx/conf.d/default.conf
+docker/prod/nginx/conf.d/**/*
 
 docker/prod/certbot/**/*
 
