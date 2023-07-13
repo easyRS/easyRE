@@ -122,4 +122,6 @@ data/*
 
 docker/prod/nginx/conf.d/default.conf
 
+docker/prod/certbot/**/*
+
 #nginx/conf.d/*
