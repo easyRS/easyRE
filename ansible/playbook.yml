@@ -97,6 +97,12 @@
       command:
         cmd: git checkout origin/ft-docker-versions
         chdir: ~/easyRS
+    - name: Create Default.conf
+      become: true
+      become_user: luifer_2341
+      file:
+        path: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
+        state: touch
     - name: Copy Certbot Conf Generation
       become: true
       become_user: luifer_2341
