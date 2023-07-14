@@ -100,9 +100,11 @@
     - name: Create Default.conf
       become: true
       become_user: luifer_2341
-      file:
-        path: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
-        state: touch
+      shell:
+        cmd: |
+          mkdir conf.d
+          touch conf.d/default.conf
+        chdir: ~/easyRS/docker/prod/nginx
     - name: Copy Certbot Conf Generation
       become: true
       become_user: luifer_2341
