@@ -37,13 +37,13 @@
 
     - name: Add user to docker group
       user:
-        name: luifer_2341
+        name: '{{ ansible_user }}'
         append: yes
         groups: docker
 
     - name: Reload group membership
       user:
-        name: luifer_2341
+        name: '{{ ansible_user }}'
         state: present
         groups: docker
 
@@ -65,27 +65,27 @@
       command: docker compose version
     - name: Copy SSH key pair
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       copy:
         src: '~/.ssh/id_test'
         dest: '~/.ssh/id_test'
         mode: '0600'
     - name: Copy public key
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       copy:
         src: '~/.ssh/id_test.pub'
         dest: '~/.ssh/id_test.pub'
         mode: '0644'
     - name: Start ssh-agent and add key
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       shell: |
         eval "$(ssh-agent -s)" 
         ssh-add ~/.ssh/id_test
     - name: Git clone
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       git:
         repo: git@github.com:easyRS/easyRS.git
         dest: ~/easyRS
@@ -93,13 +93,13 @@
         key_file: ~/.ssh/id_test
     - name: Checkout ft-docker-versions
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       command:
         cmd: git checkout origin/ft-docker-versions
         chdir: ~/easyRS
     - name: Create Default.conf
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       shell:
         cmd: |
           mkdir conf.d
@@ -107,13 +107,13 @@
         chdir: ~/easyRS/docker/prod/nginx
     - name: Set permissions to Default.conf
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       file:
         path: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
         mode: '0644'
     - name: Copy Certbot Conf Generation
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       copy:
         src: '~/easyRS/docker/prod/nginx/configs/cerbot-generation/default.conf'
         dest: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
@@ -126,26 +126,26 @@
         mode: '0777'
     - name: Generate Cerbot Certs
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml up -d
     - name: Pause Docker Compose
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml down
     - name: Copy Full Certbot Conf
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       copy:
         src: '~/easyRS/docker/prod/nginx/configs/full-conf/default.conf'
         dest: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
         remote_src: true
     - name: Deploy Docker Compose
       become: true
-      become_user: luifer_2341
+      become_user: '{{ ansible_user }}'
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml up -d
