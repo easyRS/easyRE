@@ -105,6 +105,12 @@
           mkdir conf.d
           touch conf.d/default.conf
         chdir: ~/easyRS/docker/prod/nginx
+    - name: Set permissions to Default.conf
+      become: true
+      become_user: luifer_2341
+      file:
+        path: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
+        mode: '0644'
     - name: Copy Certbot Conf Generation
       become: true
       become_user: luifer_2341
