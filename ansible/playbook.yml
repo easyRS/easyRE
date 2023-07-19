@@ -97,6 +97,29 @@
       command:
         cmd: git checkout origin/ft-docker-versions
         chdir: ~/easyRS
+    - name: Fetch /etc/ansible/hosts
+      become: true
+      become_user: '{{ ansible_user }}'
+      copy:
+        src: /etc/ansible/hosts
+        dest: /tmp/hosts
+    - name: Read /etc/ansible/hosts
+      become: true
+      become_user: '{{ ansible_user }}'
+      slurp:
+        src: /tmp/hosts
+      register: ansible_host_vars
+    - name: Create .env file
+      become: true
+      become_user: '{{ ansible_user }}'
+      copy:
+        content: |
+          DATABASE_URL={{ DATABASE_URL }}
+          BASE_URL={{ BASE_URL }}
+          NGINX_HOST={{ NGINX_HOST }}
+          NGINX_PORT={{ NGINX_PORT }}
+          CERTBOT_EMAIL={{ CERTBOT_EMAIL }}
+        dest: ~/easyRS/docker/prod/.env
     - name: Create Default.conf
       become: true
       become_user: '{{ ansible_user }}'
