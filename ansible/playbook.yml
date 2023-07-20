@@ -67,22 +67,22 @@
       become: true
       become_user: '{{ ansible_user }}'
       copy:
-        src: '~/.ssh/id_test'
-        dest: '~/.ssh/id_test'
+        src: '~/.ssh/{{ SSH_KEY }}'
+        dest: '~/.ssh/{{ SSH_KEY }}'
         mode: '0600'
     - name: Copy public key
       become: true
       become_user: '{{ ansible_user }}'
       copy:
-        src: '~/.ssh/id_test.pub'
-        dest: '~/.ssh/id_test.pub'
+        src: '~/.ssh/{{ SSH_KEY }}.pub'
+        dest: '~/.ssh/{{ SSH_KEY }}.pub'
         mode: '0644'
     - name: Start ssh-agent and add key
       become: true
       become_user: '{{ ansible_user }}'
       shell: |
         eval "$(ssh-agent -s)" 
-        ssh-add ~/.ssh/id_test
+        ssh-add ~/.ssh/{{ SSH_KEY }}
     - name: Git clone
       become: true
       become_user: '{{ ansible_user }}'
@@ -117,7 +117,6 @@
           DATABASE_URL={{ DATABASE_URL }}
           BASE_URL={{ BASE_URL }}
           NGINX_HOST={{ NGINX_HOST }}
-          NGINX_PORT={{ NGINX_PORT }}
           CERTBOT_EMAIL={{ CERTBOT_EMAIL }}
         dest: ~/easyRS/docker/prod/.env
     - name: Create Default.conf

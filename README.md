@@ -18,15 +18,46 @@ Building..
 
 ## Install
 
-```sh
-yarn install
-```
+### Dev:
 
-## Usage
+Simply run:
 
 ```sh
-yarn dev
+docker-compose -f docker/dev/docker-compose.yml up
 ```
+
+### Prod:
+
+How to deploy in your own server:
+
+- Install [Ansible in your local machine](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+- Create an SSH key, go to Github SSH key setup page or corresponding one and copy it.
+- Copy the **same** SSH Key you previously created into your newly server created.
+- Create the file: /etc/ansible/hosts. Copy and paste the below config, and fill accordingly:
+
+```sh
+[servers]
+easyrs ansible_host=[REPLACE_WITH_SERVER_IP] ansible_ssh_private_key_file=~/.ssh/[REPLACE_WITH_SSH_KEY] ansible_user=[REPLACE_WITH_SERVER_USERNAME]
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+SSH_KEY=[REPLACE_WITH_SSH_KEY]
+DATABASE_URL=mongodb://database:27017/easyrs
+BASE_URL=http://localhost:3000 //todo: verify if this is okay in prod
+NGINX_HOST=[REPLACE_WITH_YOUR_DOMAIN]
+CERTBOT_EMAIL=[REPLACE_WITH_YOUR_EMAIL]
+
+```
+
+- Don't forget to configure your DNS.
+
+- Under easyRS/ansible, Simply run:
+
+```sh
+ansible-playbook playbook.yml -l easyrs
+```
+
+- Relax, everything is going to be okay.
 
 ## Author
 
