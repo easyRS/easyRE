@@ -8,6 +8,7 @@ export const call = async (
   onError?: () => void
 ) => {
   try {
+    /* eslint-disable-line*/ console.log('api: ' + apiObj.endpoint);
     await fetch(apiObj.endpoint, {
       method: apiObj.method,
       body: JSON.stringify(apiObj.data),
@@ -17,6 +18,7 @@ export const call = async (
     });
     if (onSuccess) onSuccess();
   } catch (error) {
+    /* eslint-disable-line*/ console.log(error);
     if (onError) onError();
   }
 };
