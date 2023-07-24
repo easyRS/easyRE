@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000'; // TODO: find why ENV variable is not working for this
+const BASE_URL = 'http://main:3000'; // TODO: find why ENV variable is not working for this
 
 export const API_BASE = `${BASE_URL}/api`;
 
