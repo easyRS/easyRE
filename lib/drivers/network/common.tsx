@@ -8,8 +8,7 @@ export const call = async (
   onError?: () => void
 ) => {
   try {
-    /* eslint-disable-line*/ console.log('api: ' + apiObj.endpoint);
-    await fetch(apiObj.endpoint, {
+    await fetch(window.location.origin + apiObj.endpoint, {
       method: apiObj.method,
       body: JSON.stringify(apiObj.data),
       headers: {

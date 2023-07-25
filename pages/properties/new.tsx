@@ -7,6 +7,7 @@ import callbacks from '../../lib/drivers/network/properties';
 
 type NewPropertyProps = {
   formFields: ModelKeys;
+  domainUrl: string;
 };
 
 const NewProperties: NextPage<NewPropertyProps> = (
@@ -21,6 +22,7 @@ const NewProperties: NextPage<NewPropertyProps> = (
           successRedirect="/properties"
           callbacks={callbacks}
           canDelete={false}
+          domainUrl={propertiesProps.domainUrl}
         />
       }
     />

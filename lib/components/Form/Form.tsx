@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-import { FieldValues, useForm, UseFormReturn } from 'react-hook-form';
+import { FieldValues, UseFormReturn, useForm } from 'react-hook-form';
 import { FaExpandArrowsAlt, FaTrashAlt } from 'react-icons/fa';
 import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
@@ -39,7 +39,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     propertiesProps;
   const { createCallback, updateCallback, deleteCallback } = callbacks;
   const _submitTitle = submitTitle || 'SUBMIT';
-
   const _defaultOnSubmit = async (data: IEntity) => {
     if (editObj) await updateCallback({ ...editObj, ...data });
     else await createCallback(data);

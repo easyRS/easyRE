@@ -1,6 +1,4 @@
-const BASE_URL = 'https://luifermoron.com'; // TODO: find why ENV variable is not working for this
-
-export const API_BASE = `${BASE_URL}/api`;
+export const API_BASE = `/api`;
 
 export const POST_METHOD = 'POST';
 export const GET_METHOD = 'GET';
