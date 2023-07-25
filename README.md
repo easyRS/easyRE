@@ -43,7 +43,6 @@ easyrs ansible_host=[REPLACE_WITH_SERVER_IP] ansible_ssh_private_key_file=~/.ssh
 ansible_python_interpreter=/usr/bin/python3
 SSH_KEY=[REPLACE_WITH_SSH_KEY]
 DATABASE_URL=mongodb://database:27017/easyrs
-BASE_URL=http://main:3000
 NGINX_HOST=[REPLACE_WITH_YOUR_DOMAIN]
 CERTBOT_EMAIL=[REPLACE_WITH_YOUR_EMAIL]
 

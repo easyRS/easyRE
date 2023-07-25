@@ -115,7 +115,6 @@
       copy:
         content: |
           DATABASE_URL={{ DATABASE_URL }}
-          BASE_URL={{ BASE_URL }}
           NGINX_HOST={{ NGINX_HOST }}
           CERTBOT_EMAIL={{ CERTBOT_EMAIL }}
         dest: ~/easyRS/docker/prod/.env
