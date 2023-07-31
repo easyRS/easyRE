@@ -41,24 +41,24 @@ const properties: IProperty[] = [
 
 const taskTypes: ITaskType[] = [
   {
-    name: 'Alquiler',
-    description: 'Pago de alquiler'
+    name: 'Lease',
+    description: 'Lease payment'
   },
   {
-    name: 'Electricidad',
-    description: 'Pago de electricidad'
+    name: 'Electricity',
+    description: 'Electricity payment'
   },
   {
-    name: 'Agua',
-    description: 'Pago de agua'
+    name: 'Water',
+    description: 'Water payment'
   },
   {
     name: 'Gas',
-    description: 'Pago de gas'
+    description: 'Gas payment'
   },
   {
-    name: 'Mantenimiento',
-    description: 'Mantenimiento de algo'
+    name: 'Maintenance',
+    description: 'Maintenance payment'
   }
 ];
 

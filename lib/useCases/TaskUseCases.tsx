@@ -12,11 +12,11 @@ import TransactionTypeUseCases from './TransactionTypeUseCases';
 import TransactionUseCases from './TransactionUseCases';
 
 // TODO: export this in a ENV file.
-const LEASE = 'Alquiler';
-const ELECTRICITY = 'Electricidad';
-const WATER = 'Agua';
+const LEASE = 'Lease';
+const ELECTRICITY = 'Electricity';
+const WATER = 'Water';
 const GAS = 'Gas';
-const MAINTENANCE = 'Mantenimiento';
+const MAINTENANCE = 'Maintenance';
 
 type CreateParams = {
   taskTypeName: string;
