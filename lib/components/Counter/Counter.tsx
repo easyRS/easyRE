@@ -12,7 +12,7 @@ const Counter = (props: CounterProps) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        background: 'var(--sea-water-green)',
+        background: 'var(--primary)',
         borderRadius: '1rem',
         padding: '1rem 1rem 0 1rem',
         boxShadow: '0 0 4px var(--bubblegum-green)',
