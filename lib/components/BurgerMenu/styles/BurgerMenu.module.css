@@ -7,10 +7,10 @@
   top: 0;
   left: 0;
   transition: transform 0.3s ease-in-out;
-  background: var(--primary);
-  box-shadow: 0 0 8px var(--bubblegum-green);
-  border-radius: 0.4rem;
-  height: 100vh;
+  background: var(--light-blue);
+  box-shadow: 0 0 3px var(--primary-dark);
+  border-radius: 0 2rem 2rem 0;
+  height: 100%;
 }
 
 .open {

@@ -1,6 +1,5 @@
 :root {
   --sea-water-green: #abebc3;
-  --black: #323b42;
   --sky: #cbe3f3;
   --grey: #99aabb;
   --bubblegum-green: #7da192;
@@ -9,9 +8,15 @@
   --olive-green: #6c8c7c;
   --green: #8cbda4;
 
-  --primary: var(--sea-water-green);
+  --black: #000100;
+  --cadet-gray: #a1a6b4;
+  --light-blue: #94c5cc;
+  --columbia-blue: #b4d2e7;
+  --seasalt: #f8f8f8;
+
+  --primary: var(--columbia-blue);
   --primary-dark: var(--black);
-  --primary-light: var(--sky);
+  --primary-light: var(--seasalt);
 
   --space-sm: 0.5rem;
   --space-md: 1rem;

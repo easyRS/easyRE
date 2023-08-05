@@ -2,8 +2,8 @@ import type { NextPage } from 'next';
 import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 
-import { getFormFields } from '../../lib/controllers/PropertyController';
-import callbacks from '../../lib/drivers/network/properties';
+import { getFormFields } from '../../lib/controllers/TaskController';
+import callbacks from '../../lib/drivers/network/tasks';
 
 type NewPropertyProps = {
   formFields: ModelKeys;
@@ -18,7 +18,7 @@ const NewProperties: NextPage<NewPropertyProps> = (
       content={
         <Form
           formFields={propertiesProps.formFields}
-          successRedirect="/properties"
+          successRedirect="/tasks"
           callbacks={callbacks}
           canDelete={false}
         />

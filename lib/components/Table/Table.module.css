@@ -2,7 +2,7 @@
   background: white;
   border-radius: 0.8rem;
   border-collapse: collapse;
-  box-shadow: 0 0 5px var(--dark-green);
+  box-shadow: 0 0 3px var(--cadet-gray);
   text-align: left;
   overflow: hidden;
   padding: 3rem 1.5rem;
@@ -26,14 +26,14 @@
 }
 
 .thead {
-  box-shadow: 0 2px 1px var(--primary);
+  box-shadow: 0 1px 1px var(--cadet-gray);
 }
 
 .tbody {
-  box-shadow: 0 1px 0.7px var(--primary-light);
+  box-shadow: 0 1px 0.7px var(--light-blue);
 }
 .tbody:hover {
-  background-color: var(--primary-light);
+  background-color: var(--light-blue);
 }
 
 .th {
@@ -50,5 +50,5 @@
   height: 3.25rem;
 }
 .td:hover {
-  background-color: var(--primary-light);
+  background-color: var(--light-blue);
 }
