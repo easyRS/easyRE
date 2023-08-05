@@ -138,7 +138,14 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 <label htmlFor={fieldData.name}>
                   {`${fieldData.display_value}:`}
                 </label>
-                <label htmlFor={fieldData.name}>{defaultValue}</label>
+                <label
+                  htmlFor={fieldData.name}
+                  style={{
+                    backgroundColor: 'yellow'
+                  }}
+                >
+                  {`${defaultValue}`}
+                </label>
               </div>
             );
           }

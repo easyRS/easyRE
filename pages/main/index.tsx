@@ -7,12 +7,12 @@ import Form from '../../lib/components/Form/Form';
 import { getActiveContractDefs } from '../../lib/controllers/ContractDefController';
 import { getFormFields as contractFormFields } from '../../lib/controllers/LeaseContractController';
 import {
-  getFormFields as propertyFormFields,
-  getProperties
+  getProperties,
+  getFormFields as propertyFormFields
 } from '../../lib/controllers/PropertyController';
 import {
-  getFormFields as tenantFormFields,
-  getTenants
+  getTenants,
+  getFormFields as tenantFormFields
 } from '../../lib/controllers/TenantController';
 import leaseCalls from '../../lib/drivers/network/main';
 import callbacks from '../../lib/drivers/network/tenants';
@@ -154,25 +154,34 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
       isOpen={false}
       content={
         <div
-          style={{ background: 'white', padding: '2rem', borderRadius: '1rem' }}
+          style={{
+            background: 'white',
+            padding: '2rem',
+            borderRadius: '1rem',
+            boxShadow: '0 0 3px var(--cadet-gray)'
+          }}
         >
           <div>
             <h1>Create a lease</h1>
           </div>
 
           <div className={styles.contentContainer}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
-              <div className={styles.summaryContainer}>
-                <h3>Summary:</h3>
-                <div style={{ flexGrow: 3, textAlign: 'start' }}>{summary}</div>
+            {summary && (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
+              >
+                <div className={styles.summaryContainer}>
+                  <h3>Summary:</h3>
+                  <div style={{ flexGrow: 3, textAlign: 'start' }}>
+                    {summary}
+                  </div>
+                </div>
+                <Button onClick={backwardCallBack}>Back</Button>
               </div>
-              <Button onClick={backwardCallBack}>Back</Button>
-            </div>
+            )}
 
             <div className={styles.formContainer}>
               <div>
