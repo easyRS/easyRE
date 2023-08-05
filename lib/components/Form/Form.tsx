@@ -93,7 +93,8 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           margin: '0 auto',
           background: 'white',
           textAlign: 'left',
-          borderRadius: '1rem'
+          borderRadius: '1rem',
+          boxShadow: '0 0 3px var(--cadet-gray)'
         }}
         onSubmit={handleSubmit(_onSubmit)}
       >
