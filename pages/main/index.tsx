@@ -187,7 +187,16 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
               <div>
                 <h4>
                   Pick a {pickTitle()}:
-                  <select onChange={onChange}>
+                  <select
+                    onChange={onChange}
+                    style={{
+                      marginLeft: '6px',
+                      backgroundColor: 'white',
+                      padding: '6px 4px',
+                      borderRadius: '0.6rem',
+                      minWidth: '6rem'
+                    }}
+                  >
                     {' '}
                     <option value="N/A">N/A</option>
                     {values.map((value) => (

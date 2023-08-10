@@ -139,13 +139,19 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   {`${fieldData.display_value}:`}
                 </label>
                 <label
-                  htmlFor={fieldData.name}
                   style={{
-                    backgroundColor: 'yellow'
+                    marginBottom: '10px',
+                    backgroundColor: 'var(--primary-light)',
+                    cursor: 'not-allowed',
+                    pointerEvents: 'none',
+                    borderRadius: '0.5rem',
+                    padding: '0.40rem',
+                    opacity: '0.5',
+                    boxShadow: '0 0 1px var(--primary)',
+                    borderStyle: 'none none solid none'
                   }}
-                >
-                  {`${defaultValue}`}
-                </label>
+                  htmlFor={fieldData.name}
+                >{`${defaultValue}`}</label>
               </div>
             );
           }
@@ -168,6 +174,13 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 <select
                   {...register(name, { required: isRequired })}
                   defaultValue={defaultValue}
+                  style={{
+                    backgroundColor: 'white',
+                    padding: '6px 4px',
+                    borderRadius: '0.6rem',
+                    minWidth: '6rem',
+                    background: 'var(--primary-light)'
+                  }}
                 >
                   {' '}
                   {options.map((optionValue) => (

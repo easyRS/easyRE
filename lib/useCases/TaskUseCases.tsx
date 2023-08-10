@@ -133,7 +133,7 @@ export default class TaskUseCases extends AbstractUseCases<
   ): Promise<ITask> {
     const createParam: CreateParams = {
       taskTypeName: LEASE,
-      description: `${tenant.name} debe ${amount}bs de alquiler`,
+      description: `${tenant.name} owes ${amount} in rent.`,
       amount,
       leaseContract
     };
@@ -148,7 +148,7 @@ export default class TaskUseCases extends AbstractUseCases<
     const createParam: CreateParams = {
       taskTypeName: ELECTRICITY,
       amount: 0,
-      description: `${tenant.name} debe electricidad`,
+      description: `${tenant.name} has an outstanding electricity bill`,
       leaseContract
     };
 
@@ -162,7 +162,7 @@ export default class TaskUseCases extends AbstractUseCases<
     const createParam: CreateParams = {
       taskTypeName: GAS,
       amount: 0,
-      description: `${tenant.name} debe gas`,
+      description: `${tenant.name} has an outstanding gas bill`,
       leaseContract
     };
 
@@ -176,7 +176,7 @@ export default class TaskUseCases extends AbstractUseCases<
     const createParam: CreateParams = {
       taskTypeName: WATER,
       amount: 0,
-      description: `${tenant.name} debe agua`,
+      description: `${tenant.name} has an outstanding water consumption bill`,
       leaseContract
     };
 
@@ -187,7 +187,7 @@ export default class TaskUseCases extends AbstractUseCases<
     const createParam: CreateParams = {
       taskTypeName: MAINTENANCE,
       amount: 0,
-      description: `${property.name} necesita mantenimiento`,
+      description: `${property.name} needs maintenance`,
       property
     };
 

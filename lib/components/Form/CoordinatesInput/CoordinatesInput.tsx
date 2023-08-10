@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
+import styles from './CoordinatesInput.module.css';
 
 type LabelProps = {
   displayValue: string;
@@ -22,6 +23,7 @@ const Coordinate = (props: LabelProps) => {
       >
         {`${displayValue} `}
         <input
+          className={styles.coordinateInput}
           type="number"
           step="any"
           {...register(field, { required: true })}

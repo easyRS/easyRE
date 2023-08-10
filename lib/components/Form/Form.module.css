@@ -32,16 +32,17 @@
 .submitButton {
   transition-duration: 0.4s;
   background-color: var(--primary);
-  color: var(--primary-dark);
   border-style: solid none solid none;
+  color: var(--primary-dark);
+  box-shadow: 0 0 2px var(--primary);
 
   height: 2.5rem;
   padding: 0.5rem 3rem;
-  box-shadow: 0 0 2px var(--bubblegum-green);
   border-radius: 0.5rem;
 }
 
 .submitButton:hover {
-  background-color: var(--dark-green); /* Green */
-  color: white;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  box-shadow: 0 0 2px var(--cadet-gray);
 }

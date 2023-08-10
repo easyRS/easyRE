@@ -2,10 +2,11 @@
   transition-duration: 0.4s;
   background-color: var(--primary);
   border-style: solid none solid none;
-  border-color: var(--primary);
-  box-shadow: 0 0 2px var(--primary);
-  border-radius: 0.5rem;
   color: var(--primary-dark);
+  box-shadow: 0 0 2px var(--primary);
+
+  border-color: var(--primary);
+  border-radius: 0.5rem;
   font-size: 1rem;
   font-weight: 500;
 }
@@ -13,4 +14,5 @@
 .button:hover {
   background-color: var(--primary-light);
   color: var(--primary-dark);
+  box-shadow: 0 0 2px var(--cadet-gray);
 }
