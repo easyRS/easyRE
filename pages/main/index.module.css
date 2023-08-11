@@ -1,7 +1,6 @@
 .contentContainer {
   background: white;
   display: flex;
-  justify-content: space-between;
 }
 
 .summaryContainer {

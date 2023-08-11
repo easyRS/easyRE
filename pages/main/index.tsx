@@ -149,6 +149,10 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     : null;
 
   const submitTitle = index === 2 ? 'SUBMIT' : 'NEXT';
+  const containerStyle = {
+    justifyContent: summary ? 'space-between' : 'center'
+  };
+
   return (
     <TopNavigation
       isOpen={false}
@@ -165,7 +169,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
             <h1>Create a lease</h1>
           </div>
 
-          <div className={styles.contentContainer}>
+          <div className={styles.contentContainer} style={containerStyle}>
             {summary && (
               <div
                 style={{
