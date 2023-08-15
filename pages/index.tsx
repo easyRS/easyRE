@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
 import {
   getBeforeTwoTableTasks,
@@ -21,6 +22,32 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
       isOpen={false}
       content={
         <div>
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '0.8rem',
+              boxShadow: '0 0 3px var(--cadet-gray)',
+              textAlign: 'left',
+              padding: '0.2rem 1rem',
+              marginBottom: '1.2rem'
+            }}
+          >
+            <p
+              style={{
+                textAlign: 'start',
+                lineHeight: '2rem'
+              }}
+            >
+              Welcome to <strong>Easy RS</strong>!.
+              <br /> <FaRegLightbulb />
+              &nbsp; Start creating a lease for managing your properties. Press
+              the button top-right upper &nbsp;
+              <FaPaperPlane />
+              <br />
+              <FaTasks />
+              &nbsp; Then, you can review pending tasks below & useful reports.
+            </p>
+          </div>
           <Table
             tableProperties={tasksProps.currentTableTasks}
             newRedirectUrl="tasks/new"
