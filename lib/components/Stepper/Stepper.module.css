@@ -1,0 +1,61 @@
+.mainContainer {
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+  min-height: 110px;
+  font-size: 1.3rem;
+  position: relative;
+  justify-content: center;
+}
+
+.stepperMainContainer {
+  width: 600px;
+  display: flex;
+  position: absolute;
+  justify-content: space-evenly;
+  top: 42%;
+}
+
+.stepper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.counterContainer {
+  display: flex;
+  color: black;
+  z-index: 1;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.horizontalLine {
+  position: absolute;
+  margin-left: 40px;
+  width: 140px;
+  height: 2px;
+  background-color: var(--cadet-gray);
+  transform: translateY(-50%);
+  align-self: center;
+}
+
+.counter {
+  width: 25px;
+  color: white;
+  border-radius: 50%;
+  padding: 0.3rem;
+  z-index: 1;
+  background-color: var(--cadet-gray);
+  box-shadow: 0 0 3px var(--cadet-gray);
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.title {
+  margin-top: 0.4rem;
+  font-size: 1.1rem;
+  opacity: 0.5;
+}

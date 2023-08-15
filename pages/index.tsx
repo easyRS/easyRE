@@ -36,11 +36,11 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
             }}
           >
             <Counter
-              value={`${tasksProps.nroContracts}`}
+              value={`There're currently ${tasksProps.nroContracts} active contracts`}
               title="Active Contracts"
             />
             <Counter
-              value={`${tasksProps.occupancyRate || 0}%`}
+              value={`Property occupancy of ${tasksProps.occupancyRate || 0}%.`}
               title="Occupancy"
             />
           </div>

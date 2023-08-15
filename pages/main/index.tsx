@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { TopNavigation } from '../../lib/components';
+import { Stepper, TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 import { getActiveContractDefs } from '../../lib/controllers/ContractDefController';
 import { getFormFields as contractFormFields } from '../../lib/controllers/LeaseContractController';
@@ -165,8 +165,23 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
             boxShadow: '0 0 3px var(--cadet-gray)'
           }}
         >
-          <div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginBottom: '20px'
+            }}
+          >
             <h1>Create a lease</h1>
+            <Stepper
+              titles={[
+                'Select a Tenant',
+                'Select a Property',
+                'Select a Contract'
+              ]}
+              current={index}
+            />
           </div>
 
           <div className={styles.contentContainer} style={containerStyle}>

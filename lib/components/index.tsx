@@ -4,16 +4,18 @@ import { Counter } from './Counter';
 import { Header } from './Header';
 import { Modal } from './Modal';
 import { MultistepForm } from './MultistepForm';
+import { Stepper } from './Stepper';
 import { Table } from './Table';
 import TopNavigation from './TopNavigation/TopNavigation';
 
 export {
   BurgerMenu,
-  Table,
   Button,
-  Modal,
-  TopNavigation,
+  Counter,
   Header,
+  Modal,
   MultistepForm,
-  Counter
+  Stepper,
+  Table,
+  TopNavigation
 };

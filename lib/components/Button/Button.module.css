@@ -3,7 +3,7 @@
   background-color: var(--primary);
   border-style: solid none solid none;
   color: var(--primary-dark);
-  box-shadow: 0 0 2px var(--primary);
+  box-shadow: 0 0 3px var(--cadet-gray);
 
   border-color: var(--primary);
   border-radius: 0.5rem;
@@ -14,5 +14,5 @@
 .button:hover {
   background-color: var(--primary-light);
   color: var(--primary-dark);
-  box-shadow: 0 0 2px var(--cadet-gray);
+  box-shadow: 0 0 3px var(--cadet-gray);
 }
