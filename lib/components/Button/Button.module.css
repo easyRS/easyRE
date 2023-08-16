@@ -1,4 +1,4 @@
-.button {
+.primary {
   transition-duration: 0.4s;
   background-color: var(--primary);
   border-style: solid none solid none;
@@ -11,8 +11,31 @@
   font-weight: 500;
 }
 
-.button:hover {
+.secondary {
+  transition-duration: 0.4s;
+  border-style: solid none solid none;
   background-color: var(--primary-light);
   color: var(--primary-dark);
   box-shadow: 0 0 3px var(--cadet-gray);
+
+  border-color: var(--primary);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tertiary {
+  transition-duration: 0.4s;
+  color: var(--primary-dark);
+  text-decoration: underline;
+  background-color: white;
+
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.primary:hover,
+.secondary:hover,
+.tertiary:hover {
+  box-shadow: 0 2px 6px var(--cadet-gray);
 }

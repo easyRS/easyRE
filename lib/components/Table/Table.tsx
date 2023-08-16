@@ -10,12 +10,13 @@ type TableProps = {
   newTitle?: string;
   headerTitle?: string;
   newRedirectUrl?: string;
+  buttonType?: TypeStyle;
   editRedirectUrl: string;
 };
 
 const Table: React.FC<TableProps> = (props: TableProps) => {
   const { tableName, arrayObj }: TableMapping<ITable> = props.tableProperties;
-  const { headerTitle } = props;
+  const { headerTitle, buttonType } = props;
   const router = useRouter();
   const labels: string[] = Object.values<string>(tableName);
   const keys = Object.keys(tableName);
@@ -42,7 +43,11 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        {props.newTitle && <Button onClick={onNew}>{props.newTitle}</Button>}
+        {props.newTitle && (
+          <Button onClick={onNew} type={buttonType}>
+            {props.newTitle}
+          </Button>
+        )}
         {headerTitle && (
           <div className={styles.headerTitle}>
             <h2>{headerTitle}</h2>
@@ -113,7 +118,8 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 Table.defaultProps = {
   headerTitle: '',
   newTitle: '',
-  newRedirectUrl: ''
+  newRedirectUrl: '',
+  buttonType: 'primary'
 };
 
 export default Table;

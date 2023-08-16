@@ -169,11 +169,11 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: '20px'
+              alignItems: 'center'
             }}
           >
             <h1>Create a lease</h1>
+
             <Stepper
               titles={[
                 'Select a Tenant',
@@ -182,6 +182,21 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
               ]}
               current={index}
             />
+
+            <p
+              style={{
+                alignSelf: 'flex-start',
+                position: 'relative',
+                left: '12%',
+                textAlign: 'start',
+                lineHeight: '1.4rem'
+              }}
+            >
+              In order to track your properties, you need a lease. A lease is
+              built by a tenant (person who wants to live in your property),{' '}
+              <br />a property and a contract (previously agreed by both
+              parties).
+            </p>
           </div>
 
           <div className={styles.contentContainer} style={containerStyle}>

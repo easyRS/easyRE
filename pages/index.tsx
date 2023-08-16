@@ -38,7 +38,8 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
                 lineHeight: '2rem'
               }}
             >
-              Welcome to <strong>Easy RS</strong>!.
+              Welcome to <strong>Easy RS</strong>!. The easy open-source way to
+              manage your Real State 🏠 stuff
               <br /> <FaRegLightbulb />
               &nbsp; Start creating a lease for managing your properties. Press
               the button top-right upper &nbsp;
@@ -54,6 +55,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
             editRedirectUrl="tasks/"
             newTitle="Create New Task"
             headerTitle="Last two week tasks"
+            buttonType="secondary"
           />
           <div
             style={{
@@ -77,6 +79,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
             newRedirectUrl="tasks/new"
             editRedirectUrl="tasks/"
             headerTitle="Outdate two week tasks"
+            buttonType="secondary"
           />
         </div>
       }

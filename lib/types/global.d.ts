@@ -102,4 +102,6 @@ declare global {
     method: string;
     data: AllowedType;
   };
+
+  type TypeStyle = 'primary' | 'secondary' | 'tertiary';
 }

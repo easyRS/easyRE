@@ -6,6 +6,7 @@ type ButtonProps = {
   children: React.ReactNode;
   height: string;
   width: string;
+  type?: TypeStyle;
   onClick: () => void;
 };
 
@@ -16,7 +17,8 @@ const Button: React.FC<OptionalProps> = ({
   height = '2.5rem',
   width = '12rem',
   onClick,
-  children
+  children,
+  type = 'primary'
 }: OptionalProps) => {
   const [isSSR, setIsSSR] = useState(true);
 
@@ -25,11 +27,18 @@ const Button: React.FC<OptionalProps> = ({
   }, []);
 
   if (isSSR) return null;
+
+  const className =
+    type === 'primary'
+      ? styles.primary
+      : type === 'secondary'
+      ? styles.secondary
+      : styles.tertiary;
   return (
     <button
       type="button"
       onClick={onClick}
-      className={styles.button}
+      className={className}
       style={{
         border,
         height,
