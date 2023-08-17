@@ -1,4 +1,8 @@
 import type { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
+import { useEffect } from 'react';
+
 import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
 import {
@@ -17,6 +21,18 @@ type IndexTaskProps = {
 };
 
 const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
+  const { status, data } = useSession();
+  useEffect(() => {
+    if (status === 'unauthenticated') Router.replace('/auth/signin');
+  }, [status]);
+
+  if (status === 'authenticated')
+    return (
+      <div>
+        This page is Protected for special people. like{'\n'}
+        {JSON.stringify(data.user, null, 2)}
+      </div>
+    );
   return (
     <TopNavigation
       isOpen={false}

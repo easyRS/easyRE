@@ -5,12 +5,16 @@ import '../lib/common/styles/utilities.css';
 
 import { Roboto } from '@next/font/google';
 
+import { SessionProvider } from 'next-auth/react';
+
 const roboto = Roboto({ subsets: ['latin'], weight: '400' });
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <main className={roboto.className}>
-      <Component {...pageProps} />
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </main>
   );
 };
