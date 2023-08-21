@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
 import { FormEventHandler, useState } from 'react';
 
-const SignIn: NextPage = (props /* eslint-disable-line*/): JSX.Element => {
+const SignUp: NextPage = (props /* eslint-disable-line*/): JSX.Element => {
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // validate your userinfo
@@ -38,3 +38,5 @@ const SignIn: NextPage = (props /* eslint-disable-line*/): JSX.Element => {
     </div>
   );
 };
+
+export default SignUp;
