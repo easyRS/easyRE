@@ -4,7 +4,14 @@ import {
   updateLeaseContract
 } from '../../../lib/controllers/LeaseContractController';
 
+import sessionAuth from '../../../lib/drivers/network/session';
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const session = await sessionAuth(req, res);
+  if (!session) {
+    return undefined;
+  }
+
   const { method, body } = req;
   let response;
 
