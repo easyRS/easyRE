@@ -9,6 +9,7 @@ import ITaskType from '../../domain/entities/ITaskType';
 import ITenant from '../../domain/entities/ITenant';
 import ITransaction from '../../domain/entities/ITransaction';
 import ITransactionType from '../../domain/entities/ITransactionType';
+import IUser from '../../domain/entities/IUser';
 import ConfigSchema from '../../domain/models/Config';
 import ContractDefinitionSchema from '../../domain/models/ContractDefinition';
 import LeaseContractSchema from '../../domain/models/LeaseContract';
@@ -18,6 +19,7 @@ import TaskTypeSchema from '../../domain/models/TaskType';
 import TenantSchema from '../../domain/models/Tenant';
 import TransactionSchema from '../../domain/models/Transaction';
 import TransactionTypeSchema from '../../domain/models/TransactionType';
+import UserSchema from '../../domain/models/User';
 
 export type SchemaType = {
   Property: Model<IProperty>;
@@ -29,6 +31,7 @@ export type SchemaType = {
   Config: Model<IConfig>;
   Transaction: Model<ITransaction>;
   TransactionType: Model<ITransactionType>;
+  User: Model<IUser>;
   PSchema: Schema<IProperty>;
   TSchema: Schema<ITenant>;
   CSchema: Schema<IContractDefinition>;
@@ -38,6 +41,7 @@ export type SchemaType = {
   ConfSchema: Schema<IConfig>;
   TraSchema: Schema<ITransaction>;
   TraTSchema: Schema<ITransactionType>;
+  USchema: Schema<IUser>;
 };
 
 const build = async (): Promise<SchemaType> => {
@@ -77,6 +81,9 @@ const build = async (): Promise<SchemaType> => {
     mongoose.models.TransactionType ||
     mongoose.model<ITransactionType>('TransactionType', TransactionTypeSchema);
 
+  const User =
+    mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
+
   return {
     Property,
     Tenant,
@@ -87,6 +94,7 @@ const build = async (): Promise<SchemaType> => {
     Config,
     Transaction,
     TransactionType,
+    User,
     PSchema: PropertySchema,
     TSchema: TenantSchema,
     CSchema: ContractDefinitionSchema,
@@ -95,7 +103,8 @@ const build = async (): Promise<SchemaType> => {
     TTSchema: TaskTypeSchema,
     ConfSchema: ConfigSchema,
     TraSchema: TransactionSchema,
-    TraTSchema: TransactionTypeSchema
+    TraTSchema: TransactionTypeSchema,
+    USchema: UserSchema
   };
 };
 
