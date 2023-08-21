@@ -22,7 +22,7 @@ type IndexTaskProps = {
 
 const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
   const { status, data } = useSession();
-  console.log(`status= ${status}`);
+
   useEffect(() => {
     if (status === 'unauthenticated') Router.replace('/auth/signin');
   }, [status]);
