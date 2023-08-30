@@ -1,42 +1,49 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
-import { FormEventHandler, useState } from 'react';
+import { TopNavigation } from '../../lib/components';
+import Form from '../../lib/components/Form/Form';
 
-const SignIn: NextPage = (props /* eslint-disable-line*/): JSX.Element => {
-  const [userInfo, setUserInfo] = useState({ email: '', password: '' });
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    // validate your userinfo
-    e.preventDefault();
+import { getFormFields } from '../../lib/controllers/UserController';
+import callbacks from '../../lib/drivers/network/users';
 
-    const res /* eslint-disable-line*/ = await signIn('credentials', {
-      email: userInfo.email,
-      password: userInfo.password
+import IUser from '../../lib/domain/entities/IUser';
+
+type SignInProps = {
+  formFields: ModelKeys;
+};
+
+const SignIn: NextPage<SignInProps> = (usersProps: SignInProps) => {
+  const _onSubmit = async (dataUnkown: IEntity) => {
+    const user = dataUnkown as IUser;
+    await signIn('credentials', {
+      email: user.email,
+      password: user.password,
+      callbackUrl: '/'
     });
   };
+
   return (
-    <div className="sign-in-form">
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        <input
-          value={userInfo.email}
-          onChange={({ target }) =>
-            setUserInfo({ ...userInfo, email: target.value })
-          }
-          type="email"
-          placeholder="john@email.com"
+    <TopNavigation
+      isOpen={false}
+      content={
+        <Form
+          formFields={usersProps.formFields}
+          successRedirect="/"
+          callbacks={callbacks}
+          canDelete={false}
+          onSubmit={_onSubmit}
         />
-        <input
-          value={userInfo.password}
-          onChange={({ target }) =>
-            setUserInfo({ ...userInfo, password: target.value })
-          }
-          type="password"
-          placeholder="********"
-        />
-        <input type="submit" value="Login" />
-      </form>
-    </div>
+      }
+    />
   );
 };
+
+export async function getServerSideProps() {
+  const formFields = await getFormFields();
+
+  return {
+    props: { formFields }
+  };
+}
 
 export default SignIn;

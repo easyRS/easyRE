@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { loginUser } from '../../controllers/UserController';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -12,22 +13,16 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       type: 'credentials',
       credentials: {},
-      authorize(credentials, req /* eslint-disable-line*/) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
-
-        if (email !== 'john@gmail.com' || password !== '1234') {
-          throw new Error('Invalid credentials');
+      async authorize(credentials, req /* eslint-disable-line*/) {
+        if (credentials) {
+          const { email, password } = credentials as {
+            email: string;
+            password: string;
+          };
+          return loginUser(email, password);
         }
 
-        return {
-          id: '1234',
-          name: 'John Doe',
-          email: 'john@gmail.com',
-          role: 'admin'
-        };
+        return null;
       }
     })
   ],

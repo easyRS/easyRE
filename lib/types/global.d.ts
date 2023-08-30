@@ -3,6 +3,7 @@ import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
 import ITask from '../domain/entities/ITask';
 import ITenant from '../domain/entities/ITenant';
+import IUser from '../domain/entities/IUser';
 
 export {};
 
@@ -25,6 +26,11 @@ declare global {
     name: string;
     phone: string;
     notes: string;
+  };
+
+  type IUserTable = {
+    email: string;
+    password: string;
   };
 
   type IContractDefTable = {
@@ -63,14 +69,16 @@ declare global {
     | ITenantTable
     | IContractDefTable
     | ILeaseContractTable
-    | ITaskTable;
+    | ITaskTable
+    | IUserTable;
 
   type IEntity =
     | IProperty
     | ITenant
     | IContractDefinition
     | ILeaseContract
-    | ITask; // add all entities with ORs as required
+    | ITask
+    | IUser; // add all entities with ORs as required
 
   type StepMapper = [IEntity, IEntity, IEntity];
 

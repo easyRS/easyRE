@@ -19,3 +19,6 @@ export const ALL_LEASE_CONTRACT_METHODS_ENDPOINT = `${API_BASE}/leases`;
 
 // TASKS
 export const ALL_TASK_METHODS_ENDPOINT = `${API_BASE}/tasks`;
+
+// USER
+export const ALL_USER_METHODS_ENDPOINT = `${API_BASE}/users`;

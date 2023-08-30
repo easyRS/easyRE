@@ -100,6 +100,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
       >
         {editableFields.map((fieldData) => {
           const { type, name, options, isRequired } = fieldData;
+          const PRIMARY_LIGHT = 'var(--primary-light)';
 
           if (type === 'coordinates') {
             const property = editObj as IProperty;
@@ -141,7 +142,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 <label
                   style={{
                     marginBottom: '10px',
-                    backgroundColor: 'var(--primary-light)',
+                    backgroundColor: PRIMARY_LIGHT,
                     cursor: 'not-allowed',
                     pointerEvents: 'none',
                     borderRadius: '0.5rem',
@@ -179,7 +180,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                     padding: '6px 4px',
                     borderRadius: '0.6rem',
                     minWidth: '6rem',
-                    background: 'var(--primary-light)'
+                    background: PRIMARY_LIGHT
                   }}
                 >
                   {' '}
@@ -195,6 +196,40 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
               </div>
             );
           }
+
+          if (type === 'password') {
+            return (
+              <div
+                style={{
+                  marginBottom: '10px',
+                  display: 'flex',
+                  alignItems: 'left',
+                  justifyContent: 'left',
+                  flexDirection: 'column',
+                  textAlign: 'left'
+                }}
+              >
+                <label htmlFor={fieldData.name}>
+                  {`${fieldData.display_value}:`}
+                </label>
+                <label
+                  style={{
+                    marginBottom: '10px',
+                    backgroundColor: PRIMARY_LIGHT,
+                    cursor: 'not-allowed',
+                    pointerEvents: 'none',
+                    borderRadius: '0.5rem',
+                    padding: '0.40rem',
+                    opacity: '0.5',
+                    boxShadow: '0 0 1px var(--primary)',
+                    borderStyle: 'none none solid none'
+                  }}
+                  htmlFor={fieldData.name}
+                >{`${defaultValue}`}</label>
+              </div>
+            );
+          }
+
           if (type === 'multiline') {
             const openMultiline = () => {
               openModal(name);

@@ -27,13 +27,16 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
     if (status === 'unauthenticated') Router.replace('/auth/signin');
   }, [status]);
 
-  if (status === 'authenticated')
+  if (status === 'authenticated') {
+    // signOut();
     return (
       <div>
         This page is Protected for special people. like{'\n'}
         {JSON.stringify(data.user, null, 2)}
       </div>
     );
+  }
+
   return (
     <TopNavigation
       isOpen={false}
