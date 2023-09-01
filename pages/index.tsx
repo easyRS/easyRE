@@ -13,6 +13,8 @@ import {
 import { activeContracts } from '../lib/controllers/LeaseContractController';
 import { allOccupancyRate } from '../lib/controllers/PropertyController';
 
+import styles from './index.module.css';
+
 type IndexTaskProps = {
   currentTableTasks: TableMapping<ITaskTable>;
   outdateTableTasks: TableMapping<ITaskTable>;
@@ -21,18 +23,25 @@ type IndexTaskProps = {
 };
 
 const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
-  const { status, data } = useSession();
+  const { status } = useSession();
 
   useEffect(() => {
     if (status === 'unauthenticated') Router.replace('/auth/signin');
   }, [status]);
 
-  if (status === 'authenticated') {
+  if (status === 'loading') {
     // signOut();
     return (
-      <div>
-        This page is Protected for special people. like{'\n'}
-        {JSON.stringify(data.user, null, 2)}
+      <div
+        style={{
+          width: '100%',
+          minHeight: '700px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex'
+        }}
+      >
+        <div className={styles.loader} />
       </div>
     );
   }
