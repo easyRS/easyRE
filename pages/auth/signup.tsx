@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 
@@ -14,12 +15,27 @@ const SignUp: NextPage<SignUpProps> = (usersProps: SignUpProps) => {
     <TopNavigation
       isOpen={false}
       content={
-        <Form
-          formFields={usersProps.formFields}
-          successRedirect="/auth/signin"
-          callbacks={callbacks}
-          canDelete={false}
-        />
+        <div>
+          <Form
+            formFields={usersProps.formFields}
+            successRedirect="/auth/signin"
+            callbacks={callbacks}
+            canDelete={false}
+          />
+          <div
+            style={{
+              padding: '1rem 2rem',
+              maxWidth: '500px',
+              margin: '10px auto',
+              background: 'white',
+              textAlign: 'left',
+              borderRadius: '1rem',
+              boxShadow: '0 0 3px var(--cadet-gray)'
+            }}
+          >
+            <Link href="/auth/signin">Sign In</Link>
+          </div>
+        </div>
       }
     />
   );

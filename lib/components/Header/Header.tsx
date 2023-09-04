@@ -1,3 +1,4 @@
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,6 +10,8 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const { open } = props;
+  const { status } = useSession();
+
   const containerStyle = open // eslint-disable-line
     ? {
         marginLeft: '5rem',
@@ -23,6 +26,11 @@ const Header = (props: HeaderProps) => {
   const onDelete = () => {
     router.push('/main');
   };
+
+  const logOut = async () => {
+    await signOut();
+  };
+
   return (
     <header>
       <nav
@@ -46,18 +54,30 @@ const Header = (props: HeaderProps) => {
             height={200}
           />
         </Link>
-
-        <Button onClick={onDelete}>
-          <div
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              justifyContent: 'center'
-            }}
-          >
-            Create New Lease
+        {status === 'authenticated' && (
+          <div>
+            <Button onClick={onDelete}>
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '0.5rem',
+                  justifyContent: 'center'
+                }}
+              >
+                Create New Lease
+              </div>
+            </Button>
+            <Button
+              onClick={logOut}
+              type="tertiary"
+              width="6rem"
+              backgroundColor="var(--primary-light)"
+              margin="0 10px"
+            >
+              Log out
+            </Button>
           </div>
-        </Button>
+        )}
       </nav>
     </header>
   );

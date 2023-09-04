@@ -29,9 +29,10 @@
   color: var(--primary-dark);
   text-decoration: underline;
   background-color: white;
-
+  border-radius: 0.5rem;
   font-size: 1rem;
   font-weight: 500;
+  margin: 0 5px;
 }
 
 .primary:hover,
