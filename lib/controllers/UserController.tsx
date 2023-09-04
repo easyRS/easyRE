@@ -31,7 +31,7 @@ async function getFormFields(): Promise<ModelKeys> {
     if (name === 'password') {
       return {
         ...fieldData,
-        type: 'text'
+        type: 'password'
       };
     }
 

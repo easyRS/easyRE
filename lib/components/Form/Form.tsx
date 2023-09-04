@@ -2,7 +2,12 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { FieldValues, UseFormReturn, useForm } from 'react-hook-form';
-import { FaExpandArrowsAlt, FaTrashAlt } from 'react-icons/fa';
+import {
+  FaExpandArrowsAlt,
+  FaRegEye,
+  FaRegEyeSlash,
+  FaTrashAlt
+} from 'react-icons/fa';
 import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
@@ -30,6 +35,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const modalRef = useRef<HTMLTextAreaElement>(null);
   const [multilineName, setMultilineName] = useState('');
   const [multilineValue, setMultilineValue] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const _form = useForm();
   const form = propertiesProps.form ? propertiesProps.form : _form;
@@ -81,6 +87,10 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     setMultilineName('');
     setMultilineValue('');
     setIsOpen(false);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const editableFields = propertiesProps.formFields.editables;
@@ -201,7 +211,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             return (
               <div
                 style={{
-                  marginBottom: '10px',
                   display: 'flex',
                   alignItems: 'left',
                   justifyContent: 'left',
@@ -210,22 +219,47 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 }}
               >
                 <label htmlFor={fieldData.name}>
-                  {`${fieldData.display_value}:`}
+                  {fieldData.display_value}
                 </label>
-                <label
+                <div
                   style={{
-                    marginBottom: '10px',
-                    backgroundColor: PRIMARY_LIGHT,
-                    cursor: 'not-allowed',
-                    pointerEvents: 'none',
-                    borderRadius: '0.5rem',
-                    padding: '0.40rem',
-                    opacity: '0.5',
-                    boxShadow: '0 0 1px var(--primary)',
-                    borderStyle: 'none none solid none'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative'
                   }}
-                  htmlFor={fieldData.name}
-                >{`${defaultValue}`}</label>
+                >
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    className={styles.textInput}
+                    {...register(name, { required: isRequired })}
+                    defaultValue={defaultValue}
+                  />
+                  {showPassword ? (
+                    <FaRegEye
+                      style={{
+                        zIndex: '1',
+                        position: 'absolute',
+                        top: '50%',
+                        right: '10px',
+                        transform: 'translateY(-50%)',
+                        cursor: 'pointer'
+                      }}
+                      onClick={togglePasswordVisibility}
+                    />
+                  ) : (
+                    <FaRegEyeSlash
+                      style={{
+                        zIndex: '1',
+                        position: 'absolute',
+                        top: '50%',
+                        right: '10px',
+                        transform: 'translateY(-50%)',
+                        cursor: 'pointer'
+                      }}
+                      onClick={togglePasswordVisibility}
+                    />
+                  )}
+                </div>
               </div>
             );
           }
