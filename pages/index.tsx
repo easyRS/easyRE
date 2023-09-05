@@ -1,7 +1,4 @@
 import type { NextPage } from 'next';
-import { useSession } from 'next-auth/react';
-import Router from 'next/router';
-import { useEffect } from 'react';
 
 import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
@@ -13,8 +10,6 @@ import {
 import { activeContracts } from '../lib/controllers/LeaseContractController';
 import { allOccupancyRate } from '../lib/controllers/PropertyController';
 
-import styles from './index.module.css';
-
 type IndexTaskProps = {
   currentTableTasks: TableMapping<ITaskTable>;
   outdateTableTasks: TableMapping<ITaskTable>;
@@ -23,29 +18,6 @@ type IndexTaskProps = {
 };
 
 const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
-  const { status } = useSession();
-
-  useEffect(() => {
-    if (status === 'unauthenticated') Router.replace('/auth/signin');
-  }, [status]);
-
-  if (status === 'loading') {
-    // signOut();
-    return (
-      <div
-        style={{
-          width: '100%',
-          minHeight: '700px',
-          alignItems: 'center',
-          justifyContent: 'center',
-          display: 'flex'
-        }}
-      >
-        <div className={styles.loader} />
-      </div>
-    );
-  }
-
   return (
     <TopNavigation
       isOpen={false}

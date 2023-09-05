@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Header from '../Header/Header';
@@ -32,6 +33,8 @@ const defaultMenus: Menu[] = [
 
 const TopNavigation = ({ content, isOpen }: TopNavigationProps) => {
   const [open, setOpen] = useState(isOpen);
+  const { status } = useSession();
+
   const style = open // eslint-disable-line
     ? {
         marginLeft: '5rem',
@@ -46,7 +49,9 @@ const TopNavigation = ({ content, isOpen }: TopNavigationProps) => {
     <>
       <Header open={open} />
       <div style={style}>{content}</div>
-      <BurgerMenu menus={defaultMenus} open={open} setOpen={setOpen} />
+      {status === 'authenticated' && (
+        <BurgerMenu menus={defaultMenus} open={open} setOpen={setOpen} />
+      )}
     </>
   );
 };

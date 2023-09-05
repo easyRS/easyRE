@@ -56,7 +56,7 @@ const Header = (props: HeaderProps) => {
         </Link>
         {status === 'authenticated' && (
           <div>
-            <Button onClick={onDelete}>
+            <Button onClick={onDelete} type="primary">
               <div
                 style={{
                   display: 'flex',

@@ -21,7 +21,7 @@ const Button: React.FC<OptionalProps> = ({
   onClick,
   children,
   type = 'primary',
-  backgroundColor = 'white',
+  backgroundColor = '',
   margin = '0 0'
 }: OptionalProps) => {
   const [isSSR, setIsSSR] = useState(true);
