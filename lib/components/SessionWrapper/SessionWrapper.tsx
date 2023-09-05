@@ -28,7 +28,15 @@ const SessionWrapper: NextPage<SessionProps> = ({
     if (status === 'unauthenticated') Router.replace('/auth/signin');
   }, [status]);
 
-  if (!pathname.includes('/auth/') && status !== 'authenticated') {
+  useEffect(() => {
+    if (pathname.includes('/auth/') && status === 'authenticated')
+      Router.replace('/');
+  }, [pathname, status]);
+
+  if (
+    (!pathname.includes('/auth/') && status !== 'authenticated') ||
+    (pathname.includes('/auth/') && status !== 'unauthenticated')
+  ) {
     return (
       <div
         style={{
