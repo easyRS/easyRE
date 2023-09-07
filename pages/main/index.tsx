@@ -70,10 +70,14 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
       const coordinates = [
         latitude > 0
           ? latitude
-          : parseFloat((genericData.coordinates as string[])[0]),
+          : genericData.coordinates
+          ? parseFloat((genericData.coordinates as string[])[0])
+          : 0,
         longitude > 0
           ? longitude
-          : parseFloat((genericData.coordinates as string[])[1])
+          : genericData.coordinates
+          ? parseFloat((genericData.coordinates as string[])[1])
+          : 0
       ];
 
       dataParam = {
