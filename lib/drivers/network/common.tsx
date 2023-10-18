@@ -25,7 +25,7 @@ export const call = async (
 export const makePost = async (
   data: AllowedType,
   endpoint: string,
-  onSuccess?: (sucessObj: Record<string, unknown>) => void,
+  onSuccess?: (sucessObj: Response) => void,
   onError?: () => void
 ) => {
   await call(
