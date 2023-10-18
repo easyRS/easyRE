@@ -11,21 +11,26 @@ type TopNavigationProps = {
 const defaultMenus: Menu[] = [
   {
     key: '1',
+    name: 'Profile',
+    link: '/profile'
+  },
+  {
+    key: '2',
     name: 'Properties',
     link: '/properties'
   },
   {
-    key: '2',
+    key: '3',
     name: 'Tenants',
     link: '/tenants'
   },
   {
-    key: '3',
+    key: '4',
     name: 'Leases',
     link: '/leases'
   },
   {
-    key: '4',
+    key: '5',
     name: 'Contracts',
     link: '/contractdefs'
   }

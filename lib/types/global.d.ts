@@ -112,4 +112,6 @@ declare global {
   };
 
   type TypeStyle = 'primary' | 'secondary' | 'tertiary';
+
+  type NewLeaseContract = ILeaseContract & { url: string };
 }

@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createUser, getUsers } from '../../../lib/controllers/UserController';
+import {
+  createUser,
+  getUsers,
+  updateUser
+} from '../../../lib/controllers/UserController';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req;
@@ -13,7 +17,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(405).end(`Method ${method} Not Allowed`);
       return undefined;
     }
-    response = await createUser(body);
+    response = await createUser({ ...body, google_tokens: '' });
+    return res.json(response);
+  }
+  if (method === 'PUT') {
+    response = await updateUser(body);
     return res.json(response);
   }
   return undefined;

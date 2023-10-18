@@ -18,7 +18,7 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
     return TASK_CLOSE_COMPLETED_STATE;
   }
 
-  async findById(id: string): Promise<ITask> {
+  async findByIdUserFriendly(id: string): Promise<ITask> {
     const nameTransform = (doc: any /* eslint-disable-line*/) =>
       doc && doc.name;
     const populateValues = [

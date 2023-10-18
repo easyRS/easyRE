@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { TopNavigation } from '../../lib/components';
 import Form from '../../lib/components/Form/Form';
 
-import { getFormFields } from '../../lib/controllers/UserController';
+import { getAuthFormFields } from '../../lib/controllers/UserController';
 import callbacks from '../../lib/drivers/network/users';
 
 import IUser from '../../lib/domain/entities/IUser';
@@ -89,7 +89,7 @@ const SignIn: NextPage<SignInProps> = (usersProps: SignInProps) => {
 };
 
 export async function getServerSideProps() {
-  const formFields = await getFormFields();
+  const formFields = await getAuthFormFields();
 
   return {
     props: { formFields }

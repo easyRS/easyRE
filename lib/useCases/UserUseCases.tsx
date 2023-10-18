@@ -16,17 +16,34 @@ export default class UserUseCases extends AbstractUseCases<
   ): IUser {
     return {
       email: object.email as string,
-      password: object.password as string
+      password: object.password as string,
+      google_client_id: object.google_client_id as string,
+      google_client_secret: object.google_client_secret as string,
+      google_redirect_url: object.google_redirect_url as string,
+      google_api_key: object.google_api_key as string,
+      google_tokens: object.google_tokens as Record<
+        string,
+        /* eslint-disable-line*/ any
+      >
     };
   }
 
-  async create(unknownObj: Record<string, unknown>): Promise<IUser> {
-    const salt = CryptoJS.lib.WordArray.random(16); // Generate a random salt
-    const derivedKey = CryptoJS.PBKDF2(unknownObj.password as string, salt, {
+  /* eslint-disable-line*/ encryptField(fieldValue: String): string {
+    const salt = CryptoJS.lib.WordArray.random(16);
+    const derivedKey = CryptoJS.PBKDF2(fieldValue as string, salt, {
       keySize: 64 / 32, // Output size in words
       iterations: 1000 // Number of iterations
     }).toString(CryptoJS.enc.Hex);
-    const hashedPassword = salt.toString() + derivedKey;
+    return salt.toString() + derivedKey;
+  }
+
+  /* eslint-disable-line*/ decryptField(encryptedValue: String): string {
+    const storedHashedPassword = encryptedValue;
+    return storedHashedPassword.slice(32);
+  }
+
+  async create(unknownObj: Record<string, unknown>): Promise<IUser> {
+    const hashedPassword = this.encryptField(unknownObj.password as string);
     const newUser = {
       ...unknownObj,
       password: hashedPassword
@@ -35,7 +52,6 @@ export default class UserUseCases extends AbstractUseCases<
   }
 
   async loginUser(email: string, password: string): Promise<IUser> {
-    /// console.log(`email ${email} password ${password}`);
     const user = await this.findByQuery({ email });
     if (!user) {
       throw new Error('User not found');
@@ -49,10 +65,6 @@ export default class UserUseCases extends AbstractUseCases<
       keySize: 64 / 32, // Output size in words
       iterations: 1000 // Number of iterations
     }).toString(CryptoJS.enc.Hex);
-
-    /* eslint-disable-line*/ console.log(
-      `derivedKey= ${derivedKey} storedDerivedKey= ${storedDerivedKey}`
-    );
 
     const passwordsMatch = derivedKey === storedDerivedKey;
 

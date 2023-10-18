@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
 import ITask from '../domain/entities/ITask';
@@ -12,11 +13,11 @@ import TransactionTypeUseCases from './TransactionTypeUseCases';
 import TransactionUseCases from './TransactionUseCases';
 
 // TODO: export this in a ENV file.
-const LEASE = 'Lease';
-const ELECTRICITY = 'Electricity';
-const WATER = 'Water';
-const GAS = 'Gas';
-const MAINTENANCE = 'Maintenance';
+export const LEASE = 'Lease';
+export const ELECTRICITY = 'Electricity';
+export const WATER = 'Water';
+export const GAS = 'Gas';
+export const MAINTENANCE = 'Maintenance';
 
 type CreateParams = {
   taskTypeName: string;
@@ -137,7 +138,6 @@ export default class TaskUseCases extends AbstractUseCases<
       amount,
       leaseContract
     };
-
     return this._create(createParam);
   }
 
@@ -181,6 +181,10 @@ export default class TaskUseCases extends AbstractUseCases<
     };
 
     return this._create(createParam);
+  }
+
+  async findByIdUserFriendly(_id: string): Promise<ITask> {
+    return (this.repository as TaskRepository).findByIdUserFriendly(_id);
   }
 
   async _createMaintenanceTask(property: IProperty): Promise<ITask> {

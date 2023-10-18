@@ -19,16 +19,27 @@ async function getTableUsers(): Promise<TableMapping<IUserTable>> {
   };
 }
 
-async function getUser(_id: string): Promise<IUser> {
-  return new UserUseCases().findById(_id);
+async function getUser(): Promise<IUser> {
+  return new UserUseCases().findByQuery({});
 }
 
-async function getFormFields(): Promise<ModelKeys> {
-  const keys = await new UserUseCases().getKeys();
+async function getFormFields(
+  _forbiddenFields: string[] = []
+): Promise<ModelKeys> {
+  const keys = await new UserUseCases().getKeys(_forbiddenFields);
   const editables = keys.editables.map((fieldData) => {
     const { name } = fieldData;
 
-    if (name === 'password') {
+    const passwordFields = [
+      'password',
+      'google_client_id',
+      'google_client_secret',
+      'google_redirect_url',
+      'google_api_key',
+      'google_tokens'
+    ];
+
+    if (passwordFields.includes(name)) {
       return {
         ...fieldData,
         type: 'password'
@@ -45,6 +56,21 @@ async function getFormFields(): Promise<ModelKeys> {
     ...keys,
     editables
   };
+}
+async function getAuthFormFields(): Promise<ModelKeys> {
+  const forbbidenFields = [
+    'google_client_id',
+    'google_client_secret',
+    'google_redirect_url',
+    'google_api_key',
+    'google_tokens'
+  ];
+  return getFormFields(forbbidenFields);
+}
+
+async function getProfileFields(): Promise<ModelKeys> {
+  const forbbidenFields = ['password', 'email', 'google_tokens'];
+  return getFormFields(forbbidenFields);
 }
 
 async function createUser(object: Record<string, unknown>) {
@@ -65,7 +91,9 @@ async function loginUser(email: string, password: string): Promise<IUser> {
 
 export {
   createUser,
+  getAuthFormFields,
   getFormFields,
+  getProfileFields,
   getTableUsers,
   getUser,
   getUsers,

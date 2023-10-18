@@ -47,10 +47,15 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   const router = useRouter();
 
   useEffect(() => {
+    async function success(response: Response) {
+      const data = await response.json();
+      const url = data.url as string;
+      router.push(url);
+    }
+
     async function create() {
       const { createCallback } = leaseCalls;
-      await createCallback(objValues);
-      router.push('/leases');
+      await createCallback(objValues, success);
     }
 
     if (completed) {

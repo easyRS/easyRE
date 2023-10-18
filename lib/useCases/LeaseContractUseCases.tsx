@@ -5,6 +5,7 @@ import ITenant from '../domain/entities/ITenant';
 import LeaseContractRepository from '../domain/repositories/LeaseContractRepository';
 import AbstractUseCases from './AbstractUseCases';
 
+import { generateGoogleUrlRedirect } from '../drivers/network/googleapis';
 import { daysBetween, monthsBetween } from '../utils/datesHelper';
 import PropertyUseCases from './PropertyUseCases';
 import TaskUseCases from './TaskUseCases';
@@ -47,7 +48,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     return wip.length;
   }
 
-  async create(unknownObj: Record<string, unknown>): Promise<ILeaseContract> {
+  async create(unknownObj: Record<string, unknown>): Promise<NewLeaseContract> {
     const session = await mongoose.startSession();
     await session.startTransaction();
     try {
@@ -81,12 +82,16 @@ export default class LeaseContractUseCases extends AbstractUseCases<
         ...objValues[2],
         state: workInProgressState
       };
+
       const leaseTmp = await super.create(leaseContract);
       if (leaseTmp._id) {
         const lease = await this.findById(leaseTmp._id.toString(), []);
         await this.generateMonthlyRecurringTasks(lease);
-        return lease;
+        const url = await this.generateUrlRedirect(lease);
+        const urlObj = { url };
+        return { ...lease, ...urlObj };
       }
+
       throw new Error('Lease not found');
     } catch (error) {
       await session.abortTransaction();
@@ -138,6 +143,15 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       _id: leaseContract._id?.toString(),
       nextDate: finalDate
     });
+  }
+
+  /* eslint-disable-line*/ async generateUrlRedirect(
+    leaseContract: ILeaseContract
+  ): Promise<string> {
+    if (leaseContract._id) {
+      return generateGoogleUrlRedirect(leaseContract._id.toString());
+    }
+    return '';
   }
 
   async generateMonthlyRecurringTasks(

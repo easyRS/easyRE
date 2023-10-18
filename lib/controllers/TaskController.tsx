@@ -1,4 +1,7 @@
+import ILeaseContract from '../domain/entities/ILeaseContract';
 import ITask from '../domain/entities/ITask';
+import { generateGoogleEvent } from '../drivers/network/googleapis';
+import LeaseContractUseCases from '../useCases/LeaseContractUseCases';
 import TaskUseCases from '../useCases/TaskUseCases';
 
 async function getTableTasks(
@@ -31,7 +34,7 @@ async function getBeforeTwoTableTasks(): Promise<TableMapping<ITaskTable>> {
 }
 
 async function getTask(_id: string): Promise<ITask> {
-  return new TaskUseCases().findById(_id);
+  return new TaskUseCases().findByIdUserFriendly(_id);
 }
 
 async function getFormFields(): Promise<ModelKeys> {
@@ -82,12 +85,26 @@ async function removeTask(object: Record<string, unknown>) {
   return new TaskUseCases().remove(object);
 }
 
+async function generateEvent(_id: string, code?: string): Promise<void> {
+  const taskUseCases = new TaskUseCases();
+  const task = (await taskUseCases.findById(_id)) as ITask;
+  if (!task.leaseContract) return;
+
+  const leaseContractUsecase = new LeaseContractUseCases();
+  const leaseContract = (await leaseContractUsecase.findById(
+    task.leaseContract?.toString()
+  )) as ILeaseContract;
+
+  generateGoogleEvent(task, leaseContract, code);
+}
+
 export {
-  getCurrentTableTasks,
-  getBeforeTwoTableTasks,
-  getFormFields,
   createTask,
+  generateEvent,
+  getBeforeTwoTableTasks,
+  getCurrentTableTasks,
+  getFormFields,
   getTask,
-  updateTask,
-  removeTask
+  removeTask,
+  updateTask
 };

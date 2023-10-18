@@ -4,18 +4,18 @@ type AllowedType = IEntity | StepMapper;
 
 export const call = async (
   apiObj: CallApiObject,
-  onSuccess?: () => void,
+  onSuccess?: (sucessObj: Response) => void,
   onError?: () => void
 ) => {
   try {
-    await fetch(window.location.origin + apiObj.endpoint, {
+    const result = await fetch(window.location.origin + apiObj.endpoint, {
       method: apiObj.method,
       body: JSON.stringify(apiObj.data),
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    if (onSuccess) onSuccess();
+    if (onSuccess) onSuccess(result);
   } catch (error) {
     /* eslint-disable-line*/ console.log(error);
     if (onError) onError();
@@ -25,7 +25,7 @@ export const call = async (
 export const makePost = async (
   data: AllowedType,
   endpoint: string,
-  onSuccess?: () => void,
+  onSuccess?: (sucessObj: Record<string, unknown>) => void,
   onError?: () => void
 ) => {
   await call(
