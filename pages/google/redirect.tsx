@@ -9,7 +9,7 @@ interface QueryParams extends ParsedUrlQuery {
   state: string;
 }
 
-const GoogleComponent: NextPage<> = () => {
+const GoogleComponent: NextPage = () => {
   return <TopNavigation isOpen={false} content={<div>working!</div>} />;
 };
 
