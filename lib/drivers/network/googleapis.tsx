@@ -3,10 +3,10 @@ import ILeaseContract from '../../domain/entities/ILeaseContract';
 import ITask from '../../domain/entities/ITask';
 import ITaskType from '../../domain/entities/ITaskType';
 import TaskTypeUseCases from '../../useCases/TaskTypeUseCases';
-import TaskUseCases from '../../useCases/TaskUseCases';
+import TaskUseCases, { LEASE } from '../../useCases/TaskUseCases';
 import UserUseCases from '../../useCases/UserUseCases';
 
-const _getOauthClient = async (): Promise<google.OAuth2Client> => {
+const _getOauthClient = async () => {
   const user = await new UserUseCases().findByQuery({});
   const REDIRECT_URL = user.google_redirect_url;
   const CLIENT_ID = user.google_client_id;
@@ -30,7 +30,6 @@ export const generateGoogleUrlRedirect = async (
 
   if (task && task._id) {
     const oauth2Client = await _getOauthClient();
-
     const scopes = ['https://www.googleapis.com/auth/calendar'];
     const user = await new UserUseCases().findByQuery({});
     oauth2Client.on('tokens', async (tokens) => {
