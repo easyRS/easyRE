@@ -16,7 +16,8 @@ export default class TenantUseCases extends AbstractUseCases<
     return {
       name: object.name as string,
       phone: object.phone as string,
-      notes: object.notes as string
+      notes: object.notes as string,
+      email: object.email as string
     };
   }
 }

@@ -1,9 +1,11 @@
 import { google } from 'googleapis';
+import { Types } from 'mongoose';
 import ILeaseContract from '../../domain/entities/ILeaseContract';
 import ITask from '../../domain/entities/ITask';
 import ITaskType from '../../domain/entities/ITaskType';
 import TaskTypeUseCases from '../../useCases/TaskTypeUseCases';
 import TaskUseCases, { LEASE } from '../../useCases/TaskUseCases';
+import TenantUseCases from '../../useCases/TenantUseCases';
 import UserUseCases from '../../useCases/UserUseCases';
 
 const _getOauthClient = async () => {
@@ -75,6 +77,15 @@ export const generateGoogleEvent = async (
   const date = leaseContract.nextDate || leaseContract.startDate;
   const stringDate = date.toString();
 
+  let attendees = [{ email: user.email }];
+  const tenantId = leaseContract.tenant as Types.ObjectId;
+
+  if (tenantId) {
+    const tenantUseCases = new TenantUseCases();
+    const tenant = await tenantUseCases.findById(tenantId.toString());
+    if (tenant.email) attendees.push({ email: tenant.email });
+  }
+
   const event = {
     summary: task.description,
     description: task.description,
@@ -86,7 +97,7 @@ export const generateGoogleEvent = async (
       dateTime: `${stringDate}T09:00:00-04:00`,
       timeZone: 'America/La_Paz'
     },
-    attendees: [{ email: 'lpage@example.com' }, { email: 'sbrin@example.com' }],
+    attendees: attendees,
     reminders: {
       useDefault: false,
       overrides: [

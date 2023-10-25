@@ -43,6 +43,7 @@ export default async function executeSeeder() {
 
       const tenant = new Tenant({
         name: 'test',
+        email: 'testtenant@example.com',
         phone: 2323,
         notes: 'hey there'
       });

@@ -92,7 +92,8 @@ async function generateEvent(_id: string, code?: string): Promise<void> {
 
   const leaseContractUsecase = new LeaseContractUseCases();
   const leaseContract = (await leaseContractUsecase.findById(
-    task.leaseContract?.toString()
+    task.leaseContract?.toString(),
+    []
   )) as ILeaseContract;
 
   generateGoogleEvent(task, leaseContract, code);
