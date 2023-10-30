@@ -5,7 +5,6 @@ import { TIME_TYPE_MONTHLY_OPTION } from '../../domain/entities/TimeType';
 
 const startMidnightDailyJob = async () => {
   const leaseContractUseCases = new LeaseContractUseCases();
-
   const leaseContracts = await leaseContractUseCases.listWorkInProgress();
   const results: Promise<void>[] = [];
 
@@ -23,8 +22,12 @@ const startMidnightDailyJob = async () => {
           );
 
     if (currentTime < timeAmount) {
+      const generateEvents = true;
       results.push(
-        leaseContractUseCases.generateMonthlyRecurringTasks(leaseContract)
+        leaseContractUseCases.generateMonthlyRecurringTasks(
+          leaseContract,
+          generateEvents
+        )
       );
     }
   }

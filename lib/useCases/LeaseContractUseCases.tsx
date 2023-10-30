@@ -5,7 +5,10 @@ import ITenant from '../domain/entities/ITenant';
 import LeaseContractRepository from '../domain/repositories/LeaseContractRepository';
 import AbstractUseCases from './AbstractUseCases';
 
-import { generateGoogleUrlRedirect } from '../drivers/network/googleapis';
+import {
+  generateGoogleEvent,
+  generateGoogleUrlRedirect
+} from '../drivers/network/googleapis';
 import { daysBetween, monthsBetween } from '../utils/datesHelper';
 import PropertyUseCases from './PropertyUseCases';
 import TaskUseCases from './TaskUseCases';
@@ -86,7 +89,8 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       const leaseTmp = await super.create(leaseContract);
       if (leaseTmp._id) {
         const lease = await this.findById(leaseTmp._id.toString(), []);
-        await this.generateMonthlyRecurringTasks(lease);
+        const generateEvents = false;
+        await this.generateMonthlyRecurringTasks(lease, generateEvents);
         const url = await this.generateUrlRedirect(lease);
         const urlObj = { url };
         return { ...lease, ...urlObj };
@@ -155,7 +159,8 @@ export default class LeaseContractUseCases extends AbstractUseCases<
   }
 
   async generateMonthlyRecurringTasks(
-    leaseContract: ILeaseContract
+    leaseContract: ILeaseContract,
+    generateEvents: boolean
   ): Promise<void> {
     const { startDate, nextDate, amount } = leaseContract;
 
@@ -171,7 +176,16 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       );
 
       if (now >= startingDate) {
-        await taskUseCases._createLeaseTask(leaseContract, tenant, amount);
+        const leaseTask = await taskUseCases._createLeaseTask(
+          leaseContract,
+          tenant,
+          amount
+        );
+        if (generateEvents)
+          await generateGoogleEvent(leaseTask, {
+            ...leaseContract,
+            tenant: leaseContract.tenant._id
+          });
         await taskUseCases._createElectricityTask(leaseContract, tenant);
         await taskUseCases._createGasTask(leaseContract, tenant);
         await taskUseCases._createWaterTask(leaseContract, tenant);

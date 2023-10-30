@@ -13,6 +13,7 @@ const _getOauthClient = async () => {
   const REDIRECT_URL = user.google_redirect_url;
   const CLIENT_ID = user.google_client_id;
   const CLIENT_SECRET = user.google_client_secret;
+  if (!REDIRECT_URL || !CLIENT_ID || !CLIENT_SECRET) return null;
 
   return new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 };
@@ -32,6 +33,7 @@ export const generateGoogleUrlRedirect = async (
 
   if (task && task._id) {
     const oauth2Client = await _getOauthClient();
+    if (!oauth2Client) return '';
     const scopes = ['https://www.googleapis.com/auth/calendar'];
     const user = await new UserUseCases().findByQuery({});
     oauth2Client.on('tokens', async (tokens) => {
@@ -44,8 +46,7 @@ export const generateGoogleUrlRedirect = async (
     return oauth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: scopes,
-      state: task._id.toString(),
-      prompt: 'consent'
+      state: task._id.toString()
     });
   }
   return '';
@@ -57,10 +58,12 @@ export const generateGoogleEvent = async (
   code?: string
 ): Promise<void> => {
   const oauth2Client = await _getOauthClient();
+  if (!oauth2Client) return;
   const user = await new UserUseCases().findByQuery({});
 
   if (code) {
-    // Newly Token
+    // Newly Token - User interface path
+
     const response = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(response.tokens);
     await new UserUseCases().update({
@@ -68,8 +71,13 @@ export const generateGoogleEvent = async (
       google_tokens: response.tokens
     });
   } else if (user.google_tokens) {
-    const { /* eslint-disable */ google_tokens } = user;
-    oauth2Client.setCredentials(google_tokens);
+    // Background job path
+
+    const { /* eslint-disable-line*/ google_tokens } = user;
+    const { /* eslint-disable-line*/ refresh_token } = google_tokens;
+    oauth2Client.setCredentials({
+      refresh_token /* eslint-disable-line*/
+    });
   } else {
     return;
   }
@@ -77,9 +85,8 @@ export const generateGoogleEvent = async (
   const date = leaseContract.nextDate || leaseContract.startDate;
   const stringDate = date.toString();
 
-  let attendees = [{ email: user.email }];
+  const attendees = [{ email: user.email }];
   const tenantId = leaseContract.tenant as Types.ObjectId;
-
   if (tenantId) {
     const tenantUseCases = new TenantUseCases();
     const tenant = await tenantUseCases.findById(tenantId.toString());
@@ -97,7 +104,7 @@ export const generateGoogleEvent = async (
       dateTime: `${stringDate}T09:00:00-04:00`,
       timeZone: 'America/La_Paz'
     },
-    attendees: attendees,
+    attendees,
     reminders: {
       useDefault: false,
       overrides: [
@@ -113,9 +120,15 @@ export const generateGoogleEvent = async (
     auth: API_KEY
   });
 
-  await calendar.events.insert({
-    auth: oauth2Client,
-    calendarId: 'primary',
-    requestBody: event
-  });
+  try {
+    await calendar.events.insert({
+      auth: oauth2Client,
+      calendarId: 'primary',
+      requestBody: event
+    });
+    /* eslint-disable-line*/ console.log('generated!');
+  } catch (errorResponse) {
+    /* eslint-disable-line*/ console.log('ERROR!!!!!');
+    /* eslint-disable-line*/ console.log(errorResponse);
+  }
 };

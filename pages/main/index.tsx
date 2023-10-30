@@ -50,7 +50,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     async function success(response: Response) {
       const data = await response.json();
       const url = data.url as string;
-      router.push(url);
+      router.push(url || '/');
     }
 
     async function create() {
