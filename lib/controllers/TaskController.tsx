@@ -117,7 +117,13 @@ async function generateEvent(code: string, _id?: string): Promise<void> {
 
     for (const eventObj of events) /* eslint-disable-line */ {
       if (eventObj.leaseContract && eventObj.task) {
-        results.push(generateGoogleEvent(task, leaseContract, oauth2Client));
+        results.push(
+          generateGoogleEvent(
+            eventObj.task,
+            eventObj.leaseContract,
+            oauth2Client
+          )
+        );
       }
     }
 
