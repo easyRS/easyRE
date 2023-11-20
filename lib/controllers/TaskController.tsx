@@ -145,7 +145,7 @@ async function getGoogleUrl(_id: string): Promise<string> {
   return leaseContractUsecase.generateUrlRedirect(leaseContract);
 }
 
-async function shouldCreateEvents(): string {
+async function shouldCreateEvents(): Promise<string> {
   return new EventUseCases().shouldCreateEvents();
 }
 
