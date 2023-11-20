@@ -4,7 +4,8 @@ import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
 import {
   getBeforeTwoTableTasks,
-  getCurrentTableTasks
+  getCurrentTableTasks,
+  shouldCreateEvents
 } from '../lib/controllers/TaskController';
 
 import { activeContracts } from '../lib/controllers/LeaseContractController';
@@ -15,9 +16,17 @@ type IndexTaskProps = {
   outdateTableTasks: TableMapping<ITaskTable>;
   occupancyRate: number;
   nroContracts: number;
+  createEvents: string;
 };
 
 const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
+  const { createEvents } = tasksProps;
+  if (createEvents) {
+    /* eslint-disable security/detect-non-literal-fs-filename */
+    window.open(createEvents, '_blank');
+    /* eslint-enable security/detect-non-literal-fs-filename */
+  }
+
   return (
     <TopNavigation
       isOpen={false}
@@ -94,9 +103,16 @@ export async function getServerSideProps() {
   const occupancyRateRaw = await allOccupancyRate();
   const occupancyRate = Math.round(occupancyRateRaw * 100) / 100;
   const nroContracts = await activeContracts();
+  const createEvents = await shouldCreateEvents();
 
   return {
-    props: { currentTableTasks, outdateTableTasks, occupancyRate, nroContracts }
+    props: {
+      currentTableTasks,
+      outdateTableTasks,
+      occupancyRate,
+      nroContracts,
+      createEvents
+    }
   };
 }
 

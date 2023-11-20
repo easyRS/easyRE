@@ -1,6 +1,12 @@
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import ITask from '../domain/entities/ITask';
-import { generateGoogleEvent } from '../drivers/network/googleapis';
+import IEvent from '../domain/entities/IEvent';
+
+import {
+  generateGoogleEvent,
+  getOauthClient
+} from '../drivers/network/googleapis';
+import EventUseCases from '../useCases/EventUseCases';
 import LeaseContractUseCases from '../useCases/LeaseContractUseCases';
 import TaskUseCases from '../useCases/TaskUseCases';
 
@@ -85,18 +91,38 @@ async function removeTask(object: Record<string, unknown>) {
   return new TaskUseCases().remove(object);
 }
 
-async function generateEvent(_id: string, code?: string): Promise<void> {
-  const taskUseCases = new TaskUseCases();
-  const task = (await taskUseCases.findById(_id)) as ITask;
-  if (!task.leaseContract) return;
+async function generateEvent(code: string, _id?: string): Promise<void> {
+  const oauth2Client = await getOauthClient(code);
+  if (!oauth2Client) return;
 
-  const leaseContractUsecase = new LeaseContractUseCases();
-  const leaseContract = (await leaseContractUsecase.findById(
-    task.leaseContract?.toString(),
-    []
-  )) as ILeaseContract;
+  if (_id) {
+    const taskUseCases = new TaskUseCases();
+    const task = (await taskUseCases.findById(_id)) as ITask;
+    if (!task.leaseContract) return;
 
-  generateGoogleEvent(task, leaseContract, code);
+    const leaseContractUsecase = new LeaseContractUseCases();
+    const leaseContract = (await leaseContractUsecase.findById(
+      task.leaseContract?.toString(),
+      []
+    )) as ILeaseContract;
+
+    generateGoogleEvent(task, leaseContract, oauth2Client);
+  } else {
+    const eventUseCases = new EventUseCases();
+    const events = (await eventUseCases.list([
+      { path: 'leaseContract' },
+      { path: 'task' }
+    ])) as IEvent[];
+    const results: Promise<void>[] = [];
+
+    for (const eventObj of events) /* eslint-disable-line */ {
+      if (eventObj.leaseContract && eventObj.task) {
+        results.push(generateGoogleEvent(task, leaseContract, oauth2Client));
+      }
+    }
+
+    await Promise.all(results);
+  }
 }
 
 async function getGoogleUrl(_id: string): Promise<string> {
@@ -113,6 +139,10 @@ async function getGoogleUrl(_id: string): Promise<string> {
   return leaseContractUsecase.generateUrlRedirect(leaseContract);
 }
 
+async function shouldCreateEvents(): string {
+  return new EventUseCases().shouldCreateEvents();
+}
+
 export {
   createTask,
   generateEvent,
@@ -122,5 +152,6 @@ export {
   getGoogleUrl,
   getTask,
   removeTask,
+  shouldCreateEvents,
   updateTask
 };

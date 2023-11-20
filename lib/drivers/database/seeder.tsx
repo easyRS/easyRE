@@ -19,11 +19,13 @@ export default async function executeSeeder() {
         Tenant,
         Transaction,
         TransactionType,
-        User
+        User,
+        Event
       } = await builder();
       // delete ALL data
       await Task.deleteMany();
       await LeaseContract.deleteMany();
+      await Event.deleteMany();
       await TaskType.deleteMany();
       await ContractDefinition.deleteMany();
       await Tenant.deleteMany();

@@ -2,6 +2,7 @@ import mongoose, { Model, Schema } from 'mongoose';
 
 import IConfig from '../../domain/entities/IConfig';
 import IContractDefinition from '../../domain/entities/IContractDefinition';
+import IEvent from '../../domain/entities/IEvent';
 import ILeaseContract from '../../domain/entities/ILeaseContract';
 import IProperty from '../../domain/entities/IProperty';
 import ITask from '../../domain/entities/ITask';
@@ -12,6 +13,7 @@ import ITransactionType from '../../domain/entities/ITransactionType';
 import IUser from '../../domain/entities/IUser';
 import ConfigSchema from '../../domain/models/Config';
 import ContractDefinitionSchema from '../../domain/models/ContractDefinition';
+import EventSchema from '../../domain/models/Event';
 import LeaseContractSchema from '../../domain/models/LeaseContract';
 import PropertySchema from '../../domain/models/Property';
 import TaskSchema from '../../domain/models/Task';
@@ -32,6 +34,7 @@ export type SchemaType = {
   Transaction: Model<ITransaction>;
   TransactionType: Model<ITransactionType>;
   User: Model<IUser>;
+  Event: Model<IEvent>;
   PSchema: Schema<IProperty>;
   TSchema: Schema<ITenant>;
   CSchema: Schema<IContractDefinition>;
@@ -42,6 +45,7 @@ export type SchemaType = {
   TraSchema: Schema<ITransaction>;
   TraTSchema: Schema<ITransactionType>;
   USchema: Schema<IUser>;
+  ESchema: Schema<IEvent>;
 };
 
 const build = async (): Promise<SchemaType> => {
@@ -84,6 +88,9 @@ const build = async (): Promise<SchemaType> => {
   const User =
     mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 
+  const Event =
+    mongoose.models.Event || mongoose.model<IEvent>('Event', EventSchema);
+
   return {
     Property,
     Tenant,
@@ -95,6 +102,7 @@ const build = async (): Promise<SchemaType> => {
     Transaction,
     TransactionType,
     User,
+    Event,
     PSchema: PropertySchema,
     TSchema: TenantSchema,
     CSchema: ContractDefinitionSchema,
@@ -104,7 +112,8 @@ const build = async (): Promise<SchemaType> => {
     ConfSchema: ConfigSchema,
     TraSchema: TransactionSchema,
     TraTSchema: TransactionTypeSchema,
-    USchema: UserSchema
+    USchema: UserSchema,
+    ESchema: EventSchema
   };
 };
 

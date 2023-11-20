@@ -46,7 +46,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { query } = context;
   const { code, state } = query as QueryParams;
 
-  await generateEvent(state, code);
+  await generateEvent(code, state);
   return {
     props: {}
   };

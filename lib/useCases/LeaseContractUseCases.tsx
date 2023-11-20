@@ -5,11 +5,9 @@ import ITenant from '../domain/entities/ITenant';
 import LeaseContractRepository from '../domain/repositories/LeaseContractRepository';
 import AbstractUseCases from './AbstractUseCases';
 
-import {
-  generateGoogleEvent,
-  generateGoogleUrlRedirect
-} from '../drivers/network/googleapis';
+import { generateGoogleUrlRedirect } from '../drivers/network/googleapis';
 import { daysBetween, monthsBetween } from '../utils/datesHelper';
+import EventUseCases from './EventUseCases';
 import PropertyUseCases from './PropertyUseCases';
 import TaskUseCases from './TaskUseCases';
 import TenantUseCases from './TenantUseCases';
@@ -181,11 +179,12 @@ export default class LeaseContractUseCases extends AbstractUseCases<
           tenant,
           amount
         );
-        if (generateEvents)
-          await generateGoogleEvent(leaseTask, {
-            ...leaseContract,
-            tenant: leaseContract.tenant._id
+        if (generateEvents && leaseTask._id && leaseContract._id) {
+          await new EventUseCases().create({
+            task: leaseTask._id,
+            leaseContract: leaseContract._id
           });
+        }
         await taskUseCases._createElectricityTask(leaseContract, tenant);
         await taskUseCases._createGasTask(leaseContract, tenant);
         await taskUseCases._createWaterTask(leaseContract, tenant);

@@ -18,6 +18,17 @@ const _getOauthClient = async () => {
   return new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 };
 
+export const generateAuthUrl = async (taskId?: string): Promise<string> => {
+  const oauth2Client = await _getOauthClient();
+  if (!oauth2Client) return '';
+  const scopes = ['https://www.googleapis.com/auth/calendar'];
+  return oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: scopes,
+    state: taskId || ''
+  });
+};
+
 export const generateGoogleUrlRedirect = async (
   leaseContractId: string
 ): Promise<string> => {
@@ -32,33 +43,14 @@ export const generateGoogleUrlRedirect = async (
   })) as ITask;
 
   if (task && task._id) {
-    const oauth2Client = await _getOauthClient();
-    if (!oauth2Client) return '';
-    const scopes = ['https://www.googleapis.com/auth/calendar'];
-    const user = await new UserUseCases().findByQuery({});
-    oauth2Client.on('tokens', async (tokens) => {
-      if (tokens.refresh_token) {
-        user.google_tokens = tokens.refresh_token;
-        const unknownUser = user as unknown;
-        await new UserUseCases().update(unknownUser as Record<string, unknown>);
-      }
-    });
-    return oauth2Client.generateAuthUrl({
-      access_type: 'offline',
-      scope: scopes,
-      state: task._id.toString()
-    });
+    return generateAuthUrl(task._id.toString());
   }
   return '';
 };
 
-export const generateGoogleEvent = async (
-  task: ITask,
-  leaseContract: ILeaseContract,
-  code?: string
-): Promise<void> => {
+export const getOauthClient = async (code?: string) => {
   const oauth2Client = await _getOauthClient();
-  if (!oauth2Client) return;
+  if (!oauth2Client) return null;
   const user = await new UserUseCases().findByQuery({});
 
   if (code) {
@@ -71,17 +63,23 @@ export const generateGoogleEvent = async (
       google_tokens: response.tokens
     });
   } else if (user.google_tokens) {
-    // Background job path
+    // Background job path -  NOT WORKING HELP NEEDED!!!
 
     const { /* eslint-disable-line*/ google_tokens } = user;
     const { /* eslint-disable-line*/ refresh_token } = google_tokens;
     oauth2Client.setCredentials({
       refresh_token /* eslint-disable-line*/
     });
-  } else {
-    return;
   }
+  return oauth2Client;
+};
 
+export const generateGoogleEvent = async (
+  task: ITask,
+  leaseContract: ILeaseContract,
+  oauth2Client: /* eslint-disable-line*/ any
+): Promise<void> => {
+  const user = await new UserUseCases().findByQuery({});
   const date = leaseContract.nextDate || leaseContract.startDate;
   const stringDate = date.toString();
 
@@ -120,15 +118,9 @@ export const generateGoogleEvent = async (
     auth: API_KEY
   });
 
-  try {
-    await calendar.events.insert({
-      auth: oauth2Client,
-      calendarId: 'primary',
-      requestBody: event
-    });
-    /* eslint-disable-line*/ console.log('generated!');
-  } catch (errorResponse) {
-    /* eslint-disable-line*/ console.log('ERROR!!!!!');
-    /* eslint-disable-line*/ console.log(errorResponse);
-  }
+  await calendar.events.insert({
+    auth: oauth2Client,
+    calendarId: 'primary',
+    requestBody: event
+  });
 };
