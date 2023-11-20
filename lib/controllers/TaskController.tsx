@@ -119,8 +119,8 @@ async function generateEvent(code: string, _id?: string): Promise<void> {
       if (eventObj.leaseContract && eventObj.task) {
         results.push(
           generateGoogleEvent(
-            eventObj.task,
-            eventObj.leaseContract,
+            eventObj.task as ITask,
+            eventObj.leaseContract as ILeaseContract,
             oauth2Client
           )
         );
