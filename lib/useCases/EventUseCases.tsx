@@ -24,7 +24,7 @@ export default class EventUseCases extends AbstractUseCases<
   async list(
     populateValues: Record<string, unknown>[] = [],
     query: Record<string, unknown> = {}
-  ): Promise<Model[]> {
+  ): Promise<IEvent[]> {
     return this.repository.list(populateValues, query);
   }
 
