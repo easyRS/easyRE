@@ -57,7 +57,6 @@ export const getOauthClient = async (code?: string) => {
     // Newly Token - User interface path
 
     const response = await oauth2Client.getToken(code);
-    console.log({ response });
     oauth2Client.setCredentials(response.tokens);
     await new UserUseCases().update({
       ...user,
@@ -122,7 +121,6 @@ export const generateGoogleEvent = async (
     version: 'v3',
     auth: API_KEY
   });
-  console.log({ event });
   await calendar.events.insert({
     auth: oauth2Client,
     calendarId: 'primary',
