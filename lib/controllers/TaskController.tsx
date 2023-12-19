@@ -1,6 +1,6 @@
+import IEvent from '../domain/entities/IEvent';
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import ITask from '../domain/entities/ITask';
-import IEvent from '../domain/entities/IEvent';
 
 import {
   generateGoogleEvent,
@@ -91,6 +91,11 @@ async function removeTask(object: Record<string, unknown>) {
   return new TaskUseCases().remove(object);
 }
 
+async function cleanEvents(): Promise<void> {
+  const eventUseCases = new EventUseCases();
+  await eventUseCases.removeByQuery({});
+}
+
 async function generateEvent(code: string, _id?: string): Promise<void> {
   const oauth2Client = await getOauthClient(code);
   if (!oauth2Client) return;
@@ -114,7 +119,6 @@ async function generateEvent(code: string, _id?: string): Promise<void> {
       { path: 'task' }
     ])) as IEvent[];
     const results: Promise<void>[] = [];
-
     for (const eventObj of events) /* eslint-disable-line */ {
       if (eventObj.leaseContract && eventObj.task) {
         results.push(
@@ -150,6 +154,7 @@ async function shouldCreateEvents(): Promise<string> {
 }
 
 export {
+  cleanEvents,
   createTask,
   generateEvent,
   getBeforeTwoTableTasks,

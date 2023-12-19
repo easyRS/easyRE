@@ -4,6 +4,7 @@ import { daysBetween, monthsBetween } from '../../utils/datesHelper';
 import { TIME_TYPE_MONTHLY_OPTION } from '../../domain/entities/TimeType';
 
 const startMidnightDailyJob = async () => {
+  // docker exec main yarn run job
   const leaseContractUseCases = new LeaseContractUseCases();
   const leaseContracts = await leaseContractUseCases.listWorkInProgress();
   const results: Promise<void>[] = [];

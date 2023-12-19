@@ -3,7 +3,10 @@ import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import { TopNavigation } from '../../lib/components';
-import { generateEvent } from '../../lib/controllers/TaskController';
+import {
+  cleanEvents,
+  generateEvent
+} from '../../lib/controllers/TaskController';
 
 interface QueryParams extends ParsedUrlQuery {
   code: string;
@@ -47,6 +50,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { code, state } = query as QueryParams;
 
   await generateEvent(code, state);
+  await cleanEvents();
   return {
     props: {}
   };

@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 
+import { useEffect } from 'react';
 import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
 import {
@@ -17,15 +18,15 @@ type IndexTaskProps = {
   occupancyRate: number;
   nroContracts: number;
   createEvents: string;
+  authenticated: boolean;
 };
 
 const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
   const { createEvents } = tasksProps;
-  if (createEvents) {
-    /* eslint-disable security/detect-non-literal-fs-filename */
-    window.open(createEvents, '_blank');
-    /* eslint-enable security/detect-non-literal-fs-filename */
-  }
+  useEffect(() => {
+    if (createEvents)
+      /* eslint-disable-line*/ window.open(createEvents, '_blank');
+  }, [createEvents]);
 
   return (
     <TopNavigation

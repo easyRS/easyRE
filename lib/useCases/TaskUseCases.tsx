@@ -204,7 +204,7 @@ export default class TaskUseCases extends AbstractUseCases<
     if (task._id) {
       const transactionUseCase = new TransactionUseCases();
       transactionUseCase.removeByQuery({ task: task._id.toString() });
-      super.remove(object);
+      await super.remove(object);
     }
   }
 

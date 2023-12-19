@@ -23,7 +23,6 @@ const SessionWrapper: NextPage<SessionProps> = ({
   const { status } = useSession();
   const router = useRouter();
   const { pathname } = router;
-
   useEffect(() => {
     if (status === 'unauthenticated') Router.replace('/auth/signin');
   }, [status]);
@@ -52,7 +51,7 @@ const SessionWrapper: NextPage<SessionProps> = ({
     );
   }
 
-  return <Component {...pageProps} />;
+  return <Component {...pageProps} authenticated />;
 };
 
 export default SessionWrapper;

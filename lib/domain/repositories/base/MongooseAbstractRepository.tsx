@@ -18,7 +18,7 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     this.schemaName = _schemaName;
   }
 
-  async _getModelTable() {
+  async _getModelTable(): Promise<any> {
     const connectionValues = await connect();
     const className: string = this.className;
     const ModelTable = (connectionValues as any)[className];

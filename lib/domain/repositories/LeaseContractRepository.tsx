@@ -42,7 +42,7 @@ export default class LeaseContractRepository extends MongooseAbstractRepository<
       property: removedV,
       ...newRet
     } = obj; /* eslint-disable */
-    super.findOneAndUpdate(id, { ...oldObj, ...newRet });
+    await super.findOneAndUpdate(id, { ...oldObj, ...newRet });
   }
 
   async findById(

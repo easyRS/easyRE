@@ -120,6 +120,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     } else if (timeType === monthlyOption) {
       newDate.setMonth(startingDate.getMonth() + 1);
     }
+
     const finalDate = newDate.toLocaleString();
 
     const currentTime =

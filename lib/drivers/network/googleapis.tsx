@@ -57,6 +57,7 @@ export const getOauthClient = async (code?: string) => {
     // Newly Token - User interface path
 
     const response = await oauth2Client.getToken(code);
+    console.log({ response });
     oauth2Client.setCredentials(response.tokens);
     await new UserUseCases().update({
       ...user,
@@ -81,7 +82,11 @@ export const generateGoogleEvent = async (
 ): Promise<void> => {
   const user = await new UserUseCases().findByQuery({});
   const date = leaseContract.nextDate || leaseContract.startDate;
-  const stringDate = date.toString();
+
+  const stringDate =
+    typeof date === 'string'
+      ? date.toString()
+      : (date as Date).toISOString().split('T')[0];
 
   const attendees = [{ email: user.email }];
   const tenantId = leaseContract.tenant as Types.ObjectId;
@@ -117,7 +122,7 @@ export const generateGoogleEvent = async (
     version: 'v3',
     auth: API_KEY
   });
-
+  console.log({ event });
   await calendar.events.insert({
     auth: oauth2Client,
     calendarId: 'primary',
