@@ -96,42 +96,47 @@ async function cleanEvents(): Promise<void> {
   await eventUseCases.removeByQuery({});
 }
 
-async function generateEvent(code: string, _id?: string): Promise<void> {
-  const oauth2Client = await getOauthClient(code);
-  if (!oauth2Client) return;
+async function generateEvent(code: string, _id?: string): Promise<boolean> {
+  try {
+    const oauth2Client = await getOauthClient(code);
+    if (!oauth2Client) return false;
 
-  if (_id) {
-    const taskUseCases = new TaskUseCases();
-    const task = (await taskUseCases.findById(_id)) as ITask;
-    if (!task.leaseContract) return;
+    if (_id) {
+      const taskUseCases = new TaskUseCases();
+      const task = (await taskUseCases.findById(_id)) as ITask;
+      if (!task.leaseContract) return false;
 
-    const leaseContractUsecase = new LeaseContractUseCases();
-    const leaseContract = (await leaseContractUsecase.findById(
-      task.leaseContract?.toString(),
-      []
-    )) as ILeaseContract;
+      const leaseContractUsecase = new LeaseContractUseCases();
+      const leaseContract = (await leaseContractUsecase.findById(
+        task.leaseContract?.toString(),
+        []
+      )) as ILeaseContract;
 
-    generateGoogleEvent(task, leaseContract, oauth2Client);
-  } else {
-    const eventUseCases = new EventUseCases();
-    const events = (await eventUseCases.list([
-      { path: 'leaseContract' },
-      { path: 'task' }
-    ])) as IEvent[];
-    const results: Promise<void>[] = [];
-    for (const eventObj of events) /* eslint-disable-line */ {
-      if (eventObj.leaseContract && eventObj.task) {
-        results.push(
-          generateGoogleEvent(
-            eventObj.task as ITask,
-            eventObj.leaseContract as ILeaseContract,
-            oauth2Client
-          )
-        );
+      generateGoogleEvent(task, leaseContract, oauth2Client);
+    } else {
+      const eventUseCases = new EventUseCases();
+      const events = (await eventUseCases.list([
+        { path: 'leaseContract' },
+        { path: 'task' }
+      ])) as IEvent[];
+      const results: Promise<void>[] = [];
+      for (const eventObj of events) /* eslint-disable-line */ {
+        if (eventObj.leaseContract && eventObj.task) {
+          results.push(
+            generateGoogleEvent(
+              eventObj.task as ITask,
+              eventObj.leaseContract as ILeaseContract,
+              oauth2Client
+            )
+          );
+        }
       }
-    }
 
-    await Promise.all(results);
+      await Promise.all(results);
+    }
+    return true;
+  } catch (error) {
+    return false;
   }
 }
 

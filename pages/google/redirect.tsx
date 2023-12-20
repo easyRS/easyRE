@@ -13,7 +13,33 @@ interface QueryParams extends ParsedUrlQuery {
   state: string;
 }
 
-const GoogleComponent: NextPage = () => {
+type GoogleProps = {
+  eventsGenerated: boolean;
+};
+
+const GoogleComponent: NextPage<GoogleProps> = (props: GoogleProps) => {
+  const { eventsGenerated } = props;
+  const message = eventsGenerated ? (
+    <p
+      style={{
+        textAlign: 'start',
+        lineHeight: '1.5rem'
+      }}
+    >
+      Event was dsafcreated correctly. <br /> Check out your Google Calendar :D
+      !{' '}
+    </p>
+  ) : (
+    <p
+      style={{
+        textAlign: 'start',
+        lineHeight: '1.5rem'
+      }}
+    >
+      Ups! Something went wrong!.
+    </p>
+  );
+
   return (
     <TopNavigation
       isOpen={false}
@@ -29,15 +55,7 @@ const GoogleComponent: NextPage = () => {
             boxShadow: '0 0 3px var(--cadet-gray)'
           }}
         >
-          <p
-            style={{
-              textAlign: 'start',
-              lineHeight: '1.5rem'
-            }}
-          >
-            Event was created correctly. <br /> Check out your Google Calendar
-            :D !{' '}
-          </p>
+          {message}
           <Link href="/">Go home</Link>
         </div>
       }
@@ -49,10 +67,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { query } = context;
   const { code, state } = query as QueryParams;
 
-  await generateEvent(code, state);
-  await cleanEvents();
+  const eventsGenerated = await generateEvent(code, state);
+  if (eventsGenerated) await cleanEvents();
   return {
-    props: {}
+    props: { eventsGenerated }
   };
 }
 
