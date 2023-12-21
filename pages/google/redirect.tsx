@@ -26,8 +26,7 @@ const GoogleComponent: NextPage<GoogleProps> = (props: GoogleProps) => {
         lineHeight: '1.5rem'
       }}
     >
-      Event was dsafcreated correctly. <br /> Check out your Google Calendar :D
-      !{' '}
+      Event was created correctly. <br /> Check out your Google Calendar :D !{' '}
     </p>
   ) : (
     <p
