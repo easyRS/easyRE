@@ -91,11 +91,11 @@
         dest: ~/easyRS
         accept_hostkey: yes
         key_file: ~/.ssh/id_test
-    - name: Checkout ft-basic-auth
+    - name: Checkout ft-seeders
       become: true
       become_user: '{{ ansible_user }}'
       command:
-        cmd: git checkout origin/ft-basic-auth
+        cmd: git checkout origin/ft-seeders
         chdir: ~/easyRS
     - name: Fetch /etc/ansible/hosts
       become: true
