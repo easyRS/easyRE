@@ -20,9 +20,6 @@
   },
   "dependencies": {
     "@next/font": "13.4.17",
-    "agenda": "5.0.0",
-    "argon2": "0.31.0",
-    "axios": "1.5.1",
     "bcrypt": "5.1.1",
     "classnames": "2.3.2",
     "crypto-js": "4.1.1",
@@ -33,11 +30,8 @@
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-dropdown-select": "4.10.0",
     "react-hook-form": "7.45.4",
-    "react-icons": "4.10.1",
-    "react-modal": "3.16.1",
-    "superjson": "1.13.1"
+    "react-icons": "4.10.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
