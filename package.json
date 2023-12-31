@@ -37,8 +37,7 @@
     "react-hook-form": "7.45.4",
     "react-icons": "4.10.1",
     "react-modal": "3.16.1",
-    "superjson": "1.13.1",
-    "twilio": "4.17.0"
+    "superjson": "1.13.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
