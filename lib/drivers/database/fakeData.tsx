@@ -9,7 +9,7 @@ const config: IConfig = {
 };
 
 const transactionType: ITransactionType = {
-  name: 'Test'
+  name: 'GenericTask'
 };
 
 const properties: IProperty[] = [

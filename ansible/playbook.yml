@@ -177,4 +177,4 @@
       become_user: '{{ ansible_user }}'
       shell: |
         cd ~/easyRS
-        docker exec main yarn run seed
+        docker exec main yarn run seed --seed_fake_data=false --delete_data=false --seed_types=true
