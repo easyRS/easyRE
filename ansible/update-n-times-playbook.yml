@@ -1,0 +1,28 @@
+- name: Install Docker and Docker Compose on Ubuntu
+  become: true
+  hosts: all
+  tasks:
+    - name: Pause Docker for a while
+      become: true
+      become_user: '{{ ansible_user }}'
+      shell: |
+        cd ~/easyRS
+        docker compose -f docker/prod/docker-compose.yml down
+    - name: Pull changes
+      become: true
+      become_user: '{{ ansible_user }}'
+      command:
+        cmd: git pull origin main
+        chdir: ~/easyRS
+    - name: Deploy Docker again
+      become: true
+      become_user: '{{ ansible_user }}'
+      shell: |
+        cd ~/easyRS
+        docker compose -f docker/prod/docker-compose.yml up -d
+    - name: Run seeders
+      become: true
+      become_user: '{{ ansible_user }}'
+      shell: |
+        cd ~/easyRS
+        docker exec main yarn run seed --seed_fake_data=false --delete_data=false --seed_types=true

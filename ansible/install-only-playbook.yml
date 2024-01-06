@@ -172,7 +172,7 @@
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml up -d
-    - name: Deploy Docker Compose
+    - name: Run seeders
       become: true
       become_user: '{{ ansible_user }}'
       shell: |
