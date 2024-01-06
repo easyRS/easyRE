@@ -4,12 +4,23 @@ import ITransactionType from '../../domain/entities/ITransactionType';
 
 import IConfig from '../../domain/entities/IConfig';
 
+import {
+  ELECTRICITY,
+  GAS,
+  LEASE,
+  MAINTENANCE,
+  PAYMENT,
+  WATER
+} from '../../useCases/TaskUseCases';
+
+import { GENERIC } from '../../useCases/TaskTypeUseCases';
+
 const config: IConfig = {
   isDailyJobRunning: false
 };
 
 const transactionType: ITransactionType = {
-  name: 'GenericTask'
+  name: GENERIC
 };
 
 const properties: IProperty[] = [
@@ -41,24 +52,28 @@ const properties: IProperty[] = [
 
 const taskTypes: ITaskType[] = [
   {
-    name: 'Lease',
+    name: LEASE,
     description: 'Lease payment'
   },
   {
-    name: 'Electricity',
+    name: ELECTRICITY,
     description: 'Electricity payment'
   },
   {
-    name: 'Water',
+    name: WATER,
     description: 'Water payment'
   },
   {
-    name: 'Gas',
+    name: GAS,
     description: 'Gas payment'
   },
   {
-    name: 'Maintenance',
+    name: MAINTENANCE,
     description: 'Maintenance payment'
+  },
+  {
+    name: PAYMENT,
+    description: 'Generic payment'
   }
 ];
 

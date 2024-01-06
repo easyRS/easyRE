@@ -18,7 +18,7 @@ const NewProperties: NextPage<NewPropertyProps> = (
       content={
         <Form
           formFields={propertiesProps.formFields}
-          successRedirect="/tasks"
+          successRedirect="/"
           callbacks={callbacks}
           canDelete={false}
         />

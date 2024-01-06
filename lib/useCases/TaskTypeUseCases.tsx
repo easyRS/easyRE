@@ -2,6 +2,8 @@ import ITaskType from '../domain/entities/ITaskType';
 import TaskTypeRepository from '../domain/repositories/TaskTypeRepository';
 import AbstractUseCases from './AbstractUseCases';
 
+export const GENERIC = 'Generic';
+
 export default class TaskTypeUseCases extends AbstractUseCases<
   ITaskType,
   TaskTypeRepository

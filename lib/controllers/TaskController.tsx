@@ -80,7 +80,7 @@ async function getFormFields(): Promise<ModelKeys> {
 }
 
 async function createTask(object: Record<string, unknown>) {
-  return new TaskUseCases().create(object);
+  return new TaskUseCases().createGenericTask(object);
 }
 
 async function updateTask(object: Record<string, unknown>) {

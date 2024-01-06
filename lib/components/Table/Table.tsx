@@ -79,6 +79,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 
                   if (key === 'actions') {
                     const value = (obj as any)[key] as string; // eslint-disable-line
+                    if (!value) return null;
                     const actions = value.split(',');
 
                     return (

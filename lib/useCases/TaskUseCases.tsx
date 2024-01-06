@@ -12,17 +12,18 @@ import TaskTypeUseCases from './TaskTypeUseCases';
 import TransactionTypeUseCases from './TransactionTypeUseCases';
 import TransactionUseCases from './TransactionUseCases';
 
-// TODO: export this in a ENV file.
 export const LEASE = 'Lease';
 export const ELECTRICITY = 'Electricity';
 export const WATER = 'Water';
 export const GAS = 'Gas';
 export const MAINTENANCE = 'Maintenance';
+export const PAYMENT = 'Payment';
 
 type CreateParams = {
   taskTypeName: string;
   description: string;
   amount: number;
+  state?: string;
   leaseContract?: ILeaseContract;
   property?: IProperty;
 };
@@ -87,7 +88,6 @@ export default class TaskUseCases extends AbstractUseCases<
     const taskTypeUseCases = new TaskTypeUseCases();
     const { taskTypeName, leaseContract, property, description, amount } =
       createParam;
-
     const taskType = (await taskTypeUseCases.findByQuery({
       name: taskTypeName
     })) as ITaskType;
@@ -124,6 +124,13 @@ export default class TaskUseCases extends AbstractUseCases<
       };
     }
 
+    if (task.state) {
+      task = {
+        ...task,
+        state: task.state
+      };
+    }
+
     return this.create(task);
   }
 
@@ -152,6 +159,20 @@ export default class TaskUseCases extends AbstractUseCases<
       leaseContract
     };
 
+    return this._create(createParam);
+  }
+
+  async /* eslint-disable-line*/ createGenericTask(
+    object: Record<string, unknown>
+  ): Promise<ITask> {
+    const unknownObj = object as unknown;
+    const taskObj = unknownObj as ITask;
+
+    const createParam: CreateParams = {
+      amount: taskObj.amount,
+      description: taskObj.description,
+      taskTypeName: PAYMENT
+    };
     return this._create(createParam);
   }
 
