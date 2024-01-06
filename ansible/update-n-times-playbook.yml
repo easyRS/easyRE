@@ -12,7 +12,7 @@
       become: true
       become_user: '{{ ansible_user }}'
       command:
-        cmd: git pull origin main
+        cmd: git pull origin ft-update-playbook
         chdir: ~/easyRS
     - name: Deploy Docker again
       become: true
