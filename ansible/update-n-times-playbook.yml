@@ -32,9 +32,14 @@
     - name: Pull changes
       become: true
       become_user: '{{ ansible_user }}'
-      command:
-        cmd: git pull origin ft-update-playbook
-        chdir: ~/easyRS
+      git:
+        repo: git@github.com:easyRS/easyRS.git
+        dest: ~/easyRS
+        remote: origin
+        version: ft-update-playbook
+        update: yes
+        accept_hostkey: yes
+        key_file: ~/.ssh/id_test
     - name: Deploy Docker again
       become: true
       become_user: '{{ ansible_user }}'
