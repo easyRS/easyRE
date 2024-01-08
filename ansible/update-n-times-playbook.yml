@@ -3,12 +3,6 @@
   become_user: '{{ ansible_user }}'
   hosts: all
   tasks:
-    - name: Pause Docker for a while
-      become: true
-      become_user: '{{ ansible_user }}'
-      shell: |
-        cd ~/easyRS
-        docker compose -f docker/prod/docker-compose.yml down
     - name: Copy SSH key pair
       become: true
       become_user: '{{ ansible_user }}'
