@@ -1,5 +1,6 @@
-- name: Install Docker and Docker Compose on Ubuntu
+- name: Update code base and run type seeders only
   become: true
+  become_user: '{{ ansible_user }}'
   hosts: all
   tasks:
     - name: Pause Docker for a while
@@ -8,6 +9,26 @@
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml down
+    - name: Copy SSH key pair
+      become: true
+      become_user: '{{ ansible_user }}'
+      copy:
+        src: '~/.ssh/{{ SSH_KEY }}'
+        dest: '~/.ssh/{{ SSH_KEY }}'
+        mode: '0600'
+    - name: Copy public key
+      become: true
+      become_user: '{{ ansible_user }}'
+      copy:
+        src: '~/.ssh/{{ SSH_KEY }}.pub'
+        dest: '~/.ssh/{{ SSH_KEY }}.pub'
+        mode: '0644'
+    - name: Start ssh-agent and add key
+      become: true
+      become_user: '{{ ansible_user }}'
+      shell: |
+        eval "$(ssh-agent -s)" 
+        ssh-add ~/.ssh/{{ SSH_KEY }}
     - name: Pull changes
       become: true
       become_user: '{{ ansible_user }}'
