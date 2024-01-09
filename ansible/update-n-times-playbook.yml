@@ -34,12 +34,12 @@
         update: yes
         accept_hostkey: yes
         key_file: ~/.ssh/id_test
-    - name: Deploy Docker again
+    - name: Restart Nginx
       become: true
       become_user: '{{ ansible_user }}'
       shell: |
         cd ~/easyRS
-        docker compose -f docker/prod/docker-compose.yml up -d
+        docker compose -f docker/prod/docker-compose.yml restart nginx
     - name: Run seeders
       become: true
       become_user: '{{ ansible_user }}'
