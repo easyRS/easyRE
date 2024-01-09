@@ -49,8 +49,8 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
                 lineHeight: '2rem'
               }}
             >
-              Welcome9 to <strong>Easy RS</strong>!. The easy open-source way to
-              manage your Real State 🏠 stuff
+              Welcome10 to <strong>Easy RS</strong>!. The easy open-source way
+              to manage your Real State 🏠 stuff
               <br /> <FaRegLightbulb />
               &nbsp; Start creating a lease for managing your properties. Press
               the button top-right upper &nbsp;
