@@ -23,6 +23,12 @@
       shell: |
         eval "$(ssh-agent -s)" 
         ssh-add ~/.ssh/{{ SSH_KEY }}
+    - name: Pause Docker Compose
+      become: true
+      become_user: '{{ ansible_user }}'
+      shell: |
+        cd ~/easyRS
+        docker compose -f docker/prod/docker-compose.yml down
     - name: Pull changes
       become: true
       become_user: '{{ ansible_user }}'
@@ -34,6 +40,12 @@
         update: yes
         accept_hostkey: yes
         key_file: ~/.ssh/id_test
+    - name: Deploy Docker Compose
+      become: true
+      become_user: '{{ ansible_user }}'
+      shell: |
+        cd ~/easyRS
+        docker compose -f docker/prod/docker-compose.yml up --build -d
     - name: Restart Nginx
       become: true
       become_user: '{{ ansible_user }}'
