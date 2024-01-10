@@ -1,3 +1,5 @@
+import TaskTypeUseCases from '../../useCases/TaskTypeUseCases';
+import TransactionTypeUseCases from '../../useCases/TransactionTypeUseCases';
 import builder from './builder';
 import { connect } from './conn';
 import all from './fakeData';
@@ -165,9 +167,24 @@ export default async function executeSeeder(
       }
 
       if (seedTypes) {
-        await TaskType.insertMany(all.taskTypes);
-        const transactionType = new TransactionType(all.transactionType);
-        await transactionType.save();
+        const tasktypeUseCases = new TaskTypeUseCases();
+        const taskTypeList = await tasktypeUseCases.list();
+
+        if (taskTypeList.length === 0) {
+          await TaskType.insertMany(all.taskTypes);
+        } else {
+          console.log('TaskTypes were already set !!!'); // eslint-disable-line no-console
+        }
+
+        const transactionTypeUseCases = new TransactionTypeUseCases();
+        const transactionTypeList = await transactionTypeUseCases.list();
+
+        if (transactionTypeList.length === 0) {
+          const transactionType = new TransactionType(all.transactionType);
+          await transactionType.save();
+        } else {
+          console.log('TransactionTypes were already set !!!'); // eslint-disable-line no-console
+        }
       }
 
       if (seedFakeData) {
