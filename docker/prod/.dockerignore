@@ -2,11 +2,3 @@
 node_modules
 npm-debug.log
 
-# remove data folder
-data/
-# remove data folder
-data/*
-# remove data folder
-certbot/
-# remove data folder
-certbot/*
