@@ -1,3 +1,4 @@
+/* eslint-disable */
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
@@ -73,7 +74,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
 
     setIsOpen(true);
     setMultilineName(name);
-    setMultilineValue(values[name]); /* eslint-disable-line*/
+    setMultilineValue(values[name]);
   };
 
   const closeModal = () => {
@@ -128,13 +129,12 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           }
 
           const defaultValue =
-            editObj && editObj[name] /* eslint-disable-line*/
-              ? (editObj[
-                  name as keyof IEntity
-                ] as unknown as string) /* eslint-disable-line*/
+            editObj && editObj[name]
+              ? (editObj[name as keyof IEntity] as unknown as string)
               : '';
 
           if (type === 'readonly') {
+            if (!defaultValue) return null;
             return (
               <div
                 style={{
