@@ -13,7 +13,11 @@ body {
 
 body {
   min-height: 100vh;
-  background: var(--primary-light);
+  background: linear-gradient(
+    var(--primary) 0,
+    var(--primary) 20%,
+    var(--background) 20%
+  );
   text-rendering: optimizeLegibility;
   margin-right: 1rem;
 }

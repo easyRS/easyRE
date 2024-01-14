@@ -13,8 +13,24 @@
   --light-blue: #94c5cc;
   --columbia-blue: #b4d2e7;
   --seasalt: #f8f8f8;
+  --anti-flash-white: #f3f4f3;
 
-  --primary: var(--columbia-blue);
+  /* Primary */
+  --medium-aquamarine: #64c5b1;
+
+  /* Complementary */
+  --cinnamon-satin: #c56477;
+
+  /* Analogous */
+  --iguana-green: #64c581;
+  --moonstone-blue: #64a8c5;
+
+  /* Triadic */
+  --glaucous: #6477c5;
+  --rich-lilac: #b264c5;
+
+  --background: var(--anti-flash-white);
+  --primary: var(--medium-aquamarine);
   --primary-dark: var(--black);
   --primary-light: var(--seasalt);
 
