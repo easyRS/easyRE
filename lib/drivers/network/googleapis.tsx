@@ -10,6 +10,7 @@ import UserUseCases from '../../useCases/UserUseCases';
 
 const _getOauthClient = async () => {
   const user = await new UserUseCases().findByQuery({});
+  if (!user) return null;
   const REDIRECT_URL = user.google_redirect_url;
   const CLIENT_ID = user.google_client_id;
   const CLIENT_SECRET = user.google_client_secret;
@@ -52,6 +53,7 @@ export const getOauthClient = async (code?: string) => {
   const oauth2Client = await _getOauthClient();
   if (!oauth2Client) return null;
   const user = await new UserUseCases().findByQuery({});
+  if (!user) return null;
 
   if (code) {
     // Newly Token - User interface path
@@ -80,6 +82,7 @@ export const generateGoogleEvent = async (
   oauth2Client: /* eslint-disable-line*/ any
 ): Promise<void> => {
   const user = await new UserUseCases().findByQuery({});
+  if (!user) return;
   const date = leaseContract.nextDate || leaseContract.startDate;
 
   const stringDate =
