@@ -17,6 +17,12 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     this.className = _className;
     this.schemaName = _schemaName;
   }
+  list(
+    populateValues: Record<string, unknown>[],
+    query: Record<string, unknown>
+  ): Promise<ModelGeneric[]> {
+    throw new Error('Method not implemented.');
+  }
 
   async _getModelTable(): Promise<any> {
     const connectionValues = await connect();
@@ -119,10 +125,13 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return this.toJson(objDocument);
   }
 
-  async findByQuery(query: Record<string, unknown>): Promise<ModelGeneric> {
+  async findByQuery(
+    query: Record<string, unknown>
+  ): Promise<ModelGeneric | null> {
     const ModelTable = await this._getModelTable();
     const objDocument = await ModelTable.findOne(query).exec();
-    return this.toJson(objDocument);
+
+    return objDocument ? this.toJson(objDocument) : null;
   }
 
   async list(

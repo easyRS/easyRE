@@ -45,7 +45,7 @@ export default abstract class AbstractUseCases<
     return this.repository.findById(_id, populateValuesParam);
   }
 
-  async findByQuery(query: Record<string, unknown>): Promise<Model> {
+  async findByQuery(query: Record<string, unknown>): Promise<Model | null> {
     return this.repository.findByQuery(query);
   }
 

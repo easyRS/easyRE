@@ -42,7 +42,7 @@
 }
 
 .submitButton:hover {
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  box-shadow: 0 0 2px var(--cadet-gray);
+  background-color: white;
+  color: var(--complementary);
+  box-shadow: 0 0 2px var(--complementary);
 }

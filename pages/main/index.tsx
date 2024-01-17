@@ -170,8 +170,8 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
           style={{
             background: 'white',
             padding: '2rem',
-            borderRadius: '1rem',
-            boxShadow: '0 0 3px var(--cadet-gray)'
+            borderRadius: 'var(--border-radius-container)',
+            boxShadow: 'var(--box-shadow-container)'
           }}
         >
           <div

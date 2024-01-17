@@ -1,8 +1,8 @@
 .container {
   background: white;
-  border-radius: 0.8rem;
+  border-radius: var(--border-radius-container);
+  box-shadow: var(--box-shadow-container);
   border-collapse: collapse;
-  box-shadow: 0 0 3px var(--cadet-gray);
   text-align: left;
   overflow: hidden;
   padding: 3rem 1.5rem;

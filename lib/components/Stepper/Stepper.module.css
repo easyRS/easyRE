@@ -48,7 +48,7 @@
   padding: 0.3rem;
   z-index: 1;
   background-color: var(--cadet-gray);
-  box-shadow: 0 0 3px var(--cadet-gray);
+  box-shadow: var(--box-shadow-container);
   font-size: 1rem;
   text-align: center;
   opacity: 0.5;

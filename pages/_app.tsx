@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 import '../lib/common/styles/design_tokens.css';
 import '../lib/common/styles/globals.css';
-import '../lib/common/styles/utilities.css';
 
 import { Roboto } from '@next/font/google';
 

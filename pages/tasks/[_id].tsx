@@ -40,8 +40,8 @@ const EditTasks: NextPage<EditTaskProps> = (tasksProps: EditTaskProps) => {
                 margin: '10px auto',
                 background: 'white',
                 textAlign: 'left',
-                borderRadius: '1rem',
-                boxShadow: '0 0 3px var(--cadet-gray)'
+                borderRadius: 'var(--border-radius-container)',
+                boxShadow: 'var(--box-shadow-container)'
               }}
             >
               <Link href={urlEvent}>Generate Event</Link>

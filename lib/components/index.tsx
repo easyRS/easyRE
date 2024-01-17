@@ -2,7 +2,7 @@ import { BurgerMenu } from './BurgerMenu';
 import { Button } from './Button';
 import { Counter } from './Counter';
 import { Header } from './Header';
-import { Modal } from './Modal';
+import { LongInputModal } from './LongInputModal';
 import { MultistepForm } from './MultistepForm';
 import { Stepper } from './Stepper';
 import { Table } from './Table';
@@ -13,7 +13,7 @@ export {
   Button,
   Counter,
   Header,
-  Modal,
+  LongInputModal,
   MultistepForm,
   Stepper,
   Table,

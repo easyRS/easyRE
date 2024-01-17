@@ -36,8 +36,8 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
           <div
             style={{
               backgroundColor: 'white',
-              borderRadius: '0.8rem',
-              boxShadow: '0 0 3px var(--cadet-gray)',
+              borderRadius: 'var(--border-radius-container)',
+              boxShadow: 'var(--box-shadow-container)',
               textAlign: 'left',
               padding: '0.2rem 1rem',
               marginBottom: '1.2rem'

@@ -17,7 +17,7 @@
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  box-shadow: 0 0 3px var(--cadet-gray);
+  box-shadow: var(--box-shadow-container);
 }
 
 .formContainer {
@@ -25,5 +25,5 @@
   background: var(--primary-light);
   border-radius: 1rem;
   padding: 1rem;
-  box-shadow: 0 0 3px var(--cadet-gray);
+  box-shadow: var(--box-shadow-container);
 }

@@ -32,13 +32,14 @@
   --background: var(--anti-flash-white);
   --primary: var(--medium-aquamarine);
   --primary-dark: var(--black);
-  --primary-light: var(--seasalt);
+  --primary-light: var(--analogous-one);
 
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
+  --complementary: var(--cinnamon-satin);
+  --analogous-one: var(--iguana-green);
+  --analogous-two: var(--moonstone-blue);
+  --triadic-one: var(--glaucous);
+  --triadic-two: var(--rich-lilac);
 
-  --font-size-lg: 2rem;
-  --font-size-md: 1rem;
-  --font-size-sm: 0.5rem;
+  --border-radius-container: 0.4rem;
+  --box-shadow-container: 0 0 1.4px var(--complementary);
 }

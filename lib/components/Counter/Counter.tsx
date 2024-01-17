@@ -11,8 +11,8 @@ const Counter = (props: CounterProps) => {
         display: 'flex',
         flexDirection: 'column',
         background:
-          'linear-gradient(40deg, #94C5CC 8%, #B4D2E7 18%, #F8F8F8 100%)',
-        borderRadius: '1rem',
+          'linear-gradient(40deg, var(--triadic-two) 8%, var(--triadic-one) 18%, #F8F8F8 100%)',
+        borderRadius: 'var(--border-radius-container)',
         padding: '0rem 2rem 0rem 2rem',
         minWidth: '300px',
         minHeight: '150px',

@@ -144,13 +144,11 @@ async function getGoogleUrl(_id: string): Promise<string> {
   const taskUseCases = new TaskUseCases();
   const task = (await taskUseCases.findById(_id)) as ITask;
   if (!task.leaseContract) return '';
-
   const leaseContractUsecase = new LeaseContractUseCases();
   const leaseContract = (await leaseContractUsecase.findById(
     task.leaseContract?.toString(),
     []
   )) as ILeaseContract;
-
   return leaseContractUsecase.generateUrlRedirect(leaseContract);
 }
 

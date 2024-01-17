@@ -40,24 +40,29 @@ const TopNavigation = ({ content, isOpen }: TopNavigationProps) => {
   const [open, setOpen] = useState(isOpen);
   const { status } = useSession();
 
-  const style = open // eslint-disable-line
-    ? {
-        marginLeft: '5rem',
-        transform: 'translateX(6rem)',
-        transition: 'transform 0.3s ease-in-out'
-      }
-    : {
-        marginLeft: '5rem',
-        transition: 'transform 0.3s ease-in-out'
-      };
   return (
-    <>
+    <div>
       <Header open={open} />
-      <div style={style}>{content}</div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '1100px'
+          }}
+        >
+          {content}
+        </div>
+      </div>
+
       {status === 'authenticated' && (
         <BurgerMenu menus={defaultMenus} open={open} setOpen={setOpen} />
       )}
-    </>
+    </div>
   );
 };
 

@@ -5,23 +5,12 @@ import { useRouter } from 'next/router';
 import Button from '../Button/Button';
 
 type HeaderProps = {
-  open: boolean;
+  /* eslint-disable-line*/ open: boolean;
 };
 
-const Header = (props: HeaderProps) => {
-  const { open } = props;
+const Header = (props: HeaderProps /* eslint-disable-line*/) => {
   const { status } = useSession();
 
-  const containerStyle = open // eslint-disable-line
-    ? {
-        marginLeft: '5rem',
-        transform: 'translateX(6rem)',
-        transition: 'transform 0.4s ease-in-out'
-      }
-    : {
-        marginLeft: '3rem',
-        transition: 'transform 0.4s ease-in-out'
-      };
   const router = useRouter();
   const onDelete = () => {
     router.push('/main');
@@ -35,11 +24,10 @@ const Header = (props: HeaderProps) => {
     <header>
       <nav
         style={{
-          ...containerStyle,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          margin: '0 0 0 3rem'
+          margin: '0 3rem 0 3rem'
         }}
       >
         {status === 'authenticated' && (
@@ -58,12 +46,14 @@ const Header = (props: HeaderProps) => {
         )}
         {status === 'authenticated' && (
           <div>
-            <Button onClick={onDelete} type="primary">
+            <Button onClick={onDelete} type="primary" backgroundColor="white">
               <div
                 style={{
                   display: 'flex',
                   gap: '0.5rem',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  backgroundColor: 'white',
+                  borderColor: 'white'
                 }}
               >
                 Create New Lease
@@ -73,7 +63,7 @@ const Header = (props: HeaderProps) => {
               onClick={logOut}
               type="tertiary"
               width="6rem"
-              backgroundColor="var(--primary-light)"
+              backgroundColor="var(--primary)"
               margin="0 10px"
             >
               Log out

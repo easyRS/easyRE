@@ -7,6 +7,7 @@ type ButtonProps = {
   height: string;
   width: string;
   backgroundColor: string;
+  borderColor: string;
   margin: string;
   type?: TypeStyle;
   onClick: () => void;
@@ -22,6 +23,7 @@ const Button: React.FC<OptionalProps> = ({
   children,
   type = 'primary',
   backgroundColor = '',
+  borderColor = '',
   margin = '0 0'
 }: OptionalProps) => {
   const [isSSR, setIsSSR] = useState(true);
@@ -48,6 +50,7 @@ const Button: React.FC<OptionalProps> = ({
         height,
         width,
         backgroundColor,
+        borderColor,
         margin
       }}
     >

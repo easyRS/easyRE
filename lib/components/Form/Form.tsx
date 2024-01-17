@@ -11,7 +11,8 @@ import {
 } from 'react-icons/fa';
 import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
-import Modal from '../Modal/Modal';
+import LongInputModal from '../LongInputModal/LongInputModal';
+import SimpleModal from '../SimpleModal/SimpleModal';
 import CoordinatesInput from './CoordinatesInput/CoordinatesInput';
 import styles from './Form.module.css';
 
@@ -32,7 +33,8 @@ type FormProps = {
 
 // TODO: format this code!
 const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [longTextModalIsOpen, setIsOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const modalRef = useRef<HTMLTextAreaElement>(null);
   const [multilineName, setMultilineName] = useState('');
   const [multilineValue, setMultilineValue] = useState('');
@@ -60,6 +62,10 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     await _defaultOnSubmit(_data);
 
     return 0; // eslint rule
+  };
+
+  const toggleDeletePopup = async () => {
+    setConfirmDelete(!confirmDelete);
   };
 
   const onDelete = async () => {
@@ -104,8 +110,8 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           margin: '0 auto',
           background: 'white',
           textAlign: 'left',
-          borderRadius: '1rem',
-          boxShadow: '0 0 3px var(--cadet-gray)'
+          borderRadius: 'var(--border-radius-container)',
+          boxShadow: 'var(--box-shadow-container)'
         }}
         onSubmit={handleSubmit(_onSubmit)}
       >
@@ -340,7 +346,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           }}
         >
           {canDelete && editObj && (
-            <Button onClick={onDelete} width="9rem">
+            <Button onClick={toggleDeletePopup} width="9rem">
               <div
                 style={{
                   display: 'flex',
@@ -361,7 +367,10 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         </div>
       </form>
       <div>
-        <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <LongInputModal
+          isOpen={longTextModalIsOpen}
+          onRequestClose={closeModal}
+        >
           <div
             style={{
               display: 'flex',
@@ -379,7 +388,50 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
               defaultValue={multilineValue}
             />
           </div>
-        </Modal>
+        </LongInputModal>
+        <SimpleModal isOpen={confirmDelete} onRequestClose={toggleDeletePopup}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              flexDirection: 'column'
+            }}
+          >
+            <h4>Are you sure you want to delete this?</h4>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Button onClick={toggleDeletePopup} width="5rem" type="tertiary">
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                    justifyContent: 'center'
+                  }}
+                >
+                  Cancel
+                </div>
+              </Button>
+
+              <Button onClick={onDelete} width="5rem" type="secondary">
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                    justifyContent: 'center'
+                  }}
+                >
+                  Delete
+                </div>
+              </Button>
+            </div>
+          </div>
+        </SimpleModal>
       </div>
     </div>
   );
