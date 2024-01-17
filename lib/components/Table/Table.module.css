@@ -30,10 +30,10 @@
 }
 
 .tbody {
-  box-shadow: 0 1px 0.7px var(--light-blue);
+  box-shadow: 0 1px 0.7px var(--hover);
 }
 .tbody:hover {
-  background-color: var(--light-blue);
+  background-color: var(--hover);
 }
 
 .th {
@@ -50,5 +50,5 @@
   height: 3.25rem;
 }
 .td:hover {
-  background-color: var(--light-blue);
+  background-color: var(--hover);
 }
