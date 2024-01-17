@@ -9,7 +9,7 @@ export default class UserRepository extends MongooseAbstractRepository<IUser> {
 
   async findOneAndUpdate(_id: string, userUpdatesObj: IUser): Promise<void> {
     const oldObj = await super.findByQuery({});
-    if (oldObj._id)
+    if (oldObj && oldObj._id)
       await super.findOneAndUpdate(_id.toString(), {
         ...oldObj,
         ...userUpdatesObj
