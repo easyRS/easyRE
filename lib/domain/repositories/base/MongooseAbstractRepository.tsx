@@ -17,12 +17,6 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     this.className = _className;
     this.schemaName = _schemaName;
   }
-  list(
-    populateValues: Record<string, unknown>[],
-    query: Record<string, unknown>
-  ): Promise<ModelGeneric[]> {
-    throw new Error('Method not implemented.');
-  }
 
   async _getModelTable(): Promise<any> {
     const connectionValues = await connect();
