@@ -20,12 +20,14 @@ export default class ConfigUseCases extends AbstractUseCases<
 
   async isDailyJobRunning(): Promise<boolean> {
     const job = await this.findByQuery({});
+    if (!job) return false;
 
     return job.isDailyJobRunning;
   }
 
   async tagDailyJob(): Promise<void> {
     const job = await this.findByQuery({});
+    if (!job) return;
     await this.update({ ...job, isDailyJobRunning: !job.isDailyJobRunning });
   }
 }
