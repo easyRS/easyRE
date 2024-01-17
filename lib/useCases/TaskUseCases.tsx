@@ -91,6 +91,7 @@ export default class TaskUseCases extends AbstractUseCases<
     const taskType = (await taskTypeUseCases.findByQuery({
       name: taskTypeName
     })) as ITaskType;
+    if (!taskType) throw new Error('TaskType not found');
     const workInProgressState = (
       this.repository as TaskRepository
     ).getWorkInProgressState();
@@ -251,7 +252,7 @@ export default class TaskUseCases extends AbstractUseCases<
       const transactionTypeUseCases = new TransactionTypeUseCases();
       const transactionType = await transactionTypeUseCases.findByQuery({});
 
-      if (transactionType._id) {
+      if (transactionType && transactionType._id) {
         const now = getNowDate();
         const transactionUseCase = new TransactionUseCases();
         await transactionUseCase.create({

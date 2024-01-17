@@ -37,6 +37,7 @@ export const generateGoogleUrlRedirect = async (
   const taskType = (await taskTypeUseCases.findByQuery({
     name: LEASE
   })) as ITaskType;
+  if (!taskType) throw new Error('TaskType not found');
   const taskUseCases = new TaskUseCases();
   const task = (await taskUseCases.findByQuery({
     leaseContract: leaseContractId,
