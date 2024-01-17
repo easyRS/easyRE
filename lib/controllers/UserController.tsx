@@ -19,7 +19,7 @@ async function getTableUsers(): Promise<TableMapping<IUserTable>> {
   };
 }
 
-async function getUser(): Promise<IUser> {
+async function getUser(): Promise<IUser | null> {
   return new UserUseCases().findByQuery({});
 }
 
