@@ -9,7 +9,7 @@
   transition: transform 0.3s ease-in-out;
   background: var(--primary);
   box-shadow: 0 0 3px var(--primary-dark);
-  border-radius: 0 2rem 2rem 0;
+  border-radius: 0 0.7rem 0.7rem 0;
   height: 100%;
 }
 
@@ -18,11 +18,12 @@
 }
 
 .close {
-  transform: translateX(-100%);
+  transform: translateX(-20%);
 }
 
 .a {
-  font-size: 1.5rem;
+  display: flex;
+  font-size: 1.3rem;
   text-transform: capitalize;
   padding: 2rem 1.5rem;
   font-weight: bold;
@@ -30,13 +31,11 @@
   text-decoration: none;
   text-align: left;
   transition: color 0.3s linear;
+  align-items: flex-start;
 }
 
 .a:hover {
-  background-color: var(--primary-light);
-  border-left-color: var(--primary-dark);
-  border-width: 0.5rem;
-  border-left-style: solid;
+  color: var(--anti-flash-white);
 }
 
 @media (max-width: 576px) {

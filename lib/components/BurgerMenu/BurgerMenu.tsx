@@ -38,7 +38,8 @@ const BurgerMenu = ({ menus, open, setOpen }: BurguerMenuProps) => {
         {menus.map((menu) => (
           <Link key={menu.key} href={menu.link} legacyBehavior>
             <a className={classNames(styles.a)} tabIndex={tabIndex}>
-              {menu.name}
+              {menu.iconName}
+              {open ? menu.name : null}
             </a>
           </Link>
         ))}

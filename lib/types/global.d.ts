@@ -11,6 +11,7 @@ declare global {
   type Menu = {
     key: string;
     name: string;
+    iconName: React.ReactNode;
     link: string;
   };
 

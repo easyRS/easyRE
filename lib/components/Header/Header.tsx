@@ -36,7 +36,8 @@ const Header = (props: HeaderProps /* eslint-disable-line*/) => {
               src="/images/logo.png"
               style={{
                 width: '5.5rem',
-                height: '5.5rem'
+                height: '5.5rem',
+                cursor: 'pointer'
               }}
               alt="My Image"
               width={200}
