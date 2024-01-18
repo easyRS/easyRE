@@ -34,13 +34,7 @@ const getMenus = (open: boolean) => {
     {
       key: '2',
       name: 'Properties',
-      iconName: (
-        <FaHouseUser
-          style={{
-            marginLeft: '5px'
-          }}
-        />
-      ),
+      iconName: <FaHouseUser style={styles} />,
       link: '/properties'
     },
     {
