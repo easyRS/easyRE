@@ -64,7 +64,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
             tableProperties={tasksProps.currentTableTasks}
             newRedirectUrl="tasks/new"
             editRedirectUrl="tasks/"
-            newTitle="Create New Task"
+            newTitle="New Task"
             headerTitle="Last two week tasks"
             buttonType="secondary"
           />

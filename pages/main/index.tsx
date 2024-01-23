@@ -171,17 +171,19 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
             background: 'white',
             padding: '2rem',
             borderRadius: 'var(--border-radius-container)',
-            boxShadow: 'var(--box-shadow-container)'
+            boxShadow: 'var(--box-shadow-container)',
+            minWidth: '80vw'
           }}
         >
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              minWidth: '1000px'
             }}
           >
-            <h1>Create a lease</h1>
+            <h1>New lease</h1>
 
             <Stepper
               titles={[
@@ -198,7 +200,9 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
                 position: 'relative',
                 left: '12%',
                 textAlign: 'start',
-                lineHeight: '1.4rem'
+                lineHeight: '1.4rem',
+                fontSize: '1.1rem',
+                fontWeight: '400'
               }}
             >
               In order to track your properties, you need a lease. A lease is

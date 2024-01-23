@@ -1,6 +1,7 @@
 .contentContainer {
   background: white;
   display: flex;
+  min-width: 1000px;
 }
 
 .summaryContainer {
@@ -10,8 +11,8 @@
   margin-bottom: 1rem;
   width: 500px;
   text-align: left;
-  background: var(--primary-light);
-  border-radius: 1rem;
+  background: var(--triadic-one);
+  border-radius: var(--border-radius-container);
   min-height: 400px;
   max-height: 500px;
   overflow-y: scroll;
@@ -21,9 +22,9 @@
 }
 
 .formContainer {
-  width: 500px;
-  background: var(--primary-light);
-  border-radius: 1rem;
+  min-width: 600px;
+  background: var(--triadic-one);
+  border-radius: var(--border-radius-container);
   padding: 1rem;
   box-shadow: var(--box-shadow-container);
 }

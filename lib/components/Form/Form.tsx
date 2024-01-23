@@ -105,13 +105,16 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     <div>
       <form
         style={{
-          padding: '2rem',
-          maxWidth: '500px',
-          margin: '0 auto',
+          padding: '2.6rem',
+          minWidth: '600px',
+          maxWidth: '800px',
+          minHeight: '400px',
           background: 'white',
           textAlign: 'left',
           borderRadius: 'var(--border-radius-container)',
-          boxShadow: 'var(--box-shadow-container)'
+          boxShadow: 'var(--box-shadow-container)',
+          margin: '0 auto',
+          marginBottom: '50px'
         }}
         onSubmit={handleSubmit(_onSubmit)}
       >
@@ -144,15 +147,15 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             return (
               <div
                 style={{
-                  marginBottom: '10px',
                   display: 'flex',
                   alignItems: 'left',
                   justifyContent: 'left',
                   flexDirection: 'column',
-                  textAlign: 'left'
+                  textAlign: 'left',
+                  marginBottom: '15px'
                 }}
               >
-                <label htmlFor={fieldData.name}>
+                <label htmlFor={fieldData.name} className={styles.labelTitle}>
                   {`${fieldData.display_value}:`}
                 </label>
                 <label
@@ -160,12 +163,12 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                     marginBottom: '10px',
                     backgroundColor: PRIMARY_LIGHT,
                     cursor: 'not-allowed',
+                    borderColor: '0.134rem var(--primary-dark)',
+                    borderRadius: 'var(--border-radius-container)',
+                    padding: '15px 15px',
+                    fontSize: 'var(--button-font-size)',
                     pointerEvents: 'none',
-                    borderRadius: '0.5rem',
-                    padding: '0.40rem',
-                    opacity: '0.5',
-                    boxShadow: '0 0 1px var(--primary)',
-                    borderStyle: 'none none solid none'
+                    opacity: '0.4'
                   }}
                   htmlFor={fieldData.name}
                 >{`${defaultValue}`}</label>
@@ -185,7 +188,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   textAlign: 'left'
                 }}
               >
-                <label htmlFor={fieldData.name}>
+                <label htmlFor={fieldData.name} className={styles.labelTitle}>
                   {`${fieldData.display_value}:`}
                 </label>
                 <select
@@ -193,10 +196,11 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   defaultValue={defaultValue}
                   style={{
                     backgroundColor: 'white',
-                    padding: '6px 4px',
-                    borderRadius: '0.6rem',
                     minWidth: '6rem',
-                    background: PRIMARY_LIGHT
+                    borderColor: '0.134rem var(--primary-dark)',
+                    borderRadius: 'var(--border-radius-container)',
+                    padding: '8px 15px',
+                    fontSize: 'var(--button-font-size)'
                   }}
                 >
                   {' '}
@@ -224,7 +228,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   textAlign: 'left'
                 }}
               >
-                <label htmlFor={fieldData.name}>
+                <label htmlFor={fieldData.name} className={styles.labelTitle}>
                   {fieldData.display_value}
                 </label>
                 <div
@@ -281,10 +285,11 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   alignItems: 'left',
                   justifyContent: 'left',
                   flexDirection: 'column',
-                  textAlign: 'left'
+                  textAlign: 'left',
+                  marginBottom: '12px'
                 }}
               >
-                <label htmlFor={fieldData.name}>
+                <label htmlFor={fieldData.name} className={styles.labelTitle}>
                   {fieldData.display_value}
                 </label>
                 <div
@@ -304,7 +309,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   <FaExpandArrowsAlt
                     style={{
                       position: 'absolute',
-                      margin: '0.3rem',
+                      margin: '0.6rem',
                       top: '0',
                       right: '0',
                       zIndex: '1'
@@ -324,10 +329,13 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 alignItems: 'left',
                 justifyContent: 'left',
                 flexDirection: 'column',
-                textAlign: 'left'
+                textAlign: 'left',
+                marginBottom: '12px'
               }}
             >
-              <label htmlFor={fieldData.name}>{fieldData.display_value}</label>
+              <label htmlFor={fieldData.name} className={styles.labelTitle}>
+                {fieldData.display_value}
+              </label>
               <input
                 type={fieldData.type}
                 className={styles.textInput}

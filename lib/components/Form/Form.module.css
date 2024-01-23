@@ -2,25 +2,25 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 0.134rem solid var(--primary-dark);
-  background: var(--primary-light);
-  border-radius: 0.5rem;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  font-size: 14px;
+  border-color: 0.134rem var(--primary-dark);
+  background: white;
+  border-radius: var(--border-radius-container);
+  padding: 15px 15px;
+  font-size: var(--button-font-size);
+}
+
+.labelTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-bottom: 6px;
 }
 
 .multiline {
   display: block;
   width: 100%;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 0.134rem solid var(--primary-dark);
-  background: var(--primary-light);
+  border-color: 0.134rem solid var(--primary-dark);
+  background: white;
+  border-radius: var(--border-radius-container);
   border-radius: 0.5rem;
   min-height: 8rem;
   white-space: pre-wrap;
@@ -35,6 +35,7 @@
   border-style: solid none solid none;
   color: var(--primary-dark);
   box-shadow: 0 0 2px var(--primary);
+  font-size: var(--button-font-size);
 
   height: 2.5rem;
   padding: 0.5rem 3rem;

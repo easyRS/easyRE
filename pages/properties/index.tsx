@@ -18,7 +18,7 @@ const PropertyIndex: NextPage<IndexPropertyProps> = (
             tableProperties={propertiesProps.tableProperties}
             newRedirectUrl="properties/new"
             editRedirectUrl="properties/"
-            newTitle="Create New Property"
+            newTitle="New Property"
           />
         </div>
       }

@@ -2,13 +2,11 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 0.134rem solid var(--primary-dark);
-  background: var(--primary-light);
-  border-radius: 0.5rem;
+  border-color: 0.134rem dashed var(--primary-dark);
+  background: white;
+  border-radius: var(--border-radius-container);
   padding: 10px 4px;
+  margin-top: 4px;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: var(--button-font-size);
 }

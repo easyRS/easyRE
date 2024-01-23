@@ -51,7 +51,9 @@ const CoordinatesInput: NextPage<Props> = (props: Props) => {
         justifyContent: 'left',
         flexDirection: 'column',
         textAlign: 'left',
-        margin: '1rem 0 1rem'
+        margin: '1rem 0 1rem',
+        fontSize: '20px',
+        fontWeight: '600'
       }}
     >
       <label htmlFor={fieldData.name}>{fieldData.display_value}</label>

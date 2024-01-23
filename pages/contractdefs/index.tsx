@@ -18,7 +18,7 @@ const ContractDefIndex: NextPage<IndexContractDefProps> = (
             tableProperties={contractDefProps.tableContractDefs}
             newRedirectUrl="contractdefs/new"
             editRedirectUrl="contractdefs/"
-            newTitle="Create New Contract Definitions"
+            newTitle="New Contract Definition"
           />
         </div>
       }

@@ -57,7 +57,7 @@ const Header = (props: HeaderProps /* eslint-disable-line*/) => {
                   borderColor: 'white'
                 }}
               >
-                Create New Lease
+                New Lease
               </div>
             </Button>
             <Button
