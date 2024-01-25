@@ -38,7 +38,7 @@ async function fakeDataFunct() {
   await leaseContract.save();
 
   const task = new Task({
-    created_at: '2023-02-22',
+    created_at: '2024-01-25',
     leaseContract: leaseContract?._id,
     amount: 43,
     description: 'Task 1',
@@ -48,7 +48,7 @@ async function fakeDataFunct() {
   await task.save();
 
   const task2 = new Task({
-    created_at: '2023-02-23',
+    created_at: '2024-01-23',
     leaseContract: leaseContract?._id,
     amount: 43,
     description: 'Task 2',
@@ -58,7 +58,7 @@ async function fakeDataFunct() {
   await task2.save();
 
   const task3 = new Task({
-    created_at: '2022-02-23',
+    created_at: '2024-01-17',
     leaseContract: leaseContract?._id,
     amount: 43,
     description: 'Task 3',
@@ -66,6 +66,16 @@ async function fakeDataFunct() {
     taskType: taskType?._id
   });
   await task3.save();
+
+  const task4 = new Task({
+    created_at: '2023-8-17',
+    leaseContract: leaseContract?._id,
+    amount: 43,
+    description: 'Task 4',
+    state: WORK_IN_PROGRESS,
+    taskType: taskType?._id
+  });
+  await task4.save();
 
   const leaseContract2 = new LeaseContract({
     name: 'test',

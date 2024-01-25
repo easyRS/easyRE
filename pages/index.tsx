@@ -5,7 +5,7 @@ import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
 import {
   getBeforeTwoTableTasks,
-  getCurrentTableTasks,
+  listAllWorkInProgress,
   shouldCreateEvents
 } from '../lib/controllers/TaskController';
 
@@ -14,7 +14,7 @@ import { allOccupancyRate } from '../lib/controllers/PropertyController';
 
 type IndexTaskProps = {
   currentTableTasks: TableMapping<ITaskTable>;
-  outdateTableTasks: TableMapping<ITaskTable>;
+  finishedTableTasks: TableMapping<ITaskTable>;
   occupancyRate: number;
   nroContracts: number;
   createEvents: string;
@@ -32,7 +32,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
     <TopNavigation
       isOpen={false}
       content={
-        <div>
+        <div style={{ paddingBottom: '1rem' }}>
           <div
             style={{
               backgroundColor: 'white',
@@ -60,14 +60,6 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
               &nbsp; Then, you can review pending tasks below & useful reports.
             </p>
           </div>
-          <Table
-            tableProperties={tasksProps.currentTableTasks}
-            newRedirectUrl="tasks/new"
-            editRedirectUrl="tasks/"
-            newTitle="New Task"
-            headerTitle="Last two week tasks"
-            buttonType="secondary"
-          />
           <div
             style={{
               margin: '1rem 0 1rem 0',
@@ -84,13 +76,15 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
               title="Occupancy"
             />
           </div>
-
           <Table
-            tableProperties={tasksProps.outdateTableTasks}
+            tableProperties={tasksProps.currentTableTasks}
             newRedirectUrl="tasks/new"
             editRedirectUrl="tasks/"
-            headerTitle="Outdate two week tasks"
+            newTitle="New Task"
+            headerTitle="Last active tasks"
             buttonType="secondary"
+            enableFilter
+            defaultFilterValue="2"
           />
         </div>
       }
@@ -99,8 +93,8 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
 };
 
 export async function getServerSideProps() {
-  const currentTableTasks = await getCurrentTableTasks();
-  const outdateTableTasks = await getBeforeTwoTableTasks();
+  const currentTableTasks = await listAllWorkInProgress();
+  const finishedTableTasks = await getBeforeTwoTableTasks();
   const occupancyRateRaw = await allOccupancyRate();
   const occupancyRate = Math.round(occupancyRateRaw * 100) / 100;
   const nroContracts = await activeContracts();
@@ -109,7 +103,7 @@ export async function getServerSideProps() {
   return {
     props: {
       currentTableTasks,
-      outdateTableTasks,
+      finishedTableTasks,
       occupancyRate,
       nroContracts,
       createEvents

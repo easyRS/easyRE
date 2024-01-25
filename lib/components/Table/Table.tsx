@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '../Button';
+import Filter from './Filter/Filter';
 import styles from './Table.module.css';
 
 type TableProps = {
@@ -12,19 +13,49 @@ type TableProps = {
   newRedirectUrl?: string;
   buttonType?: TypeStyle;
   editRedirectUrl: string;
+  enableFilter?: boolean;
+  defaultFilterValue?: string;
+};
+
+const filterList = (
+  arrayObj: IEntity[] | IAction[] | undefined,
+  defaultFilterValue?: string
+): IEntity[] | IAction[] | undefined => {
+  if (!defaultFilterValue) return arrayObj;
+  const defaultFilterValueInt = parseInt(defaultFilterValue, 10);
+
+  const weeksAgo = new Date();
+  const WEEKS = defaultFilterValueInt * 7;
+  weeksAgo.setDate(weeksAgo.getDate() - WEEKS);
+
+  if (!arrayObj) return arrayObj;
+
+  return arrayObj?.filter((obj: IAction | IEntity) => {
+    const unknownObj = obj as unknown;
+    const genericObj = unknownObj as Record<string, unknown>;
+    if (!genericObj.created_at) return true;
+    const createdAtDate = new Date(genericObj.created_at as string);
+    return createdAtDate >= weeksAgo;
+  }) as IEntity[] | IAction[];
 };
 
 const Table: React.FC<TableProps> = (props: TableProps) => {
   const { tableName, arrayObj }: TableMapping<ITable> = props.tableProperties;
-  const { headerTitle, buttonType } = props;
+  const { headerTitle, buttonType, enableFilter, defaultFilterValue } = props;
   const router = useRouter();
   const labels: string[] = Object.values<string>(tableName);
   const keys = Object.keys(tableName);
 
   const [isSSR, setIsSSR] = useState(true);
+  const [selectedFilterValue, setSelected] = useState(defaultFilterValue);
+
   const onNew = useCallback(() => {
     if (props.newRedirectUrl) router.push(props.newRedirectUrl);
   }, [router, props.newRedirectUrl]);
+
+  const filteredArrayObj = useMemo(() => {
+    return filterList(arrayObj, selectedFilterValue);
+  }, [selectedFilterValue, arrayObj]);
 
   const onEdit = useCallback(
     (_id: string) => {
@@ -54,6 +85,9 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
           </div>
         )}
       </div>
+      {enableFilter && (
+        <Filter setSelected={setSelected} selectedValue={selectedFilterValue} />
+      )}
 
       <table className={styles.table}>
         <tr className={styles.thead}>
@@ -61,8 +95,8 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
             <th className={styles.th}>{label}</th>
           ))}
         </tr>
-        {arrayObj &&
-          arrayObj.map((obj) => {
+        {filteredArrayObj &&
+          filteredArrayObj.map((obj) => {
             return (
               <tr
                 className={styles.tbody}
@@ -120,7 +154,9 @@ Table.defaultProps = {
   headerTitle: '',
   newTitle: '',
   newRedirectUrl: '',
-  buttonType: 'primary'
+  buttonType: 'primary',
+  enableFilter: false,
+  defaultFilterValue: ''
 };
 
 export default Table;

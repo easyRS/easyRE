@@ -106,8 +106,8 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
       <form
         style={{
           padding: '2.6rem',
-          minWidth: '600px',
-          maxWidth: '800px',
+          minWidth: 'var(--form-min-width)',
+          maxWidth: 'var(--form-max-width)',
           minHeight: '400px',
           background: 'white',
           textAlign: 'left',

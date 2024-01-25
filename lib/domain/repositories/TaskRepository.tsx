@@ -100,6 +100,34 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
     );
   }
 
+  async listAllWorkInProgress(): Promise<ITask[]> {
+    const workInProgressState = this.getWorkInProgressState();
+    const query = {
+      state: workInProgressState
+    };
+    return this.list(
+      [
+        {
+          path: 'leaseContract',
+          model: 'LeaseContract',
+          populate: [
+            {
+              path: 'tenant',
+              model: 'Tenant'
+            },
+            {
+              path: 'property',
+              model: 'Property'
+            }
+          ]
+        },
+        { path: 'taskType' },
+        { path: 'property' }
+      ],
+      query
+    );
+  }
+
   async createdBeforeTwoWeeks(): Promise<ITask[]> {
     const workInProgressState = this.getWorkInProgressState();
     const lastTwoWeeks = Date.now() - 14 * 60 * 60 * 24 * 1000;

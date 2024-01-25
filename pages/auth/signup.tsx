@@ -21,10 +21,11 @@ const SignUp: NextPage<SignUpProps> = (usersProps: SignUpProps) => {
             style={{
               display: 'flex',
               marginTop: '30px',
-              maxWidth: '500px',
+              maxWidth: 'var(--form-max-width)',
               position: 'relative',
-              right: '-33.3%',
-              flexDirection: 'column'
+              right: '-2%',
+              flexDirection: 'column',
+              fontSize: 'var(--button-font-size)'
             }}
           >
             <Image
@@ -57,12 +58,13 @@ const SignUp: NextPage<SignUpProps> = (usersProps: SignUpProps) => {
           <div
             style={{
               padding: '1rem 2rem',
-              maxWidth: '500px',
+              maxWidth: 'var(--form-max-width)',
               margin: '10px auto',
               background: 'white',
               textAlign: 'left',
               borderRadius: 'var(--border-radius-container)',
-              boxShadow: 'var(--box-shadow-container)'
+              boxShadow: 'var(--box-shadow-container)',
+              fontSize: 'var(--button-font-size)'
             }}
           >
             <Link href="/auth/signin">Sign In</Link>

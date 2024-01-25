@@ -45,4 +45,7 @@
   --border-radius-container: 0.4rem;
   --box-shadow-container: 0 0 1.4px var(--complementary);
   --button-font-size: 1.2rem;
+
+  --form-min-width: 600px;
+  --form-max-width: 800px;
 }

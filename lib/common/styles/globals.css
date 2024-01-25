@@ -15,8 +15,8 @@ body {
   min-height: 100vh;
   background: linear-gradient(
     var(--primary) 0,
-    var(--primary) 20%,
-    var(--background) 20%
+    var(--primary) 21%,
+    var(--background) 21%
   );
   text-rendering: optimizeLegibility;
   margin-right: 1rem;

@@ -39,6 +39,12 @@ async function getBeforeTwoTableTasks(): Promise<TableMapping<ITaskTable>> {
   return getTableTasks(tasks);
 }
 
+async function listAllWorkInProgress(): Promise<TableMapping<ITaskTable>> {
+  const taskUseCase = new TaskUseCases();
+  const tasks = await taskUseCase.listAllWorkInProgress();
+  return getTableTasks(tasks);
+}
+
 async function getTask(_id: string): Promise<ITask> {
   return new TaskUseCases().findByIdUserFriendly(_id);
 }
@@ -165,6 +171,7 @@ export {
   getFormFields,
   getGoogleUrl,
   getTask,
+  listAllWorkInProgress,
   removeTask,
   shouldCreateEvents,
   updateTask
