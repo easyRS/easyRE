@@ -30,14 +30,14 @@ const filterList = (
 
   if (!arrayObj) return arrayObj;
 
-  return (
-    (arrayObj?.filter((obj: IAction | IEntity) => {
+  return ((arrayObj as IEntity[] | IAction[]) || []).filter(
+    (obj: IAction | IEntity) => {
       const unknownObj = obj as unknown;
       const genericObj = unknownObj as Record<string, unknown>;
       if (!genericObj.created_at) return true;
       const createdAtDate = new Date(genericObj.created_at as string);
       return createdAtDate >= weeksAgo;
-    }) as IEntity[] | IAction[]) || []
+    }
   );
 };
 
