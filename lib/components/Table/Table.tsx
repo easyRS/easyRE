@@ -29,17 +29,14 @@ const filterList = (
   weeksAgo.setDate(weeksAgo.getDate() - WEEKS);
 
   if (!arrayObj) return arrayObj;
-
+  const unknownArrayObj = arrayObj as unknown[];
   return (
-    (((arrayObj as IEntity[] | IAction[]) || []).filter(
-      (obj: IAction | IEntity) => {
-        const unknownObj = obj as unknown;
-        const genericObj = unknownObj as Record<string, unknown>;
-        if (!genericObj.created_at) return true;
-        const createdAtDate = new Date(genericObj.created_at as string);
-        return createdAtDate >= weeksAgo;
-      }
-    ) as IEntity[] | IAction[]) || []
+    (unknownArrayObj.filter((unknownObj: unknown) => {
+      const genericObj = unknownObj as Record<string, unknown>;
+      if (!genericObj.created_at) return true;
+      const createdAtDate = new Date(genericObj.created_at as string);
+      return createdAtDate >= weeksAgo;
+    }) as IEntity[] | IAction[]) || []
   );
 };
 
