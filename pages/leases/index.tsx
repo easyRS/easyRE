@@ -13,7 +13,7 @@ const LeaseContractIndex: NextPage<IndexLeaseContractProps> = (
     <TopNavigation
       isOpen={false}
       content={
-        <div>
+        <div style={{ minWidth: '1000px' }}>
           <Table
             tableProperties={contractDefProps.tableLeaseContracts}
             newRedirectUrl="main"

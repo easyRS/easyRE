@@ -13,7 +13,7 @@ const ContractDefIndex: NextPage<IndexContractDefProps> = (
     <TopNavigation
       isOpen={false}
       content={
-        <div>
+        <div style={{ minWidth: '1000px' }}>
           <Table
             tableProperties={contractDefProps.tableContractDefs}
             newRedirectUrl="contractdefs/new"

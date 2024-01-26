@@ -1,4 +1,5 @@
 import ITask, {
+  TASK_CLOSE_CANCELED_STATE,
   TASK_CLOSE_COMPLETED_STATE,
   TASK_WORK_IN_PROGRESS_STATE
 } from '../entities/ITask';
@@ -16,6 +17,10 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
 
   /* eslint-disable-line class-methods-use-this */ getCloseCompletedState(): string {
     return TASK_CLOSE_COMPLETED_STATE;
+  }
+
+  /* eslint-disable-line class-methods-use-this */ getCloseIncompletedState(): string {
+    return TASK_CLOSE_CANCELED_STATE;
   }
 
   async findByIdUserFriendly(id: string): Promise<ITask> {
@@ -104,6 +109,37 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
     const workInProgressState = this.getWorkInProgressState();
     const query = {
       state: workInProgressState
+    };
+    return this.list(
+      [
+        {
+          path: 'leaseContract',
+          model: 'LeaseContract',
+          populate: [
+            {
+              path: 'tenant',
+              model: 'Tenant'
+            },
+            {
+              path: 'property',
+              model: 'Property'
+            }
+          ]
+        },
+        { path: 'taskType' },
+        { path: 'property' }
+      ],
+      query
+    );
+  }
+
+  async listAllCompleted(): Promise<ITask[]> {
+    const completedState = this.getCloseCompletedState();
+    const closeIncompletedState = this.getCloseIncompletedState();
+    const query = {
+      state: {
+        $in: [completedState, closeIncompletedState]
+      }
     };
     return this.list(
       [

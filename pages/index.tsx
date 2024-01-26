@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
 import {
-  getBeforeTwoTableTasks,
+  listAllCompleted,
   listAllWorkInProgress,
   shouldCreateEvents
 } from '../lib/controllers/TaskController';
@@ -76,15 +76,27 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
               title="Occupancy"
             />
           </div>
+          <div style={{ marginBottom: '12px' }}>
+            <Table
+              tableProperties={tasksProps.currentTableTasks}
+              newRedirectUrl="tasks/new"
+              editRedirectUrl="tasks/"
+              newTitle="New Task"
+              headerTitle="Active tasks"
+              buttonType="secondary"
+              enableFilter
+              defaultFilterValue="2"
+            />
+          </div>
+
           <Table
-            tableProperties={tasksProps.currentTableTasks}
+            tableProperties={tasksProps.finishedTableTasks}
             newRedirectUrl="tasks/new"
             editRedirectUrl="tasks/"
-            newTitle="New Task"
-            headerTitle="Last active tasks"
+            headerTitle="Completed tasks"
             buttonType="secondary"
             enableFilter
-            defaultFilterValue="2"
+            defaultFilterValue="1"
           />
         </div>
       }
@@ -94,7 +106,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
 
 export async function getServerSideProps() {
   const currentTableTasks = await listAllWorkInProgress();
-  const finishedTableTasks = await getBeforeTwoTableTasks();
+  const finishedTableTasks = await listAllCompleted();
   const occupancyRateRaw = await allOccupancyRate();
   const occupancyRate = Math.round(occupancyRateRaw * 100) / 100;
   const nroContracts = await activeContracts();

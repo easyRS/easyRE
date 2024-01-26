@@ -13,7 +13,7 @@ const PropertyIndex: NextPage<IndexPropertyProps> = (
     <TopNavigation
       isOpen={false}
       content={
-        <div>
+        <div style={{ minWidth: '1000px' }}>
           <Table
             tableProperties={propertiesProps.tableProperties}
             newRedirectUrl="properties/new"
