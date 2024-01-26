@@ -42,7 +42,13 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
 
   const _form = useForm();
   const form = propertiesProps.form ? propertiesProps.form : _form;
-  const { register, handleSubmit } = form;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = form;
+
   const router = useRouter();
   const { editObj, callbacks, canDelete, onSubmit, submitTitle } =
     propertiesProps;
@@ -133,6 +139,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 register={register}
                 fieldData={fieldData}
                 defaultCoordinates={coordinates}
+                errors={errors}
               />
             );
           }
@@ -244,6 +251,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                     {...register(name, { required: isRequired })}
                     defaultValue={defaultValue}
                   />
+                  {errors[name] && <p>This is required</p>}
                   {showPassword ? (
                     <FaRegEye
                       style={{
@@ -342,6 +350,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 {...register(name, { required: isRequired })}
                 defaultValue={defaultValue}
               />
+              {errors[name] && <p>This is required</p>}
             </div>
           );
         })}

@@ -1,16 +1,18 @@
 import type { NextPage } from 'next';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import styles from './CoordinatesInput.module.css';
 
 type LabelProps = {
   displayValue: string;
   field: string;
   register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
   defaultValue: number;
 };
 
 const Coordinate = (props: LabelProps) => {
-  const { displayValue, field, register, defaultValue } = props;
+  const { displayValue, field, register, defaultValue, errors } = props;
+  // TODO: Why required field does not work?
   return (
     <div>
       <label
@@ -29,6 +31,7 @@ const Coordinate = (props: LabelProps) => {
           {...register(field, { required: true })}
           defaultValue={defaultValue || 0}
         />
+        {/* eslint-disable-line*/ errors[field] && <p>This is required</p>}
       </label>
     </div>
   );
@@ -36,12 +39,13 @@ const Coordinate = (props: LabelProps) => {
 
 type Props = {
   register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
   fieldData: FieldData;
   defaultCoordinates?: number[] /* eslint-disable-line*/;
 };
 
 const CoordinatesInput: NextPage<Props> = (props: Props) => {
-  const { register, fieldData, defaultCoordinates } = props;
+  const { register, fieldData, defaultCoordinates, errors } = props;
 
   return (
     <div
@@ -67,12 +71,14 @@ const CoordinatesInput: NextPage<Props> = (props: Props) => {
           displayValue="Latitude"
           field="latitude"
           register={register}
+          errors={errors}
           defaultValue={defaultCoordinates ? defaultCoordinates[0] : 0}
         />
         <Coordinate
           displayValue="Longitude"
           field="longitude"
           register={register}
+          errors={errors}
           defaultValue={defaultCoordinates ? defaultCoordinates[1] : 0}
         />
       </div>
