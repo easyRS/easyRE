@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { Table, TopNavigation } from '../../lib/components';
 import { getAllLeaseContracts } from '../../lib/controllers/LeaseContractController';
+import styles from './index.module.css';
 
 type IndexLeaseContractProps = {
   tableLeaseContracts: TableMapping<ILeaseContractTable>;
@@ -13,7 +14,7 @@ const LeaseContractIndex: NextPage<IndexLeaseContractProps> = (
     <TopNavigation
       isOpen={false}
       content={
-        <div style={{ minWidth: '1000px' }}>
+        <div className={styles.container}>
           <Table
             tableProperties={contractDefProps.tableLeaseContracts}
             newRedirectUrl="main"

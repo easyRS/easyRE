@@ -11,6 +11,7 @@ import {
 
 import { activeContracts } from '../lib/controllers/LeaseContractController';
 import { allOccupancyRate } from '../lib/controllers/PropertyController';
+import styles from './index.module.css';
 
 type IndexTaskProps = {
   currentTableTasks: TableMapping<ITaskTable>;
@@ -32,23 +33,9 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
     <TopNavigation
       isOpen={false}
       content={
-        <div style={{ paddingBottom: '1rem' }}>
-          <div
-            style={{
-              backgroundColor: 'white',
-              borderRadius: 'var(--border-radius-container)',
-              boxShadow: 'var(--box-shadow-container)',
-              textAlign: 'left',
-              padding: '0.2rem 1rem',
-              marginBottom: '1.2rem'
-            }}
-          >
-            <p
-              style={{
-                textAlign: 'start',
-                lineHeight: '2rem'
-              }}
-            >
+        <div className={styles.mainContainer}>
+          <div className={styles.messageContainer}>
+            <p className={styles.welcomeText}>
               Welcome to <strong>Easy RS</strong>!. The easy open-source way to
               manage your Real State 🏠 stuff
               <br /> <FaRegLightbulb />
@@ -60,17 +47,14 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
               &nbsp; Then, you can review pending tasks below & useful reports.
             </p>
           </div>
-          <div
-            style={{
-              margin: '1rem 0 1rem 0',
-              display: 'flex',
-              justifyContent: 'space-around'
-            }}
-          >
-            <Counter
-              value={`There're currently ${tasksProps.nroContracts} active contracts`}
-              title="Active Contracts"
-            />
+          <div className={styles.reportContainer}>
+            <div style={{ marginBottom: '12px' }}>
+              <Counter
+                value={`There're currently ${tasksProps.nroContracts} active contracts`}
+                title="Active Contracts"
+              />
+            </div>
+
             <Counter
               value={`Property occupancy of ${tasksProps.occupancyRate || 0}%.`}
               title="Occupancy"

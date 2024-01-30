@@ -49,6 +49,24 @@
   padding: 1rem 2rem;
   height: 3.25rem;
 }
+
 .td:hover {
   background-color: var(--hover);
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 100vw;
+  }
+
+  .headerTitle {
+    position: static;
+    left: 0;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 1rem;
+  }
 }

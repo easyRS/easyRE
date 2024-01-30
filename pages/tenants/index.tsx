@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { Table, TopNavigation } from '../../lib/components';
 import { getTableTenants } from '../../lib/controllers/TenantController';
+import styles from './index.module.css';
 
 type IndexTenantProps = {
   tableTenants: TableMapping<ITenantTable>;
@@ -13,7 +14,7 @@ const TenantIndex: NextPage<IndexTenantProps> = (
     <TopNavigation
       isOpen={false}
       content={
-        <div style={{ minWidth: '1000px' }}>
+        <div className={styles.container}>
           <Table
             tableProperties={tenantsProps.tableTenants}
             newRedirectUrl="tenants/new"

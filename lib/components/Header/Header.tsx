@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from '../Button/Button';
+import styles from './Header.module.css';
 
 type HeaderProps = {
   /* eslint-disable-line*/ open: boolean;
@@ -22,14 +23,7 @@ const Header = (props: HeaderProps /* eslint-disable-line*/) => {
 
   return (
     <header>
-      <nav
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          margin: '0 3rem 0 3rem'
-        }}
-      >
+      <nav className={styles.container}>
         {status === 'authenticated' && (
           <Link href="/" legacyBehavior>
             <Image
@@ -46,7 +40,7 @@ const Header = (props: HeaderProps /* eslint-disable-line*/) => {
           </Link>
         )}
         {status === 'authenticated' && (
-          <div>
+          <div className={styles.buttonsContainer}>
             <Button onClick={onDelete} type="primary" backgroundColor="white">
               <div
                 style={{

@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 3rem 0 3rem;
+}
+
+@media (max-width: 576px) {
+  .buttonsContainer {
+    margin: 0.5rem 0 0 0;
+  }
+}

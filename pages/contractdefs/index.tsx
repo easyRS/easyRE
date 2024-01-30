@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { Table, TopNavigation } from '../../lib/components';
 import { getTableContractDefs } from '../../lib/controllers/ContractDefController';
+import styles from './index.module.css';
 
 type IndexContractDefProps = {
   tableContractDefs: TableMapping<IContractDefTable>;
@@ -13,7 +14,7 @@ const ContractDefIndex: NextPage<IndexContractDefProps> = (
     <TopNavigation
       isOpen={false}
       content={
-        <div style={{ minWidth: '1000px' }}>
+        <div className={styles.container}>
           <Table
             tableProperties={contractDefProps.tableContractDefs}
             newRedirectUrl="contractdefs/new"
