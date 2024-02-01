@@ -108,22 +108,8 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
 
   const editableFields = propertiesProps.formFields.editables;
   return (
-    <div>
-      <form
-        style={{
-          padding: '2.6rem',
-          minWidth: 'var(--form-min-width)',
-          maxWidth: 'var(--form-max-width)',
-          minHeight: '400px',
-          background: 'white',
-          textAlign: 'left',
-          borderRadius: 'var(--border-radius-container)',
-          boxShadow: 'var(--box-shadow-container)',
-          margin: '0 auto',
-          marginBottom: '50px'
-        }}
-        onSubmit={handleSubmit(_onSubmit)}
-      >
+    <div className={styles.container}>
+      <form className={styles.formContainer} onSubmit={handleSubmit(_onSubmit)}>
         {editableFields.map((fieldData) => {
           const { type, name, options, isRequired } = fieldData;
           const PRIMARY_LIGHT = 'var(--primary-light)';

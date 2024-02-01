@@ -7,6 +7,8 @@ import Form from '../../lib/components/Form/Form';
 import { getAuthFormFields } from '../../lib/controllers/UserController';
 import callbacks from '../../lib/drivers/network/users';
 
+import styles from './index.module.css';
+
 type SignUpProps = {
   formFields: ModelKeys;
 };
@@ -17,17 +19,7 @@ const SignUp: NextPage<SignUpProps> = (usersProps: SignUpProps) => {
       isOpen={false}
       content={
         <div>
-          <div
-            style={{
-              display: 'flex',
-              marginTop: '30px',
-              maxWidth: 'var(--form-max-width)',
-              position: 'relative',
-              right: '-2%',
-              flexDirection: 'column',
-              fontSize: 'var(--button-font-size)'
-            }}
-          >
+          <div className={styles.headerContainer}>
             <Image
               src="/images/logo.png"
               style={{
@@ -55,18 +47,7 @@ const SignUp: NextPage<SignUpProps> = (usersProps: SignUpProps) => {
             callbacks={callbacks}
             canDelete={false}
           />
-          <div
-            style={{
-              padding: '1rem 2rem',
-              maxWidth: 'var(--form-max-width)',
-              margin: '10px auto',
-              background: 'white',
-              textAlign: 'left',
-              borderRadius: 'var(--border-radius-container)',
-              boxShadow: 'var(--box-shadow-container)',
-              fontSize: 'var(--button-font-size)'
-            }}
-          >
+          <div className={styles.belowContainer}>
             <Link href="/auth/signin">Sign In</Link>
           </div>
         </div>

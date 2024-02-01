@@ -10,6 +10,8 @@ import callbacks from '../../lib/drivers/network/users';
 
 import IUser from '../../lib/domain/entities/IUser';
 
+import styles from './index.module.css';
+
 type SignInProps = {
   formFields: ModelKeys;
 };
@@ -29,17 +31,7 @@ const SignIn: NextPage<SignInProps> = (usersProps: SignInProps) => {
       isOpen={false}
       content={
         <div>
-          <div
-            style={{
-              display: 'flex',
-              marginTop: '30px',
-              maxWidth: 'var(--form-max-width)',
-              position: 'relative',
-              right: '-2%',
-              flexDirection: 'column',
-              fontSize: 'var(--button-font-size)'
-            }}
-          >
+          <div className={styles.headerContainer}>
             <Image
               src="/images/logo.png"
               style={{
@@ -70,18 +62,7 @@ const SignIn: NextPage<SignInProps> = (usersProps: SignInProps) => {
             onSubmit={_onSubmit}
           />
 
-          <div
-            style={{
-              padding: '1rem 2rem',
-              maxWidth: 'var(--form-max-width)',
-              margin: '10px auto',
-              background: 'white',
-              textAlign: 'left',
-              borderRadius: 'var(--border-radius-container)',
-              boxShadow: 'var(--box-shadow-container)',
-              fontSize: 'var(--button-font-size)'
-            }}
-          >
+          <div className={styles.belowContainer}>
             <Link href="/auth/signup">Sign Up</Link>
           </div>
         </div>

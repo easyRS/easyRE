@@ -11,6 +11,7 @@ import {
 
 import ITask from '../../lib/domain/entities/ITask';
 import callbacks from '../../lib/drivers/network/tasks';
+import styles from './index.module.css';
 
 type EditTaskProps = {
   formFields: ModelKeys;
@@ -24,7 +25,7 @@ const EditTasks: NextPage<EditTaskProps> = (tasksProps: EditTaskProps) => {
     <TopNavigation
       isOpen={false}
       content={
-        <div>
+        <div className={styles.container}>
           <Form
             formFields={tasksProps.formFields}
             successRedirect="/"

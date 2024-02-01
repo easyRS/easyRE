@@ -1,3 +1,16 @@
+.formContainer {
+  padding: 2.6rem;
+  min-width: var(--form-min-width);
+  max-width: var(--form-max-width);
+  min-height: 400px;
+  background: white;
+  text-align: left;
+  border-radius: var(--border-radius-container);
+  box-shadow: var(--box-shadow-container);
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
 .textInput {
   display: block;
   box-sizing: border-box;
@@ -46,4 +59,10 @@
   background-color: white;
   color: var(--complementary);
   box-shadow: 0 0 2px var(--complementary);
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 100vw;
+  }
 }

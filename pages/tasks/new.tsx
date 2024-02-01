@@ -4,6 +4,7 @@ import Form from '../../lib/components/Form/Form';
 
 import { getFormFields } from '../../lib/controllers/TaskController';
 import callbacks from '../../lib/drivers/network/tasks';
+import styles from './index.module.css';
 
 type NewPropertyProps = {
   formFields: ModelKeys;
@@ -16,12 +17,14 @@ const NewProperties: NextPage<NewPropertyProps> = (
     <TopNavigation
       isOpen={false}
       content={
-        <Form
-          formFields={propertiesProps.formFields}
-          successRedirect="/"
-          callbacks={callbacks}
-          canDelete={false}
-        />
+        <div className={styles.container}>
+          <Form
+            formFields={propertiesProps.formFields}
+            successRedirect="/"
+            callbacks={callbacks}
+            canDelete={false}
+          />
+        </div>
       }
     />
   );
