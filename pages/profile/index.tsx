@@ -35,7 +35,7 @@ const Profile: NextPage<ProfileProps> = (usersProps: ProfileProps) => {
               marginTop: '30px',
               maxWidth: '500px',
               position: 'relative',
-              right: '-30%',
+              right: '-18%',
               flexDirection: 'column'
             }}
           >
@@ -48,6 +48,17 @@ const Profile: NextPage<ProfileProps> = (usersProps: ProfileProps) => {
             >
               Edit, then hit submit to save:
             </h3>
+
+            <p
+              style={{
+                textAlign: 'start',
+                lineHeight: '2rem',
+                marginTop: '0'
+              }}
+            >
+              By filling ALL these values every time a lease task is created, a
+              Google calendar event will be created automatically
+            </p>
           </div>
 
           <Form

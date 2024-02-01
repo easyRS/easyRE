@@ -166,23 +166,8 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     <TopNavigation
       isOpen={false}
       content={
-        <div
-          style={{
-            background: 'white',
-            padding: '2rem',
-            borderRadius: 'var(--border-radius-container)',
-            boxShadow: 'var(--box-shadow-container)',
-            minWidth: '80vw'
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              minWidth: '1000px'
-            }}
-          >
+        <div className={styles.mainContainer}>
+          <div className={styles.headerContainer}>
             <h1>New lease</h1>
 
             <Stepper
@@ -194,17 +179,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
               current={index}
             />
 
-            <p
-              style={{
-                alignSelf: 'flex-start',
-                position: 'relative',
-                left: '12%',
-                textAlign: 'start',
-                lineHeight: '1.4rem',
-                fontSize: '1.1rem',
-                fontWeight: '400'
-              }}
-            >
+            <p className={styles.headerTitle}>
               In order to track your properties, you need a lease. A lease is
               built by a tenant (person who wants to live in your property),{' '}
               <br />a property and a contract (previously agreed by both
@@ -214,13 +189,8 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
 
           <div className={styles.contentContainer} style={containerStyle}>
             {summary && (
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-              >
-                <div className={styles.summaryContainer}>
+              <div className={styles.summaryContainer}>
+                <div className={styles.summaryTextContainer}>
                   <h3>Summary:</h3>
                   <div style={{ flexGrow: 3, textAlign: 'start' }}>
                     {summary}

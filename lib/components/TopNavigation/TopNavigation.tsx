@@ -27,33 +27,33 @@ const getMenus = (open: boolean) => {
   return [
     {
       key: '1',
-      name: 'Profile',
-      iconName: <FaUser style={styles} />,
-      link: '/profile'
-    },
-    {
-      key: '2',
       name: 'Properties',
       iconName: <FaHouseUser style={styles} />,
       link: '/properties'
     },
     {
-      key: '3',
+      key: '2',
       name: 'Tenants',
       iconName: <FaPeopleCarry style={styles} />,
       link: '/tenants'
     },
     {
-      key: '4',
+      key: '3',
       name: 'Leases',
       iconName: <FaClipboardCheck style={styles} />,
       link: '/leases'
     },
     {
-      key: '5',
+      key: '4',
       name: 'Contracts',
       iconName: <FaFileContract style={styles} />,
       link: '/contractdefs'
+    },
+    {
+      key: '5',
+      name: 'Profile',
+      iconName: <FaUser style={styles} />,
+      link: '/profile'
     }
   ];
 };
@@ -76,7 +76,8 @@ const TopNavigation = ({ content, isOpen }: TopNavigationProps) => {
       >
         <div
           style={{
-            maxWidth: '1100px'
+            maxWidth: '1100px',
+            width: '100%'
           }}
         >
           {content}
