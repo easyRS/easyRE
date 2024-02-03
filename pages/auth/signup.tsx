@@ -23,9 +23,10 @@ const SignUp: NextPage<SignUpProps> = (usersProps: SignUpProps) => {
             <Image
               src="/images/logo.png"
               style={{
-                width: '5.5rem',
-                height: '5.5rem',
-                alignSelf: 'center'
+                marginLeft: '20px',
+                width: '4rem',
+                height: '3.6rem',
+                cursor: 'pointer'
               }}
               alt="My Image"
               width={200}

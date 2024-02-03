@@ -29,13 +29,14 @@ const Header = (props: HeaderProps /* eslint-disable-line*/) => {
             <Image
               src="/images/logo.png"
               style={{
-                width: '5.5rem',
-                height: '5.5rem',
+                marginLeft: '20px',
+                width: '4rem',
+                height: '3.6rem',
                 cursor: 'pointer'
               }}
               alt="My Image"
-              width={200}
-              height={200}
+              width={300}
+              height={300}
             />
           </Link>
         )}
