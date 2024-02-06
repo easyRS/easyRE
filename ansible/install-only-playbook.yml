@@ -90,7 +90,7 @@
         repo: git@github.com:easyRS/easyRS.git
         dest: ~/easyRS
         accept_hostkey: yes
-        key_file: ~/.ssh/id_test
+        key_file: ~/.ssh/{{ SSH_KEY }}
     - name: Checkout ft-update-playbook
       become: true
       become_user: '{{ ansible_user }}'

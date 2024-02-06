@@ -39,7 +39,7 @@
         version: ft-update-playbook
         update: yes
         accept_hostkey: yes
-        key_file: ~/.ssh/id_test
+        key_file: ~/.ssh/{{ SSH_KEY }}
     - name: Deploy Docker Compose
       become: true
       become_user: '{{ ansible_user }}'
