@@ -3,7 +3,7 @@
   margin: 20px 0 0 0;
   max-width: var(--form-max-width);
   position: relative;
-  right: -2%;
+  right: -15%;
   flex-direction: column;
   font-size: var(--button-font-size);
 }
