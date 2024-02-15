@@ -55,6 +55,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
 
     async function create() {
       const { createCallback } = leaseCalls;
+
       await createCallback(objValues, success);
     }
 

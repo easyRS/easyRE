@@ -22,3 +22,7 @@ export const connect = async (): Promise<Connection> => {
 
   return { connection, ...models };
 };
+
+export const disconnect = async () => {
+  await mongoose.connection.close();
+};
