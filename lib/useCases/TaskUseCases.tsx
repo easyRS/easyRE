@@ -96,6 +96,18 @@ export default class TaskUseCases extends AbstractUseCases<
     return tasks.map(this.addActionToTasks) as ITask[] | IAction[];
   }
 
+  async listLeaseTasks(leaseContractId: Types.ObjectId): Promise<ITask[]> {
+    const query = { leaseContract: leaseContractId };
+    return this.repository.list(
+      [
+        {
+          path: 'taskType'
+        }
+      ],
+      query
+    );
+  }
+
   async _create(createParam: CreateParams): Promise<ITask> {
     const taskTypeUseCases = new TaskTypeUseCases();
     const { taskTypeName, leaseContract, property, description, amount } =
