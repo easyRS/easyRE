@@ -35,14 +35,18 @@ export default class LeaseContractRepository extends MongooseAbstractRepository<
     return TIME_TYPE_MONTHLY_OPTION;
   }
 
-  async findOneAndUpdate(id: string, obj: ILeaseContract): Promise<void> {
+  async findOneAndUpdate(
+    id: string,
+    obj: ILeaseContract,
+    returnUpdated: boolean
+  ): Promise<ILeaseContract> {
     const oldObj = await super.findById(id, []);
     const {
       tenant: /* eslint-disable */ removedId,
       property: removedV,
       ...newRet
     } = obj; /* eslint-disable */
-    await super.findOneAndUpdate(id, { ...oldObj, ...newRet });
+    return super.findOneAndUpdate(id, { ...oldObj, ...newRet }, returnUpdated);
   }
 
   async findById(

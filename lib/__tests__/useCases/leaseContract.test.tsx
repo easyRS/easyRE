@@ -1,7 +1,12 @@
-import ILeaseContract from '../../domain/entities/ILeaseContract';
+import ILeaseContract, {
+  LEASE_WORK_IN_PROGRESS_STATE
+} from '../../domain/entities/ILeaseContract';
 import IProperty from '../../domain/entities/IProperty';
 import ITenant from '../../domain/entities/ITenant';
-import { TIME_TYPE_DAILY_OPTION } from '../../domain/entities/TimeType';
+import {
+  TIME_TYPE_DAILY_OPTION,
+  TIME_TYPE_MONTHLY_OPTION
+} from '../../domain/entities/TimeType';
 import LeaseContractRepository from '../../domain/repositories/LeaseContractRepository';
 import { disconnect } from '../../drivers/database/conn';
 import {
@@ -15,7 +20,11 @@ import TaskUseCases, {
   LEASE,
   WATER
 } from '../../useCases/TaskUseCases';
-import { getNowDate } from '../../utils/datesHelper';
+import {
+  daysBetween,
+  getNowDate,
+  monthsBetween
+} from '../../utils/datesHelper';
 // docker exec main yarn test
 
 let ileaseContract: ILeaseContract;
@@ -24,6 +33,21 @@ let leaseContractUseCases: LeaseContractUseCases;
 let taskUseCases: TaskUseCases;
 let tenant: ITenant;
 let property: IProperty;
+const LEASE_NOT_CREATED_MESSAGE = 'Lease was not created';
+
+const buildLeaseObj = (
+  tenantParam: ITenant,
+  propertyParam: IProperty,
+  ileaseContractParam: ILeaseContract
+): Record<string, unknown> => {
+  const rawArray = [
+    { ...tenantParam },
+    { ...propertyParam },
+    { ...ileaseContractParam }
+  ];
+  const unknownObj = rawArray as unknown;
+  return unknownObj as Record<string, unknown>;
+};
 
 beforeEach(async () => {
   leaseContractRepository = new LeaseContractRepository();
@@ -51,7 +75,7 @@ beforeEach(async () => {
   };
 });
 
-describe('lease should be created', () => {
+describe('Lease Contract creation', () => {
   afterAll(async () => {
     await disconnect();
   });
@@ -60,13 +84,11 @@ describe('lease should be created', () => {
     let error;
     let lease: NewLeaseContract;
     try {
-      const rawArray = [{ ...tenant }, { ...property }, { ...ileaseContract }];
-      const unknownObj = rawArray as unknown;
-      const paramObj = unknownObj as Record<string, unknown>;
+      const paramObj = buildLeaseObj(tenant, property, ileaseContract);
 
       lease = await leaseContractUseCases.create(paramObj);
 
-      if (!lease || !lease._id) throw new Error('Lease was not created');
+      if (!lease || !lease._id) throw new Error(LEASE_NOT_CREATED_MESSAGE);
       const tasks = await taskUseCases.listLeaseTasks(lease._id);
 
       const taskTypes = [LEASE, ELECTRICITY, WATER, GAS];
@@ -75,7 +97,62 @@ describe('lease should be created', () => {
       );
 
       expect(lease._id).toBeDefined();
+      expect(lease.state).toBe(LEASE_WORK_IN_PROGRESS_STATE);
       expect(tasksWereCreated.length).toBe(taskTypes.length);
+    } catch (e) {
+      error = e;
+    }
+    expect(error).toBeUndefined();
+  });
+
+  it('Daily LeaseContract created with correct Next Date', async () => {
+    let error;
+    let lease: NewLeaseContract;
+    try {
+      const now = getNowDate();
+      ileaseContract = {
+        ...ileaseContract,
+        timeType: TIME_TYPE_DAILY_OPTION,
+        startDate: now
+      };
+      const paramObj = buildLeaseObj(tenant, property, ileaseContract);
+
+      lease = await leaseContractUseCases.create(paramObj);
+      const { startDate, nextDate } = lease;
+
+      if (!lease || !lease._id) throw new Error(LEASE_NOT_CREATED_MESSAGE);
+      if (!nextDate) throw new Error('Next Date should not be null');
+      const days = daysBetween(new Date(startDate), new Date(nextDate));
+      const ONE_DAY = 1;
+      expect(lease._id).toBeDefined();
+      expect(days).toBe(ONE_DAY);
+    } catch (e) {
+      error = e;
+    }
+    expect(error).toBeUndefined();
+  });
+
+  it('Monthly LeaseContract created with correct Next Date', async () => {
+    let error;
+    let lease: NewLeaseContract;
+    try {
+      const now = getNowDate();
+      ileaseContract = {
+        ...ileaseContract,
+        timeType: TIME_TYPE_MONTHLY_OPTION,
+        startDate: now
+      };
+      const paramObj = buildLeaseObj(tenant, property, ileaseContract);
+
+      lease = await leaseContractUseCases.create(paramObj);
+      const { startDate, nextDate } = lease;
+
+      if (!lease || !lease._id) throw new Error(LEASE_NOT_CREATED_MESSAGE);
+      if (!nextDate) throw new Error('Next Date should not be null');
+      const days = monthsBetween(new Date(startDate), new Date(nextDate));
+      const ONE_MONTH = 1;
+      expect(lease._id).toBeDefined();
+      expect(days).toBe(ONE_MONTH);
     } catch (e) {
       error = e;
     }

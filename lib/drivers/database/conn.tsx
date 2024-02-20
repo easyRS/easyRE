@@ -16,7 +16,7 @@ export const connect = async (): Promise<Connection> => {
     throw new Error('Cannot cannot to DB');
   }
 
-  console.log('Mongoose Connection Established'); // eslint-disable-line no-console
+  // console.log('Mongoose Connection Established'); // eslint-disable-line no-console
 
   const models = await builder();
 
