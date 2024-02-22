@@ -103,7 +103,9 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     }
   }
 
-  async calculateNextDate(leaseContract: ILeaseContract): ILeaseContract {
+  async calculateNextDate(
+    leaseContract: ILeaseContract
+  ): Promise<ILeaseContract> {
     const { timeType, startDate, nextDate, timeAmount } = leaseContract;
 
     const startingDate = new Date(nextDate || startDate);
