@@ -106,7 +106,7 @@ describe('Lease Contract creation', () => {
       expect(lease.state).toBe(LEASE_WORK_IN_PROGRESS_STATE);
       expect(tasksWereCreated.length).toBe(taskTypes.length);
     } catch (e) {
-      console.log(e);
+      console.log(e); /* eslint-disable-line*/
       error = e;
     }
     expect(error).toBeUndefined();
@@ -134,7 +134,7 @@ describe('Lease Contract creation', () => {
       expect(lease._id).toBeDefined();
       expect(days).toBe(ONE_DAY);
     } catch (e) {
-      console.log(e);
+      console.log(e); /* eslint-disable-line*/
       error = e;
     }
     expect(error).toBeUndefined();
@@ -162,7 +162,7 @@ describe('Lease Contract creation', () => {
       expect(lease._id).toBeDefined();
       expect(days).toBe(ONE_MONTH);
     } catch (e) {
-      console.log(e);
+      console.log(e); /* eslint-disable-line*/
       error = e;
     }
     expect(error).toBeUndefined();
