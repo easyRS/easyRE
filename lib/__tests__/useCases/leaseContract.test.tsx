@@ -9,7 +9,7 @@ import {
 } from '../../domain/entities/TimeType';
 import LeaseContractRepository from '../../domain/repositories/LeaseContractRepository';
 import { disconnect } from '../../drivers/database/conn';
-import {
+import executeSeeder, {
   fakePropertySeeder,
   fakeTenantSeeder
 } from '../../drivers/database/seeder';
@@ -49,7 +49,18 @@ const buildLeaseObj = (
   return unknownObj as Record<string, unknown>;
 };
 
-beforeEach(async () => {
+beforeAll(async () => {
+  const seedFakeData = false;
+  const deleteData = false;
+  const seedTypes = true;
+  await executeSeeder(seedFakeData, deleteData, seedTypes);
+});
+
+afterAll(async () => {
+  await disconnect();
+});
+
+beforeAll(async () => {
   leaseContractRepository = new LeaseContractRepository();
   leaseContractUseCases = new LeaseContractUseCases();
   taskUseCases = new TaskUseCases();
@@ -76,16 +87,11 @@ beforeEach(async () => {
 });
 
 describe('Lease Contract creation', () => {
-  afterAll(async () => {
-    await disconnect();
-  });
-
   it('LeaseContract with its tasks created sucessfully', async () => {
     let error;
     let lease: NewLeaseContract;
     try {
       const paramObj = buildLeaseObj(tenant, property, ileaseContract);
-
       lease = await leaseContractUseCases.create(paramObj);
 
       if (!lease || !lease._id) throw new Error(LEASE_NOT_CREATED_MESSAGE);
@@ -100,6 +106,7 @@ describe('Lease Contract creation', () => {
       expect(lease.state).toBe(LEASE_WORK_IN_PROGRESS_STATE);
       expect(tasksWereCreated.length).toBe(taskTypes.length);
     } catch (e) {
+      console.log(e);
       error = e;
     }
     expect(error).toBeUndefined();
@@ -127,6 +134,7 @@ describe('Lease Contract creation', () => {
       expect(lease._id).toBeDefined();
       expect(days).toBe(ONE_DAY);
     } catch (e) {
+      console.log(e);
       error = e;
     }
     expect(error).toBeUndefined();
@@ -154,6 +162,7 @@ describe('Lease Contract creation', () => {
       expect(lease._id).toBeDefined();
       expect(days).toBe(ONE_MONTH);
     } catch (e) {
+      console.log(e);
       error = e;
     }
     expect(error).toBeUndefined();

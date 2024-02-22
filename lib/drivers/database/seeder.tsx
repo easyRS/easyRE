@@ -15,6 +15,7 @@ import TaskTypeUseCases from '../../useCases/TaskTypeUseCases';
 import TransactionTypeUseCases from '../../useCases/TransactionTypeUseCases';
 import builder from './builder';
 import { connect } from './conn';
+import deleteAllData from './deleteAllData';
 import all from './fakeData';
 
 export const fakeTenantSeeder = async (): Promise<ITenant> => {
@@ -199,31 +200,12 @@ export default async function executeSeeder(
 
   const importData = async () => {
     // docker exec main yarn run seed
+    const { TEST_ENABLED } = process.env;
     try {
-      const {
-        Task,
-        LeaseContract,
-        Property,
-        TaskType,
-        ContractDefinition,
-        Tenant,
-        Transaction,
-        TransactionType,
-        User,
-        Event
-      } = await builder();
+      const { TaskType, TransactionType } = await builder();
 
       if (deleteData) {
-        await Task.deleteMany();
-        await LeaseContract.deleteMany();
-        await Event.deleteMany();
-        await TaskType.deleteMany();
-        await ContractDefinition.deleteMany();
-        await Tenant.deleteMany();
-        await Property.deleteMany();
-        await TransactionType.deleteMany();
-        await Transaction.deleteMany();
-        await User.deleteMany();
+        await deleteAllData();
       }
 
       if (seedTypes) {
@@ -252,11 +234,12 @@ export default async function executeSeeder(
       }
 
       console.log('Seed sucessfully ran!'); // eslint-disable-line no-console
-      process.exit(0);
+
+      if (!TEST_ENABLED) process.exit(0);
     } catch (error) {
       console.log('error'); // eslint-disable-line no-console
       console.log(error); // eslint-disable-line no-console
-      process.exit(1);
+      if (!TEST_ENABLED) process.exit(1);
     }
   };
 

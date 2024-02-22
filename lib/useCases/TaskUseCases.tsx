@@ -254,7 +254,7 @@ export default class TaskUseCases extends AbstractUseCases<
     }
   }
 
-  async update(object: Record<string, unknown>): Promise<void> {
+  async update(object: Record<string, unknown>): Promise<ITask> {
     /* eslint-disable */
     const {
       taskType: removetaskType,
@@ -264,7 +264,7 @@ export default class TaskUseCases extends AbstractUseCases<
     } = object;
     /* eslint-disable */
 
-    await super.update(newObj);
+    const updatedTask = await super.update(newObj);
     const unknownVar = newObj as unknown;
     const task = unknownVar as ITask;
     const { state } = task;
@@ -288,5 +288,6 @@ export default class TaskUseCases extends AbstractUseCases<
         });
       }
     }
+    return updatedTask;
   }
 }

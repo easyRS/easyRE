@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node cronconfig.js && node server.js",
     "build": "next build",
-    "test": "jest",
+    "test": "TEST_ENABLED=true jest --verbose",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "prettier": "prettier --write .",
@@ -39,8 +39,8 @@
     "@testing-library/jest-dom": "6.1.5",
     "@testing-library/react": "14.1.2",
     "@types/bcrypt": "5.0.0",
-    "@types/node": "20.5.0",
     "@types/jest": "29.5.11",
+    "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "@types/react-modal": "3.16.0",
