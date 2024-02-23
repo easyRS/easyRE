@@ -26,6 +26,6 @@ export const connect = async (): Promise<Connection> => {
 
 export const disconnect = async () => {
   const { TEST_ENABLED } = process.env;
-  if (!TEST_ENABLED) await deleteAllData();
+  if (TEST_ENABLED) await deleteAllData();
   await mongoose.connection.close();
 };
