@@ -13,7 +13,6 @@ import executeSeeder, {
 } from '../../drivers/database/seeder';
 import startMidnightDailyJob from '../../drivers/jobs/tasks';
 import LeaseContractUseCases from '../../useCases/LeaseContractUseCases';
-import TaskUseCases from '../../useCases/TaskUseCases';
 import { daysBetween, monthsBetween } from '../../utils/datesHelper';
 // docker exec main yarn test
 
@@ -37,7 +36,21 @@ const buildLeaseObj = (
   const unknownObj = rawArray as unknown;
   return unknownObj as Record<string, unknown>;
 };
-
+const getNextDate = (
+  leases: ILeaseContract[],
+  lease: NewLeaseContract
+): string | Date | undefined => {
+  let nextDateNew: string | Date | undefined;
+  leases.forEach((leaseObj) => {
+    if (
+      leaseObj._id &&
+      lease._id &&
+      leaseObj._id.toString() === lease._id.toString()
+    )
+      nextDateNew = leaseObj.nextDate;
+  });
+  return nextDateNew;
+};
 beforeAll(async () => {
   const seedFakeData = false;
   const deleteData = false;
@@ -52,7 +65,6 @@ afterAll(async () => {
 beforeAll(async () => {
   leaseContractRepository = new LeaseContractRepository();
   leaseContractUseCases = new LeaseContractUseCases();
-  taskUseCases = new TaskUseCases();
 
   const workInProgressState = leaseContractRepository.getWorkInProgressState();
 
@@ -90,10 +102,7 @@ describe('Daily midnight tasks creation', () => {
       if (!oldNextDateObj) throw new Error('Old Next Date is undefined');
 
       const leases = await startMidnightDailyJob();
-      let nextDateNew: string | Date | undefined;
-      leases.forEach((leaseObj) => {
-        if (leaseObj._id && lease._id) nextDateNew = leaseObj.nextDate;
-      });
+      const nextDateNew: string | Date | undefined = getNextDate(leases, lease);
       if (!nextDateNew) throw new Error('New Next Date is undefined');
 
       const days = daysBetween(new Date(oldNextDateObj), new Date(nextDateNew));
@@ -123,10 +132,7 @@ describe('Daily midnight tasks creation', () => {
       if (!oldNextDateObj) throw new Error('Old Next Date is undefined');
 
       const leases = await startMidnightDailyJob();
-      let nextDateNew: string | Date | undefined;
-      leases.forEach((leaseObj) => {
-        if (leaseObj._id && lease._id) nextDateNew = leaseObj.nextDate;
-      });
+      const nextDateNew: string | Date | undefined = getNextDate(leases, lease);
       if (!nextDateNew) throw new Error('New Next Date is undefined');
 
       const months = monthsBetween(
