@@ -96,6 +96,18 @@ export default class TaskUseCases extends AbstractUseCases<
     return tasks.map(this.addActionToTasks) as ITask[] | IAction[];
   }
 
+  async listLeaseTasks(leaseContractId: Types.ObjectId): Promise<ITask[]> {
+    const query = { leaseContract: leaseContractId };
+    return this.repository.list(
+      [
+        {
+          path: 'taskType'
+        }
+      ],
+      query
+    );
+  }
+
   async _create(createParam: CreateParams): Promise<ITask> {
     const taskTypeUseCases = new TaskTypeUseCases();
     const { taskTypeName, leaseContract, property, description, amount } =
@@ -242,7 +254,7 @@ export default class TaskUseCases extends AbstractUseCases<
     }
   }
 
-  async update(object: Record<string, unknown>): Promise<void> {
+  async update(object: Record<string, unknown>): Promise<ITask> {
     /* eslint-disable */
     const {
       taskType: removetaskType,
@@ -252,7 +264,7 @@ export default class TaskUseCases extends AbstractUseCases<
     } = object;
     /* eslint-disable */
 
-    await super.update(newObj);
+    const updatedTask = await super.update(newObj);
     const unknownVar = newObj as unknown;
     const task = unknownVar as ITask;
     const { state } = task;
@@ -276,5 +288,6 @@ export default class TaskUseCases extends AbstractUseCases<
         });
       }
     }
+    return updatedTask;
   }
 }

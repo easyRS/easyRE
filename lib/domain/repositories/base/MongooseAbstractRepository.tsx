@@ -93,9 +93,16 @@ export default abstract class MongooseAbstractRepository<ModelGeneric>
     return this.toJson(newObj);
   }
 
-  async findOneAndUpdate(id: string, obj: ModelGeneric): Promise<void> {
+  async findOneAndUpdate(
+    id: string,
+    obj: ModelGeneric,
+    returnUpdated: boolean
+  ): Promise<ModelGeneric> {
     const ModelTable = await this._getModelTable();
-    await ModelTable.findOneAndUpdate({ _id: id }, obj);
+    const test = await ModelTable.findOneAndUpdate({ _id: id }, obj, {
+      new: returnUpdated
+    });
+    return test._doc;
   }
 
   async removeById(id: string): Promise<void> {

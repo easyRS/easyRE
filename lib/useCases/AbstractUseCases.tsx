@@ -19,10 +19,13 @@ export default abstract class AbstractUseCases<
     return this.repository.create(newProperties);
   }
 
-  async update(object: Record<string, unknown>): Promise<void> {
+  async update(
+    object: Record<string, unknown>,
+    returnUpdated: boolean = true
+  ): Promise<Model> {
     const id = object._id as string;
     const updatedProperty: Model = this.buildFrom(object);
-    return this.repository.findOneAndUpdate(id, updatedProperty);
+    return this.repository.findOneAndUpdate(id, updatedProperty, returnUpdated);
   }
 
   async remove(object: Record<string, unknown>): Promise<void> {

@@ -25,14 +25,6 @@ const transactionType: ITransactionType = {
 
 const properties: IProperty[] = [
   {
-    amount: 1,
-    coordinates: [42, 4],
-    measure: 'measure 1',
-    name: 'name 1',
-    location_details: 'location_details 1',
-    description: 'this is a long description 1'
-  },
-  {
     amount: 2,
     coordinates: [52, 43],
     measure: 'measure 2',

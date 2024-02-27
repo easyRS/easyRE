@@ -1,58 +1,109 @@
+import ILeaseContract, {
+  LEASE_CLOSE_COMPLETED_STATE,
+  LEASE_WORK_IN_PROGRESS_STATE
+} from '../../domain/entities/ILeaseContract';
+import IProperty from '../../domain/entities/IProperty';
+import ITask, {
+  TASK_WORK_IN_PROGRESS_STATE
+} from '../../domain/entities/ITask';
+import ITenant from '../../domain/entities/ITenant';
+import LeaseContractRepository from '../../domain/repositories/LeaseContractRepository';
+import PropertyRepository from '../../domain/repositories/PropertyRepository';
+import TaskRepository from '../../domain/repositories/TaskRepository';
+import TenantRepository from '../../domain/repositories/TenantRepository';
 import TaskTypeUseCases from '../../useCases/TaskTypeUseCases';
 import TransactionTypeUseCases from '../../useCases/TransactionTypeUseCases';
 import builder from './builder';
 import { connect } from './conn';
+import deleteAllData from './deleteAllData';
 import all from './fakeData';
 
-async function fakeDataFunct() {
-  const { Task, LeaseContract, Property, TaskType, Tenant } = await builder();
-  await Property.insertMany(all.properties);
-
-  const property = await Property.findOne().exec();
-  const taskType = await TaskType.findOne().exec();
-
-  const tenant = new Tenant({
+export const fakeTenantSeeder = async (): Promise<ITenant> => {
+  const tenantRepository = new TenantRepository();
+  const tenant: ITenant = {
     name: 'test',
     email: 'testtenant@example.com',
-    phone: 2323,
+    phone: '2323',
     notes: 'hey there'
-  });
-  await tenant.save();
-  const WORK_IN_PROGRESS = 'Work In Progress';
-  const CLOSE_COMPLETED = 'Close Completed';
-  const CLOSE_CANCELED = 'Close Canceled';
+  };
 
-  const leaseContract = new LeaseContract({
+  return tenantRepository.create(tenant);
+};
+
+export const fakePropertySeeder = async (): Promise<IProperty> => {
+  const propertyRepository = new PropertyRepository();
+  const property: IProperty = {
+    amount: 1,
+    coordinates: [42, 4],
+    measure: 'measure 1',
+    name: 'name 1',
+    location_details: 'location_details 1',
+    description: 'this is a long description 1'
+  };
+
+  return propertyRepository.create(property);
+};
+
+export const fakeLeaseContractSeeder = async (
+  property: IProperty,
+  tenant: ITenant
+): Promise<ILeaseContract> => {
+  if (!tenant || !property || !tenant._id || !property._id)
+    throw new Error('Tenant or Property cannot be null');
+  const leaseContractRepository = new LeaseContractRepository();
+
+  return leaseContractRepository.create({
     name: 'test',
     description: 'Test',
-    timeAmount: 43,
+    timeAmount: '43',
     timeType: 'Daily',
     termsConditions: 'test',
-    state: WORK_IN_PROGRESS,
+    state: LEASE_WORK_IN_PROGRESS_STATE,
     startDate: '2023-02-01',
     nextDate: '2023-03-01',
-    tenant: tenant?._id,
-    property: property?._id,
+    tenant: tenant._id,
+    property: property._id,
     amount: 43
   });
-  await leaseContract.save();
+};
 
-  const task = new Task({
+export const fakeTaskSeeder = async (
+  leaseContract: ILeaseContract
+): Promise<ITask> => {
+  const { TaskType } = await builder();
+  const taskType = await TaskType.findOne().exec();
+  const taskTypeRepository = new TaskRepository();
+
+  if (!taskType || !taskType._id) throw new Error('TYPE ID cannot be null');
+  return taskTypeRepository.create({
     created_at: '2024-01-25',
     leaseContract: leaseContract?._id,
     amount: 43,
     description: 'Task 1',
-    state: WORK_IN_PROGRESS,
+    state: TASK_WORK_IN_PROGRESS_STATE,
     taskType: taskType?._id
   });
-  await task.save();
+};
+
+export const fakeDataFunct = async () => {
+  const { Task, LeaseContract, Property, TaskType } = await builder();
+  await Property.insertMany(all.properties);
+
+  const taskType = await TaskType.findOne().exec();
+
+  const property: IProperty = await fakePropertySeeder();
+  const tenant: ITenant = await fakeTenantSeeder();
+
+  const leaseContract = await fakeLeaseContractSeeder(property, tenant);
+
+  await fakeTaskSeeder(leaseContract);
 
   const task2 = new Task({
     created_at: '2024-01-23',
     leaseContract: leaseContract?._id,
     amount: 43,
     description: 'Task 2',
-    state: WORK_IN_PROGRESS,
+    state: TASK_WORK_IN_PROGRESS_STATE,
     taskType: taskType?._id
   });
   await task2.save();
@@ -62,7 +113,7 @@ async function fakeDataFunct() {
     leaseContract: leaseContract?._id,
     amount: 43,
     description: 'Task 3',
-    state: WORK_IN_PROGRESS,
+    state: TASK_WORK_IN_PROGRESS_STATE,
     taskType: taskType?._id
   });
   await task3.save();
@@ -72,7 +123,7 @@ async function fakeDataFunct() {
     leaseContract: leaseContract?._id,
     amount: 43,
     description: 'Task 4',
-    state: WORK_IN_PROGRESS,
+    state: TASK_WORK_IN_PROGRESS_STATE,
     taskType: taskType?._id
   });
   await task4.save();
@@ -83,7 +134,7 @@ async function fakeDataFunct() {
     timeAmount: 43,
     timeType: 'Daily',
     termsConditions: 'test',
-    state: CLOSE_COMPLETED,
+    state: LEASE_CLOSE_COMPLETED_STATE,
     startDate: '2023-01-05',
     nextDate: '2023-02-09',
     tenant: tenant?._id,
@@ -98,7 +149,7 @@ async function fakeDataFunct() {
     timeAmount: 43,
     timeType: 'Daily',
     termsConditions: 'test',
-    state: CLOSE_CANCELED,
+    state: LEASE_CLOSE_COMPLETED_STATE,
     startDate: '2023-01-01',
     nextDate: '2023-01-04',
     tenant: tenant?._id,
@@ -113,7 +164,7 @@ async function fakeDataFunct() {
     timeAmount: 43,
     timeType: 'Daily',
     termsConditions: 'test',
-    state: CLOSE_COMPLETED,
+    state: LEASE_CLOSE_COMPLETED_STATE,
     startDate: '2022-01-01',
     nextDate: '2022-01-04',
     tenant: tenant?._id,
@@ -128,7 +179,7 @@ async function fakeDataFunct() {
     timeAmount: 43,
     timeType: 'Monthly',
     termsConditions: 'test',
-    state: CLOSE_COMPLETED,
+    state: LEASE_CLOSE_COMPLETED_STATE,
     startDate: '2022-12-01',
     nextDate: '2023-01-01',
     tenant: tenant?._id,
@@ -136,7 +187,7 @@ async function fakeDataFunct() {
     amount: 43
   });
   await leaseContract5.save();
-}
+};
 
 export default async function executeSeeder(
   seedFakeData: boolean,
@@ -149,31 +200,12 @@ export default async function executeSeeder(
 
   const importData = async () => {
     // docker exec main yarn run seed
+    const { TEST_ENABLED } = process.env;
     try {
-      const {
-        Task,
-        LeaseContract,
-        Property,
-        TaskType,
-        ContractDefinition,
-        Tenant,
-        Transaction,
-        TransactionType,
-        User,
-        Event
-      } = await builder();
+      const { TaskType, TransactionType } = await builder();
 
       if (deleteData) {
-        await Task.deleteMany();
-        await LeaseContract.deleteMany();
-        await Event.deleteMany();
-        await TaskType.deleteMany();
-        await ContractDefinition.deleteMany();
-        await Tenant.deleteMany();
-        await Property.deleteMany();
-        await TransactionType.deleteMany();
-        await Transaction.deleteMany();
-        await User.deleteMany();
+        await deleteAllData();
       }
 
       if (seedTypes) {
@@ -202,10 +234,12 @@ export default async function executeSeeder(
       }
 
       console.log('Seed sucessfully ran!'); // eslint-disable-line no-console
-      process.exit(0);
+
+      if (!TEST_ENABLED) process.exit(0);
     } catch (error) {
       console.log('error'); // eslint-disable-line no-console
-      process.exit(1);
+      console.log(error); // eslint-disable-line no-console
+      if (!TEST_ENABLED) process.exit(1);
     }
   };
 

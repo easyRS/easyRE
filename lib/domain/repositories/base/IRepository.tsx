@@ -6,7 +6,11 @@ export default interface IRepository<Model> {
     populateValues?: Record<string, unknown>[]
   ): Promise<Model>;
   findByQuery(query: Record<string, unknown>): Promise<Model | null>;
-  findOneAndUpdate(id: string, obj: Model): Promise<void>;
+  findOneAndUpdate(
+    id: string,
+    obj: Model,
+    returnUpdated: boolean
+  ): Promise<Model>;
   removeById(id: string): Promise<void>;
   removeByQuery(query: Record<string, unknown>): Promise<void>;
   list(

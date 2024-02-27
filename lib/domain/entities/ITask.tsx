@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import ITaskType from './ITaskType';
 
 export const TASK_WORK_IN_PROGRESS_STATE = 'Work In Progress';
 export const TASK_CLOSE_COMPLETED_STATE = 'Close Completed';
@@ -17,6 +18,6 @@ export default interface ITask {
   property?: Types.ObjectId;
   amount: number;
   description: string;
-  taskType: Types.ObjectId;
+  taskType: Types.ObjectId | ITaskType | string;
   state: string;
 }

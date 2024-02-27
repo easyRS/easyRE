@@ -86,9 +86,10 @@ export default class LeaseContractUseCases extends AbstractUseCases<
 
       const leaseTmp = await super.create(leaseContract);
       if (leaseTmp._id) {
-        const lease = await this.findById(leaseTmp._id.toString(), []);
+        let lease = await this.findById(leaseTmp._id.toString(), []);
         const generateEvents = false;
-        await this.generateMonthlyRecurringTasks(lease, generateEvents);
+        lease = await this.generateMonthlyRecurringTasks(lease, generateEvents);
+
         const url = await this.generateUrlRedirect(lease);
         const urlObj = { url };
         return { ...lease, ...urlObj };
@@ -102,17 +103,21 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     }
   }
 
-  async calculateNextDate(leaseContract: ILeaseContract) {
+  async calculateNextDate(
+    leaseContract: ILeaseContract
+  ): Promise<ILeaseContract> {
     const { timeType, startDate, nextDate, timeAmount } = leaseContract;
 
     const startingDate = new Date(nextDate || startDate);
 
     const newDate = new Date(startingDate);
+    const unknownRepository = this.repository as unknown;
+
     const dailyOption = (
-      this.repository as LeaseContractRepository
+      unknownRepository as LeaseContractRepository
     ).getDailyOption();
     const monthlyOption = (
-      this.repository as LeaseContractRepository
+      unknownRepository as LeaseContractRepository
     ).getMonthlyOption();
 
     if (timeType === dailyOption) {
@@ -131,17 +136,16 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     const count = parseInt(timeAmount, 10) - 1;
     if (currentTime === count) {
       const closeCompletedState = (
-        this.repository as LeaseContractRepository
+        unknownRepository as LeaseContractRepository
       ).getCloseCompletedState();
-      await this.update({
+      return this.update({
         ...leaseContract,
         _id: leaseContract._id?.toString(),
         nextDate: finalDate,
         state: closeCompletedState
       });
-      return;
     }
-    await this.update({
+    return this.update({
       ...leaseContract,
       _id: leaseContract._id?.toString(),
       nextDate: finalDate
@@ -160,7 +164,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
   async generateMonthlyRecurringTasks(
     leaseContract: ILeaseContract,
     generateEvents: boolean
-  ): Promise<void> {
+  ): Promise<ILeaseContract> {
     const { startDate, nextDate, amount } = leaseContract;
 
     const taskUseCases = new TaskUseCases();
@@ -189,8 +193,11 @@ export default class LeaseContractUseCases extends AbstractUseCases<
         await taskUseCases._createElectricityTask(leaseContract, tenant);
         await taskUseCases._createGasTask(leaseContract, tenant);
         await taskUseCases._createWaterTask(leaseContract, tenant);
-        await this.calculateNextDate(leaseContract);
+
+        return this.calculateNextDate(leaseContract);
       }
     }
+
+    return leaseContract;
   }
 }
