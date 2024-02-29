@@ -114,6 +114,8 @@ If you are curious about what tests are implemented, just run(when docker is on)
 docker exec main yarn test
 ```
 
+There is always a gap of improvement, a way to make it easier. That is the purpose of it. And of course, having fun coding :D
+
 ## Author
 
 👤 **Luis Morón**
