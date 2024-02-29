@@ -1,7 +1,7 @@
 # Welcome to Easy RS 👋
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
-![Prerequisite](https://img.shields.io/badge/node-%3E%3D14.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000)
+![Prerequisite](https://img.shields.io/badge/node-%3E%3D18.3.0-blue.svg)
 ![Prerequisite](https://img.shields.io/badge/yarn-%3E%3D1.22.0-blue.svg)
 ![Prerequisite](https://img.shields.io/badge/npm-please-use-yarn-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
@@ -18,7 +18,7 @@ Easy RS is a self-hosted property management app targeted for developers. Contro
 
 ## Prerequisites
 
-- node >=14.0.0
+- node >=18.3.0
 - yarn >=1.22.0
 - npm please-use-yarn
 - PROD: Ansible playbooks only tested in Ubuntu servers until the moment.
