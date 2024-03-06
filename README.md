@@ -6,9 +6,9 @@
 ![Prerequisite](https://img.shields.io/badge/npm-please-use-yarn-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
-> 👌The easy open-source way to manage your Real State 🏠 stuff
+> 👌The easy open-source way to manage your Real Estate 🏠 stuff
 
-Easy RS is a self-hosted property management app targeted for developers. Control your real state portafolio with this easy and open-source solution. With this app you can:
+Easy RS is a self-hosted property management app targeted for developers. Control your real estate portafolio with this easy and open-source solution. With this app you can:
 
 - Really easy to setup.
 - Manage your properties and tenants with details.
@@ -60,6 +60,7 @@ easyrs ansible_host=[REPLACE_WITH_SERVER_IP] ansible_ssh_private_key_file=~/.ssh
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 SSH_KEY=[REPLACE_WITH_SSH_KEY]
+SSH_KEY_PUB=[REPLACE_WITH_SSH_KEY_PUB]
 DATABASE_URL=mongodb://database:27017/easyrs
 NGINX_HOST=[REPLACE_WITH_YOUR_DOMAIN]
 CERTBOT_EMAIL=[REPLACE_WITH_YOUR_EMAIL]
@@ -88,7 +89,7 @@ If you want to update it just:
 ansible-playbook update-n-times-playbook -l easyrs
 ```
 
-There is always an space of improvement, the idea is make it easy! an Easy Real State. So you can share your ideas at: contact@luifermoron.com
+There is always an space of improvement, the idea is make it easy! an Easy Real Estate. So you can share your ideas at: contact@luifermoron.com
 
 ### Extra Configurations:
 
@@ -114,7 +115,7 @@ If you are curious about what tests are implemented, just run(when docker is on)
 docker exec main yarn test
 ```
 
-There is always a gap of improvement, a way to make it easier. That is the purpose of it, make a real state app usefull and easy to use. And of course, having fun coding :D
+There is always a gap of improvement, a way to make it easier. That is the purpose of it, make a real estate app usefull and easy to use. And of course, having fun coding :D
 
 ## Author
 

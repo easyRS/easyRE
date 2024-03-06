@@ -74,8 +74,8 @@
       become: true
       become_user: '{{ ansible_user }}'
       copy:
-        src: '~/.ssh/{{ SSH_KEY }}.pub'
-        dest: '~/.ssh/{{ SSH_KEY }}.pub'
+        src: '~/.ssh/{{ SSH_KEY_PUB }}'
+        dest: '~/.ssh/{{ SSH_KEY_PUB }}'
         mode: '0644'
     - name: Start ssh-agent and add key
       become: true
