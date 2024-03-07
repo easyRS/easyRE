@@ -1,12 +1,6 @@
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useMemo, useState } from 'react';
-import {
-  FaClipboardCheck,
-  FaFileContract,
-  FaHouseUser,
-  FaPeopleCarry,
-  FaUser
-} from 'react-icons/fa';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Header from '../Header/Header';
 
@@ -28,31 +22,71 @@ const getMenus = (open: boolean) => {
     {
       key: '1',
       name: 'Properties',
-      iconName: <FaHouseUser style={styles} />,
+      iconName: (
+        <Image
+          src="/images/logo.png"
+          style={styles}
+          alt="My Image"
+          width={300}
+          height={300}
+        />
+      ),
       link: '/properties'
     },
     {
       key: '2',
       name: 'Tenants',
-      iconName: <FaPeopleCarry style={styles} />,
+      iconName: (
+        <Image
+          src="/images/logo.png"
+          style={styles}
+          alt="My Image"
+          width={300}
+          height={300}
+        />
+      ),
       link: '/tenants'
     },
     {
       key: '3',
       name: 'Leases',
-      iconName: <FaClipboardCheck style={styles} />,
+      iconName: (
+        <Image
+          src="/images/logo.png"
+          style={styles}
+          alt="My Image"
+          width={300}
+          height={300}
+        />
+      ),
       link: '/leases'
     },
     {
       key: '4',
       name: 'Contracts',
-      iconName: <FaFileContract style={styles} />,
+      iconName: (
+        <Image
+          src="/images/logo.png"
+          style={styles}
+          alt="My Image"
+          width={300}
+          height={300}
+        />
+      ),
       link: '/contractdefs'
     },
     {
       key: '5',
       name: 'Profile',
-      iconName: <FaUser style={styles} />,
+      iconName: (
+        <Image
+          src="/images/logo.png"
+          style={styles}
+          alt="My Image"
+          width={300}
+          height={300}
+        />
+      ),
       link: '/profile'
     }
   ];

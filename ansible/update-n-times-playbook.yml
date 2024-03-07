@@ -36,7 +36,7 @@
         repo: git@github.com:easyRS/easyRS.git
         dest: ~/easyRS
         remote: origin
-        version: ft-update-playbook
+        version: main
         update: yes
         accept_hostkey: yes
         key_file: ~/.ssh/{{ SSH_KEY }}

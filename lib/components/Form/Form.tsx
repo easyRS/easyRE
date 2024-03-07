@@ -1,14 +1,9 @@
 /* eslint-disable */
 import type { NextPage } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { FieldValues, UseFormReturn, useForm } from 'react-hook-form';
-import {
-  FaExpandArrowsAlt,
-  FaRegEye,
-  FaRegEyeSlash,
-  FaTrashAlt
-} from 'react-icons/fa';
 import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
 import LongInputModal from '../LongInputModal/LongInputModal';
@@ -239,27 +234,31 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   />
                   {errors[name] && <p>This is required</p>}
                   {showPassword ? (
-                    <FaRegEye
+                    <Image
+                      src="/images/logo.png"
                       style={{
-                        zIndex: '1',
-                        position: 'absolute',
-                        top: '50%',
-                        right: '10px',
-                        transform: 'translateY(-50%)',
+                        marginLeft: '20px',
+                        width: '4rem',
+                        height: '3.6rem',
                         cursor: 'pointer'
                       }}
+                      alt="My Image"
+                      width={300}
+                      height={300}
                       onClick={togglePasswordVisibility}
                     />
                   ) : (
-                    <FaRegEyeSlash
+                    <Image
+                      src="/images/logo.png"
                       style={{
-                        zIndex: '1',
-                        position: 'absolute',
-                        top: '50%',
-                        right: '10px',
-                        transform: 'translateY(-50%)',
+                        marginLeft: '20px',
+                        width: '4rem',
+                        height: '3.6rem',
                         cursor: 'pointer'
                       }}
+                      alt="My Image"
+                      width={300}
+                      height={300}
                       onClick={togglePasswordVisibility}
                     />
                   )}
@@ -300,15 +299,17 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                     {...register(name, { required: isRequired })}
                     defaultValue={defaultValue}
                   />
-                  <FaExpandArrowsAlt
+                  <Image
+                    src="/images/logo.png"
                     style={{
-                      position: 'absolute',
-                      margin: '0.6rem',
-                      top: '0',
-                      right: '0',
-                      zIndex: '1'
+                      marginLeft: '20px',
+                      width: '4rem',
+                      height: '3.6rem',
+                      cursor: 'pointer'
                     }}
-                    title={name}
+                    alt="My Image"
+                    width={300}
+                    height={300}
                     onClick={openMultiline}
                   />
                 </div>
@@ -357,7 +358,18 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   justifyContent: 'center'
                 }}
               >
-                <FaTrashAlt />
+                <Image
+                  src="/images/logo.png"
+                  style={{
+                    marginLeft: '20px',
+                    width: '4rem',
+                    height: '3.6rem',
+                    cursor: 'pointer'
+                  }}
+                  alt="My Image"
+                  width={300}
+                  height={300}
+                />
                 DELETE
               </div>
             </Button>
