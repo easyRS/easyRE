@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '../Button';
 import Filter from './Filter/Filter';
 import styles from './Table.module.css';
@@ -131,18 +131,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
                                 target="_blank"
                                 onClick={stopPropagationCallback}
                               >
-                                <Image
-                                  src="/images/logo.png"
-                                  style={{
-                                    marginLeft: '20px',
-                                    width: '4rem',
-                                    height: '3.6rem',
-                                    cursor: 'pointer'
-                                  }}
-                                  alt="My Image"
-                                  width={300}
-                                  height={300}
-                                />
+                                <FaWhatsapp />
                               </Link>
                             );
                           return null;

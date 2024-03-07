@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Image from 'next/image';
+import { FaWindowClose } from 'react-icons/fa';
 import styles from './LongInputModal.module.css';
 
 interface ModalProps {
@@ -23,20 +23,11 @@ const LongInputModal: React.FC<ModalProps> = ({
       {isOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <Image
-              src="/images/logo.png"
-              style={{
-                marginLeft: '20px',
-                width: '4rem',
-                height: '3.6rem',
-                cursor: 'pointer'
-              }}
-              alt="My Image"
-              width={300}
-              height={300}
+            <FaWindowClose
+              style={{ alignSelf: 'flex-end' }}
+              title="Close"
               onClick={handleClose}
             />
-
             {children}
           </div>
         </div>

@@ -19,6 +19,8 @@
     "npm": "please-use-yarn"
   },
   "dependencies": {
+    "@next/font": "13.4.17",
+    "bcrypt": "5.1.1",
     "classnames": "2.3.2",
     "crypto-js": "4.1.1",
     "googleapis": "128.0.0",
@@ -28,7 +30,8 @@
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.45.4"
+    "react-hook-form": "7.45.4",
+    "react-icons": "4.10.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
