@@ -1,4 +1,3 @@
-import { google } from 'googleapis';
 import { Types } from 'mongoose';
 import ILeaseContract from '../../domain/entities/ILeaseContract';
 import ITask from '../../domain/entities/ITask';
@@ -15,8 +14,10 @@ const _getOauthClient = async () => {
   const CLIENT_ID = user.google_client_id;
   const CLIENT_SECRET = user.google_client_secret;
   if (!REDIRECT_URL || !CLIENT_ID || !CLIENT_SECRET) return null;
-
-  return new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+  const { OAuth2 } = await import('googleapis').then(
+    (module) => module.google.auth
+  );
+  return new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 };
 
 export const generateAuthUrl = async (taskId?: string): Promise<string> => {
@@ -121,11 +122,14 @@ export const generateGoogleEvent = async (
   };
 
   const API_KEY = user.google_api_key;
-  const calendar = google.calendar({
+  const { calendar } = await import('googleapis').then(
+    (module) => module.google
+  );
+  const calendar2 = calendar({
     version: 'v3',
     auth: API_KEY
   });
-  await calendar.events.insert({
+  await calendar2.events.insert({
     auth: oauth2Client,
     calendarId: 'primary',
     requestBody: event
