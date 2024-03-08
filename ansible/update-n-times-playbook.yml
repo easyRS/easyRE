@@ -46,9 +46,3 @@
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml up --build -d
-    - name: Run seeders
-      become: true
-      become_user: '{{ ansible_user }}'
-      shell: |
-        cd ~/easyRS
-        docker exec main yarn run seed --seed_fake_data=false --delete_data=false --seed_types=true

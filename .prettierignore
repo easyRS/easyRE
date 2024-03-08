@@ -1,5 +1,0 @@
-.yarn
-.next
-dist
-node_modules
-docker-compose.yml

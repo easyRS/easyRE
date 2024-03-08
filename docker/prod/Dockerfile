@@ -1,6 +1,6 @@
 # Naively Simple Node Dockerfile
 
-FROM node:18.14-alpine
+FROM node:18.17-alpine
 
 ENV PORT 3000
 

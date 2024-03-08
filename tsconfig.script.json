@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "files": ["lib/types/global.d.ts"],
-  "compilerOptions": {
-    "module": "CommonJS",
-    "typeRoots": ["./node_modules/@types", "lib/types"]
-  }
-}

@@ -37,13 +37,13 @@
 
     - name: Add user to docker group
       user:
-        name: '{{ ansible_user }}'
+        name: "{{ ansible_user }}"
         append: yes
         groups: docker
 
     - name: Reload group membership
       user:
-        name: '{{ ansible_user }}'
+        name: "{{ ansible_user }}"
         state: present
         groups: docker
 
@@ -59,59 +59,59 @@
       get_url:
         url: https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64
         dest: ~/.docker/cli-plugins/docker-compose
-        mode: 'u+x'
+        mode: "u+x"
 
     - name: Check Docker Compose version
       command: docker compose version
     - name: Copy SSH key pair
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       copy:
-        src: '~/.ssh/{{ SSH_KEY }}'
-        dest: '~/.ssh/{{ SSH_KEY }}'
-        mode: '0600'
+        src: "~/.ssh/{{ SSH_KEY }}"
+        dest: "~/.ssh/{{ SSH_KEY }}"
+        mode: "0600"
     - name: Copy public key
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       copy:
-        src: '~/.ssh/{{ SSH_KEY_PUB }}'
-        dest: '~/.ssh/{{ SSH_KEY_PUB }}'
-        mode: '0644'
+        src: "~/.ssh/{{ SSH_KEY_PUB }}"
+        dest: "~/.ssh/{{ SSH_KEY_PUB }}"
+        mode: "0644"
     - name: Start ssh-agent and add key
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       shell: |
         eval "$(ssh-agent -s)" 
         ssh-add ~/.ssh/{{ SSH_KEY }}
     - name: Git clone
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       git:
         repo: git@github.com:easyRS/easyRS.git
         dest: ~/easyRS
         accept_hostkey: yes
         key_file: ~/.ssh/{{ SSH_KEY }}
-    #    - name: Checkout ft-update-playbook
-    #      become: true
-    #      become_user: '{{ ansible_user }}'
-    #      command:
-    #        cmd: git checkout origin/ft-update-playbook
-    #        chdir: ~/easyRS
+    - name: Checkout fix-optimize-project
+      become: true
+      become_user: "{{ ansible_user }}"
+      command:
+        cmd: git checkout origin/fix-optimize-project
+        chdir: ~/easyRS
     - name: Fetch /etc/ansible/hosts
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       copy:
         src: /etc/ansible/hosts
         dest: /tmp/hosts
     - name: Read /etc/ansible/hosts
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       slurp:
         src: /tmp/hosts
       register: ansible_host_vars
     - name: Create .env file
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       copy:
         content: |
           DATABASE_URL={{ DATABASE_URL }}
@@ -122,7 +122,7 @@
         dest: ~/easyRS/docker/prod/.env
     - name: Create Default.conf
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       shell:
         cmd: |
           mkdir conf.d
@@ -130,51 +130,45 @@
         chdir: ~/easyRS/docker/prod/nginx
     - name: Set permissions to Default.conf
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       file:
-        path: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
-        mode: '0644'
+        path: "~/easyRS/docker/prod/nginx/conf.d/default.conf"
+        mode: "0644"
     - name: Copy Certbot Conf Generation
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       copy:
-        src: '~/easyRS/docker/prod/nginx/configs/cerbot-generation/default.conf'
-        dest: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
+        src: "~/easyRS/docker/prod/nginx/configs/cerbot-generation/default.conf"
+        dest: "~/easyRS/docker/prod/nginx/conf.d/default.conf"
         remote_src: true
     - name: Set Docker socket permissions
       become: true
       become_user: root
       file:
         path: /var/run/docker.sock
-        mode: '0777'
+        mode: "0777"
     - name: Generate Cerbot Certs
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml up -d
     - name: Pause Docker Compose
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml down
     - name: Copy Full Certbot Conf
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       copy:
-        src: '~/easyRS/docker/prod/nginx/configs/full-conf/default.conf'
-        dest: '~/easyRS/docker/prod/nginx/conf.d/default.conf'
+        src: "~/easyRS/docker/prod/nginx/configs/full-conf/default.conf"
+        dest: "~/easyRS/docker/prod/nginx/conf.d/default.conf"
         remote_src: true
     - name: Deploy Docker Compose
       become: true
-      become_user: '{{ ansible_user }}'
+      become_user: "{{ ansible_user }}"
       shell: |
         cd ~/easyRS
         docker compose -f docker/prod/docker-compose.yml up -d
-    - name: Run seeders
-      become: true
-      become_user: '{{ ansible_user }}'
-      shell: |
-        cd ~/easyRS
-        docker exec main yarn run seed --seed_fake_data=false --delete_data=false --seed_types=true
