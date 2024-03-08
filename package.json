@@ -9,8 +9,7 @@
     "start": "NODE_ENV=production next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "seed": "npx ts-node  --project tsconfig.script.json ./seeder.ts --seed_fake_data=false --delete_data=false --seed_types=false",
-    "job": "npx ts-node --project tsconfig.script.json --type-check ./job.ts"
+    "seed": "npx ts-node  --project tsconfig.script.json ./seeder.ts --seed_fake_data=false --delete_data=false --seed_types=false"
   },
   "engines": {
     "node": ">=18.3.0",
