@@ -4,6 +4,9 @@ FROM node:18.14-alpine
 
 ENV PORT 3000
 
+# Install Git
+RUN apk add --no-cache git
+
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
