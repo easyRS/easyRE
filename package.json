@@ -9,7 +9,6 @@
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "if [ \"$NODE_ENV\" = \"development\" ]; then husky install; fi",
     "seed": "npx ts-node  --project tsconfig.script.json ./seeder.ts --seed_fake_data=false --delete_data=false --seed_types=false",
     "job": "npx ts-node --project tsconfig.script.json --type-check ./job.ts"
   },
