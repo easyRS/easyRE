@@ -8,9 +8,6 @@ ENV PORT 3000
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-ENV NEXT_TELEMETRY_DISABLED 1
-RUN yarn build
-
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
@@ -20,6 +17,10 @@ RUN yarn install --frozen-lockfile --production
 
 # Copying source files
 COPY . /usr/src/app
+
+
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN yarn build
 
 EXPOSE 3000
 ENV PORT 3000
