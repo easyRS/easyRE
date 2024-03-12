@@ -48,6 +48,10 @@ services:
       - database
     env_file:
       - .env
+    deploy:
+      resources:
+        limits:
+          memory: 1G
   database:
     container_name: database
     image: mongo

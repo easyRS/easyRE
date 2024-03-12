@@ -10,7 +10,10 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "seed": "npx ts-node  --project tsconfig.script.json ./seeder.ts --seed_fake_data=false --delete_data=false --seed_types=false",
-    "job": "npx ts-node --project tsconfig.script.json --type-check ./job.ts"
+    "job": "npx ts-node --project tsconfig.script.json --type-check ./job.ts",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "engines": {
     "node": ">=18.3.0",
@@ -35,6 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
     "@commitlint/config-conventional": "17.7.0",
+    "@next/bundle-analyzer": "^14.1.3",
     "@testing-library/jest-dom": "6.1.5",
     "@testing-library/react": "14.1.2",
     "@types/bcrypt": "5.0.0",
@@ -45,7 +49,7 @@
     "@types/react-modal": "3.16.0",
     "@typescript-eslint/eslint-plugin": "6.4.0",
     "babel-jest": "29.6.2",
-    "cross-env": "7.0.3",
+    "cross-env": "^7.0.3",
     "eslint": "8.35.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-next": "13.2.3",
