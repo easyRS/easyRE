@@ -8,11 +8,12 @@ ENV PORT 3000
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-ENV NEXT_TELEMETRY_DISABLED 1
-RUN yarn build
-
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
+
+
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN yarn build
 
 # Installing dependencies
 COPY package*.json /usr/src/app/
