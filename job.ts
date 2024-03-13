@@ -1,4 +1,3 @@
-import startMidnightDailyJob from './lib/drivers/jobs/tasks';
-
-startMidnightDailyJob();
+const xd = 'hola';
+console.log(xd); /* eslint-disable-line*/
 process.exit(0);
