@@ -1,20 +1,20 @@
 /* eslint-disable */
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
-import { FieldValues, UseFormReturn, useForm } from 'react-hook-form';
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
+import { FieldValues, UseFormReturn, useForm } from "react-hook-form";
 import {
   FaExpandArrowsAlt,
   FaRegEye,
   FaRegEyeSlash,
-  FaTrashAlt
-} from 'react-icons/fa';
-import IProperty from '../../domain/entities/IProperty';
-import Button from '../Button/Button';
-import LongInputModal from '../LongInputModal/LongInputModal';
-import SimpleModal from '../SimpleModal/SimpleModal';
-import CoordinatesInput from './CoordinatesInput/CoordinatesInput';
-import styles from './Form.module.css';
+  FaTrashAlt,
+} from "react-icons/fa";
+import IProperty from "../../domain/entities/IProperty";
+import Button from "../Button/Button";
+import LongInputModal from "../LongInputModal/LongInputModal";
+import SimpleModal from "../SimpleModal/SimpleModal";
+import CoordinatesInput from "./CoordinatesInput/CoordinatesInput";
+import styles from "./Form.module.css";
 
 type FormProps = {
   formFields: ModelKeys;
@@ -36,8 +36,8 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const [longTextModalIsOpen, setIsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const modalRef = useRef<HTMLTextAreaElement>(null);
-  const [multilineName, setMultilineName] = useState('');
-  const [multilineValue, setMultilineValue] = useState('');
+  const [multilineName, setMultilineName] = useState("");
+  const [multilineValue, setMultilineValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const _form = useForm();
@@ -46,14 +46,14 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = form;
 
   const router = useRouter();
   const { editObj, callbacks, canDelete, onSubmit, submitTitle } =
     propertiesProps;
   const { createCallback, updateCallback, deleteCallback } = callbacks;
-  const _submitTitle = submitTitle || 'SUBMIT';
+  const _submitTitle = submitTitle || "SUBMIT";
   const _defaultOnSubmit = async (data: IEntity) => {
     if (editObj) await updateCallback({ ...editObj, ...data });
     else await createCallback(data);
@@ -81,7 +81,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     }
   };
 
-  const openModal = (name) => {
+  const openModal = (name: string) => {
     const values = form.getValues();
 
     setIsOpen(true);
@@ -95,10 +95,10 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
 
     reset({
       ...values,
-      [multilineName]: modalRef.current?.value
+      [multilineName]: modalRef.current?.value,
     });
-    setMultilineName('');
-    setMultilineValue('');
+    setMultilineName("");
+    setMultilineValue("");
     setIsOpen(false);
   };
 
@@ -112,9 +112,9 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
       <form className={styles.formContainer} onSubmit={handleSubmit(_onSubmit)}>
         {editableFields.map((fieldData) => {
           const { type, name, options, isRequired } = fieldData;
-          const PRIMARY_LIGHT = 'var(--primary-light)';
+          const PRIMARY_LIGHT = "var(--primary-light)";
 
-          if (type === 'coordinates') {
+          if (type === "coordinates") {
             const property = editObj as IProperty;
             const coordinates =
               property && property.coordinates
@@ -131,21 +131,22 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           }
 
           const defaultValue =
+            // @ts-ignore
             editObj && editObj[name]
               ? (editObj[name as keyof IEntity] as unknown as string)
-              : '';
+              : "";
 
-          if (type === 'readonly') {
+          if (type === "readonly") {
             if (!defaultValue) return null;
             return (
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'left',
-                  justifyContent: 'left',
-                  flexDirection: 'column',
-                  textAlign: 'left',
-                  marginBottom: '15px'
+                  display: "flex",
+                  alignItems: "left",
+                  justifyContent: "left",
+                  flexDirection: "column",
+                  textAlign: "left",
+                  marginBottom: "15px",
                 }}
               >
                 <label htmlFor={fieldData.name} className={styles.labelTitle}>
@@ -153,15 +154,15 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 </label>
                 <label
                   style={{
-                    marginBottom: '10px',
+                    marginBottom: "10px",
                     backgroundColor: PRIMARY_LIGHT,
-                    cursor: 'not-allowed',
-                    borderColor: '0.134rem var(--primary-dark)',
-                    borderRadius: 'var(--border-radius-container)',
-                    padding: '15px 15px',
-                    fontSize: 'var(--button-font-size)',
-                    pointerEvents: 'none',
-                    opacity: '0.4'
+                    cursor: "not-allowed",
+                    borderColor: "0.134rem var(--primary-dark)",
+                    borderRadius: "var(--border-radius-container)",
+                    padding: "15px 15px",
+                    fontSize: "var(--button-font-size)",
+                    pointerEvents: "none",
+                    opacity: "0.4",
                   }}
                   htmlFor={fieldData.name}
                 >{`${defaultValue}`}</label>
@@ -169,16 +170,16 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             );
           }
 
-          if (type === 'state' && options) {
+          if (type === "state" && options) {
             return (
               <div
                 style={{
-                  marginBottom: '10px',
-                  display: 'flex',
-                  alignItems: 'left',
-                  justifyContent: 'left',
-                  flexDirection: 'column',
-                  textAlign: 'left'
+                  marginBottom: "10px",
+                  display: "flex",
+                  alignItems: "left",
+                  justifyContent: "left",
+                  flexDirection: "column",
+                  textAlign: "left",
                 }}
               >
                 <label htmlFor={fieldData.name} className={styles.labelTitle}>
@@ -188,15 +189,15 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   {...register(name, { required: isRequired })}
                   defaultValue={defaultValue}
                   style={{
-                    backgroundColor: 'white',
-                    minWidth: '6rem',
-                    borderColor: '0.134rem var(--primary-dark)',
-                    borderRadius: 'var(--border-radius-container)',
-                    padding: '8px 15px',
-                    fontSize: 'var(--button-font-size)'
+                    backgroundColor: "white",
+                    minWidth: "6rem",
+                    borderColor: "0.134rem var(--primary-dark)",
+                    borderRadius: "var(--border-radius-container)",
+                    padding: "8px 15px",
+                    fontSize: "var(--button-font-size)",
                   }}
                 >
-                  {' '}
+                  {" "}
                   {options.map((optionValue) => (
                     <option
                       value={optionValue}
@@ -210,15 +211,15 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             );
           }
 
-          if (type === 'password') {
+          if (type === "password") {
             return (
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'left',
-                  justifyContent: 'left',
-                  flexDirection: 'column',
-                  textAlign: 'left'
+                  display: "flex",
+                  alignItems: "left",
+                  justifyContent: "left",
+                  flexDirection: "column",
+                  textAlign: "left",
                 }}
               >
                 <label htmlFor={fieldData.name} className={styles.labelTitle}>
@@ -226,13 +227,13 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 </label>
                 <div
                   style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    position: 'relative'
+                    display: "flex",
+                    flexDirection: "column",
+                    position: "relative",
                   }}
                 >
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     className={styles.textInput}
                     {...register(name, { required: isRequired })}
                     defaultValue={defaultValue}
@@ -241,23 +242,23 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   {showPassword ? (
                     <FaRegEye
                       style={{
-                        zIndex: '1',
-                        position: 'absolute',
-                        top: '50%',
-                        right: '10px',
-                        transform: 'translateY(-50%)'
+                        zIndex: "1",
+                        position: "absolute",
+                        top: "50%",
+                        right: "10px",
+                        transform: "translateY(-50%)",
                       }}
                       onClick={togglePasswordVisibility}
                     />
                   ) : (
                     <FaRegEyeSlash
                       style={{
-                        zIndex: '1',
-                        position: 'absolute',
-                        top: '50%',
-                        right: '10px',
-                        transform: 'translateY(-50%)',
-                        cursor: 'pointer'
+                        zIndex: "1",
+                        position: "absolute",
+                        top: "50%",
+                        right: "10px",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
                       }}
                       onClick={togglePasswordVisibility}
                     />
@@ -267,19 +268,19 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             );
           }
 
-          if (type === 'multiline') {
+          if (type === "multiline") {
             const openMultiline = () => {
               openModal(name);
             };
             return (
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'left',
-                  justifyContent: 'left',
-                  flexDirection: 'column',
-                  textAlign: 'left',
-                  marginBottom: '12px'
+                  display: "flex",
+                  alignItems: "left",
+                  justifyContent: "left",
+                  flexDirection: "column",
+                  textAlign: "left",
+                  marginBottom: "12px",
                 }}
               >
                 <label htmlFor={fieldData.name} className={styles.labelTitle}>
@@ -287,10 +288,10 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 </label>
                 <div
                   style={{
-                    position: 'relative'
+                    position: "relative",
                   }}
                 >
-                  {' '}
+                  {" "}
                   <textarea
                     id="my-textarea"
                     rows={4}
@@ -301,11 +302,11 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   />
                   <FaExpandArrowsAlt
                     style={{
-                      position: 'absolute',
-                      margin: '0.6rem',
-                      top: '0',
-                      right: '0',
-                      zIndex: '1'
+                      position: "absolute",
+                      margin: "0.6rem",
+                      top: "0",
+                      right: "0",
+                      zIndex: "1",
                     }}
                     title={name}
                     onClick={openMultiline}
@@ -318,12 +319,12 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
           return (
             <div
               style={{
-                display: 'flex',
-                alignItems: 'left',
-                justifyContent: 'left',
-                flexDirection: 'column',
-                textAlign: 'left',
-                marginBottom: '12px'
+                display: "flex",
+                alignItems: "left",
+                justifyContent: "left",
+                flexDirection: "column",
+                textAlign: "left",
+                marginBottom: "12px",
               }}
             >
               <label htmlFor={fieldData.name} className={styles.labelTitle}>
@@ -341,19 +342,19 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         })}
         <div
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginTop: '1rem',
-            justifyContent: canDelete && editObj ? 'space-between' : 'right'
+            display: "flex",
+            alignItems: "center",
+            marginTop: "1rem",
+            justifyContent: canDelete && editObj ? "space-between" : "right",
           }}
         >
           {canDelete && editObj && (
             <Button onClick={toggleDeletePopup} width="9rem">
               <div
                 style={{
-                  display: 'flex',
-                  gap: '0.5rem',
-                  justifyContent: 'center'
+                  display: "flex",
+                  gap: "0.5rem",
+                  justifyContent: "center",
                 }}
               >
                 <FaTrashAlt />
@@ -375,9 +376,9 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         >
           <div
             style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              flexDirection: 'column'
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
             }}
           >
             <h3>Write extensively:</h3>
@@ -394,26 +395,26 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         <SimpleModal isOpen={confirmDelete} onRequestClose={toggleDeletePopup}>
           <div
             style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              flexDirection: 'column'
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
             }}
           >
             <h4>Are you sure you want to delete this?</h4>
             <div
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between'
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
             >
               <Button onClick={toggleDeletePopup} width="5rem" type="tertiary">
                 <div
                   style={{
-                    display: 'flex',
-                    gap: '0.5rem',
-                    justifyContent: 'center'
+                    display: "flex",
+                    gap: "0.5rem",
+                    justifyContent: "center",
                   }}
                 >
                   Cancel
@@ -423,9 +424,9 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
               <Button onClick={onDelete} width="5rem" type="secondary">
                 <div
                   style={{
-                    display: 'flex',
-                    gap: '0.5rem',
-                    justifyContent: 'center'
+                    display: "flex",
+                    gap: "0.5rem",
+                    justifyContent: "center",
                   }}
                 >
                   Delete

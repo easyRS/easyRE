@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
-import { Button } from '../Button';
-import Filter from './Filter/Filter';
-import styles from './Table.module.css';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
+import { Button } from "../Button";
+import Filter from "./Filter/Filter";
+import styles from "./Table.module.css";
 
 type TableProps = {
   tableProperties: TableMapping<ITable>;
@@ -92,44 +92,52 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 
       <table className={styles.table}>
         <tr className={styles.thead}>
-          {labels.map((label) => (
-            <th className={styles.th}>{label}</th>
+          {labels.map((label, index) => (
+            <th className={styles.th} key={index}>
+              {label}
+            </th>
           ))}
         </tr>
         {filteredArrayObj &&
-          filteredArrayObj.map((obj) => {
+          filteredArrayObj.map((obj, index) => {
             return (
               <tr
                 className={styles.tbody}
-                key={obj._id?.toString()}
+                key={index}
                 onClick={() => {
-                  onEdit(obj._id?.toString() || '');
+                  onEdit((obj as IEntity)._id?.toString() || "");
                 }}
               >
-                {keys.map((key) => {
-                  if (key === 'coordinates') {
+                {keys.map((key, index) => {
+                  if (key === "coordinates") {
                     const value = (obj as any)[key] as [number]; // eslint-disable-line
-                    return <td className={styles.td}>{value.join(' , ')}</td>;
+                    return (
+                      <td className={styles.td} key={index}>
+                        {value.join(" , ")}
+                      </td>
+                    );
                   }
 
-                  if (key === 'actions') {
+                  if (key === "actions") {
                     const value = (obj as any)[key] as string; // eslint-disable-line
                     if (!value) return null;
-                    const actions = value.split(',');
+                    const actions = value.split(",");
 
                     return (
-                      <td className={styles.td}>
+                      <td className={styles.td} key={index}>
                         {actions.map((action) => {
+                          // @ts-ignore
                           const stopPropagationCallback = (event) => {
                             event.stopPropagation();
                           };
-                          const keyValue = action.split('=');
-                          if (keyValue[0] === 'whatsapp')
+                          const keyValue = action.split("=");
+                          if (keyValue[0] === "whatsapp")
                             return (
                               <Link
                                 href={`https://wa.me/${keyValue[1]}`}
                                 target="_blank"
                                 onClick={stopPropagationCallback}
+                                key={index}
                               >
                                 <FaWhatsapp />
                               </Link>
@@ -141,7 +149,11 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
                   }
 
                   const value = (obj as any)[key]; // eslint-disable-line
-                  return <td className={styles.td}>{value}</td>;
+                  return (
+                    <td className={styles.td} key={index}>
+                      {value}
+                    </td>
+                  );
                 })}
               </tr>
             );
@@ -152,12 +164,12 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
 };
 
 Table.defaultProps = {
-  headerTitle: '',
-  newTitle: '',
-  newRedirectUrl: '',
-  buttonType: 'primary',
+  headerTitle: "",
+  newTitle: "",
+  newRedirectUrl: "",
+  buttonType: "primary",
   enableFilter: false,
-  defaultFilterValue: ''
+  defaultFilterValue: "",
 };
 
 export default Table;

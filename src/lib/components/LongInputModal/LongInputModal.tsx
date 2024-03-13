@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import { FaWindowClose } from 'react-icons/fa';
-import styles from './LongInputModal.module.css';
+import { FaWindowClose } from "react-icons/fa";
+import styles from "./LongInputModal.module.css";
 
 interface ModalProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface ModalProps {
 const LongInputModal: React.FC<ModalProps> = ({
   isOpen,
   onRequestClose,
-  children
+  children,
 }) => {
   const handleClose = () => {
     onRequestClose();
@@ -24,7 +24,7 @@ const LongInputModal: React.FC<ModalProps> = ({
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <FaWindowClose
-              style={{ alignSelf: 'flex-end' }}
+              style={{ alignSelf: "flex-end" }}
               title="Close"
               onClick={handleClose}
             />

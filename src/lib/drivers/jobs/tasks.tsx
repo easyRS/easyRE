@@ -1,8 +1,8 @@
-import LeaseContractUseCases from '../../useCases/LeaseContractUseCases';
-import { daysBetween, monthsBetween } from '../../utils/datesHelper';
+import LeaseContractUseCases from "../../useCases/LeaseContractUseCases";
+import { daysBetween, monthsBetween } from "../../utils/datesHelper";
 
-import ILeaseContract from '../../domain/entities/ILeaseContract';
-import { TIME_TYPE_MONTHLY_OPTION } from '../../domain/entities/TimeType';
+import ILeaseContract from "../../domain/entities/ILeaseContract";
+import { TIME_TYPE_MONTHLY_OPTION } from "../../domain/entities/TimeType";
 
 const startMidnightDailyJob = async (): Promise<ILeaseContract[]> => {
   // docker exec main yarn run job
@@ -24,7 +24,7 @@ const startMidnightDailyJob = async (): Promise<ILeaseContract[]> => {
               nextDate ? new Date(nextDate) : undefined
             );
 
-      if (currentTime < timeAmount) {
+      if (currentTime < parseInt(timeAmount, 10)) {
         const generateEvents = true;
         const updatedContract =
           await leaseContractUseCases.generateMonthlyRecurringTasks(

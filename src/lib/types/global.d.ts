@@ -1,9 +1,9 @@
-import IContractDefinition from '../domain/entities/IContractDefinition';
-import ILeaseContract from '../domain/entities/ILeaseContract';
-import IProperty from '../domain/entities/IProperty';
-import ITask from '../domain/entities/ITask';
-import ITenant from '../domain/entities/ITenant';
-import IUser from '../domain/entities/IUser';
+import IContractDefinition from "../domain/entities/IContractDefinition";
+import ILeaseContract from "../domain/entities/ILeaseContract";
+import IProperty from "../domain/entities/IProperty";
+import ITask from "../domain/entities/ITask";
+import ITenant from "../domain/entities/ITenant";
+import IUser from "../domain/entities/IUser";
 
 export {};
 
@@ -93,7 +93,7 @@ declare global {
     type: string;
     display_value: string;
     isRequired: boolean;
-    options?: string[] = [];
+    options?: string[];
   };
 
   type ModelKeys = {
@@ -112,7 +112,7 @@ declare global {
     data: AllowedType;
   };
 
-  type TypeStyle = 'primary' | 'secondary' | 'tertiary';
+  type TypeStyle = "primary" | "secondary" | "tertiary";
 
   type NewLeaseContract = ILeaseContract & { url: string };
 }

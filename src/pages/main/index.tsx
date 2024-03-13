@@ -1,30 +1,30 @@
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Stepper, TopNavigation } from '../../lib/components';
-import Form from '../../lib/components/Form/Form';
-import { getActiveContractDefs } from '../../lib/controllers/ContractDefController';
-import { getFormFields as contractFormFields } from '../../lib/controllers/LeaseContractController';
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Stepper, TopNavigation } from "../../lib/components";
+import Form from "../../lib/components/Form/Form";
+import { getActiveContractDefs } from "../../lib/controllers/ContractDefController";
+import { getFormFields as contractFormFields } from "../../lib/controllers/LeaseContractController";
 import {
   getProperties,
-  getFormFields as propertyFormFields
-} from '../../lib/controllers/PropertyController';
+  getFormFields as propertyFormFields,
+} from "../../lib/controllers/PropertyController";
 import {
   getTenants,
-  getFormFields as tenantFormFields
-} from '../../lib/controllers/TenantController';
-import leaseCalls from '../../lib/drivers/network/main';
-import callbacks from '../../lib/drivers/network/tenants';
+  getFormFields as tenantFormFields,
+} from "../../lib/controllers/TenantController";
+import leaseCalls from "../../lib/drivers/network/main";
+import callbacks from "../../lib/drivers/network/tenants";
 
-import IContractDefinition from '../../lib/domain/entities/IContractDefinition';
-import ILeaseContract from '../../lib/domain/entities/ILeaseContract';
-import IProperty from '../../lib/domain/entities/IProperty';
-import ITenant from '../../lib/domain/entities/ITenant';
+import IContractDefinition from "../../lib/domain/entities/IContractDefinition";
+import ILeaseContract from "../../lib/domain/entities/ILeaseContract";
+import IProperty from "../../lib/domain/entities/IProperty";
+import ITenant from "../../lib/domain/entities/ITenant";
 
-import Button from '../../lib/components/Button/Button';
-import { useObjValues } from '../../lib/utils/mainHooks';
-import styles from './index.module.css';
+import Button from "../../lib/components/Button/Button";
+import { useObjValues } from "../../lib/utils/mainHooks";
+import styles from "./index.module.css";
 
 type SelectValue = [ITenant[], IProperty[], IContractDefinition[]];
 
@@ -38,7 +38,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     props.selectValues
   );
   const [completed, setSetCompleted] = useState<boolean>(false);
-  const [summaryRaw, setSummary] = useState<string>('');
+  const [summaryRaw, setSummary] = useState<string>("");
   const form = useForm();
 
   const currentObj = objValues[index]; /* eslint-disable-line*/
@@ -50,7 +50,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
     async function success(response: Response) {
       const data = await response.json();
       const url = data.url as string;
-      router.push(url || '/');
+      router.push(url || "/");
     }
 
     async function create() {
@@ -83,12 +83,12 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
           ? longitude
           : genericData.coordinates
           ? parseFloat((genericData.coordinates as string[])[1])
-          : 0
+          : 0,
       ];
 
       dataParam = {
         ...dataParam,
-        coordinates
+        coordinates,
       };
     }
 
@@ -122,30 +122,30 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   };
 
   const pickTitle = (): string => {
-    if (index === 0) return 'Tenant';
-    if (index === 1) return 'Property';
-    return 'Contract';
+    if (index === 0) return "Tenant";
+    if (index === 1) return "Property";
+    return "Contract";
   };
 
   useEffect(() => {
     if (!objValues) return;
-    let summary = '';
+    let summary = "";
     if (objValues[0] && Object.keys(objValues[0]).length > 0) {
       const tenant = objValues[0] as ITenant; /* eslint-disable-line*/
-      summary += '* Tenant Info:';
+      summary += "* Tenant Info:";
       summary += `\n ${tenant.name} ${tenant.phone}`;
     }
 
     if (objValues[1] && Object.keys(objValues[1]).length > 0) {
       const property = objValues[1] as IProperty; /* eslint-disable-line*/
-      summary += '\n* Property Name:';
+      summary += "\n* Property Name:";
       summary += `\n ${property.name}`;
     }
 
     if (objValues[2] && Object.keys(objValues[2]).length > 0) {
       const contractDefinition =
         objValues[2] as ILeaseContract; /* eslint-disable-line*/
-      summary += '\n* Lease Info:';
+      summary += "\n* Lease Info:";
       summary += `\n Start Date: ${contractDefinition.startDate} Time Amount: ${contractDefinition.timeAmount}`;
     }
     setSummary(summary);
@@ -154,13 +154,13 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   const summary = summaryRaw
     ? summaryRaw
         .toString()
-        .split('\n')
+        .split("\n")
         .map((line, index2) => <p key={`${index2.toString()}`}>{line}</p>)
     : null;
 
-  const submitTitle = index === 2 ? 'SUBMIT' : 'NEXT';
+  const submitTitle = index === 2 ? "SUBMIT" : "NEXT";
   const containerStyle = {
-    justifyContent: summary ? 'space-between' : 'center'
+    justifyContent: summary ? "space-between" : "center",
   };
 
   return (
@@ -173,16 +173,16 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
 
             <Stepper
               titles={[
-                'Select a Tenant',
-                'Select a Property',
-                'Select a Contract'
+                "Select a Tenant",
+                "Select a Property",
+                "Select a Contract",
               ]}
               current={index}
             />
 
             <p className={styles.headerTitle}>
               In order to track your properties, you need a lease. A lease is
-              built by a tenant (person who wants to live in your property),{' '}
+              built by a tenant (person who wants to live in your property),{" "}
               <br />a property and a contract (previously agreed by both
               parties).
             </p>
@@ -193,7 +193,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
               <div className={styles.summaryContainer}>
                 <div className={styles.summaryTextContainer}>
                   <h3>Summary:</h3>
-                  <div style={{ flexGrow: 3, textAlign: 'start' }}>
+                  <div style={{ flexGrow: 3, textAlign: "start" }}>
                     {summary}
                   </div>
                 </div>
@@ -208,17 +208,19 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
                   <select
                     onChange={onChange}
                     style={{
-                      marginLeft: '6px',
-                      backgroundColor: 'white',
-                      padding: '6px 4px',
-                      borderRadius: '0.6rem',
-                      minWidth: '6rem'
+                      marginLeft: "6px",
+                      backgroundColor: "white",
+                      padding: "6px 4px",
+                      borderRadius: "0.6rem",
+                      minWidth: "6rem",
                     }}
                   >
-                    {' '}
+                    {" "}
                     <option value="N/A">N/A</option>
-                    {values.map((value) => (
-                      <option value={value._id}>{value.name}</option>
+                    {values.map((value, index) => (
+                      <option value={value._id?.toString()} key={index}>
+                        {value.name}
+                      </option>
                     ))}
                   </select>
                 </h4>
@@ -255,11 +257,11 @@ export async function getServerSideProps() {
   const formFieldsArray = [
     _tenantFormFields,
     _propertyFormFields,
-    _contractFormFields
+    _contractFormFields,
   ];
 
   return {
-    props: { formFieldsArray, selectValues }
+    props: { formFieldsArray, selectValues },
   };
 }
 

@@ -1,4 +1,4 @@
-import styles from './Stepper.module.css';
+import styles from "./Stepper.module.css";
 
 type StepperProps = {
   titles: string[];
@@ -12,17 +12,17 @@ const Stepper = (props: StepperProps) => {
       <div className={styles.stepperMainContainer}>
         {titles &&
           titles.map((title, index) => (
-            <div className={styles.stepper}>
+            <div className={styles.stepper} key={index}>
               <div className={styles.counterContainer}>
                 <span
                   className={styles.counter}
                   style={
                     current === index
                       ? {
-                          backgroundColor: 'var(--primary)',
-                          boxShadow: '0 0 3px var(--primary)',
-                          color: 'black',
-                          opacity: '1'
+                          backgroundColor: "var(--primary)",
+                          boxShadow: "0 0 3px var(--primary)",
+                          color: "black",
+                          opacity: "1",
                         }
                       : {}
                   }
@@ -38,8 +38,8 @@ const Stepper = (props: StepperProps) => {
                 style={
                   current === index
                     ? {
-                        color: 'black',
-                        opacity: '1'
+                        color: "black",
+                        opacity: "1",
                       }
                     : {}
                 }
