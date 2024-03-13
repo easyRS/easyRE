@@ -1,0 +1,47 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(
+    var(--primary) 0,
+    var(--primary) 21%,
+    var(--background) 21%
+  );
+  text-rendering: optimizeLegibility;
+  margin-right: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+img {
+  border-radius: 5px;
+  height: auto;
+  width: 10rem;
+}
+
+div {
+  text-align: center;
+}
+
+small {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
