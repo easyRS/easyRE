@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '../Button';
 import Filter from './Filter/Filter';
 import styles from './Table.module.css';
@@ -130,9 +129,7 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
                                 href={`https://wa.me/${keyValue[1]}`}
                                 target="_blank"
                                 onClick={stopPropagationCallback}
-                              >
-                                <FaWhatsapp />
-                              </Link>
+                              />
                             );
                           return null;
                         })}

@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 
 import { useEffect } from 'react';
-import { FaPaperPlane, FaRegLightbulb, FaTasks } from 'react-icons/fa';
 import { Counter, Table, TopNavigation } from '../lib/components';
 import {
   listAllCompleted,
@@ -38,12 +37,10 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
             <p className={styles.welcomeText}>
               Welcome to <strong>Easy RS</strong>!. The easy open-source way to
               manage your Real Estate 🏠 stuff
-              <br /> <FaRegLightbulb />
+              <br />
               &nbsp; Start creating a lease for managing your properties. Press
               the button top-right upper &nbsp;
-              <FaPaperPlane />
               <br />
-              <FaTasks />
               &nbsp; Then, you can review pending tasks below & useful reports.
             </p>
           </div>

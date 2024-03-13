@@ -21,8 +21,6 @@
     "npm": "please-use-yarn"
   },
   "dependencies": {
-    "@next/font": "13.4.17",
-    "bcrypt": "5.1.1",
     "classnames": "2.3.2",
     "crypto-js": "4.1.1",
     "googleapis": "128.0.0",

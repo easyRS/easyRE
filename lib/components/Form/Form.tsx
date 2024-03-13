@@ -3,12 +3,6 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { FieldValues, UseFormReturn, useForm } from 'react-hook-form';
-import {
-  FaExpandArrowsAlt,
-  FaRegEye,
-  FaRegEyeSlash,
-  FaTrashAlt
-} from 'react-icons/fa';
 import IProperty from '../../domain/entities/IProperty';
 import Button from '../Button/Button';
 import LongInputModal from '../LongInputModal/LongInputModal';
@@ -87,23 +81,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
     setIsOpen(true);
     setMultilineName(name);
     setMultilineValue(values[name]);
-  };
-
-  const closeModal = () => {
-    const { reset } = form;
-    const values = form.getValues() as Record<string, unknown>;
-
-    reset({
-      ...values,
-      [multilineName]: modalRef.current?.value
-    });
-    setMultilineName('');
-    setMultilineValue('');
-    setIsOpen(false);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
   };
 
   const editableFields = propertiesProps.formFields.editables;
@@ -238,30 +215,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                     defaultValue={defaultValue}
                   />
                   {errors[name] && <p>This is required</p>}
-                  {showPassword ? (
-                    <FaRegEye
-                      style={{
-                        zIndex: '1',
-                        position: 'absolute',
-                        top: '50%',
-                        right: '10px',
-                        transform: 'translateY(-50%)'
-                      }}
-                      onClick={togglePasswordVisibility}
-                    />
-                  ) : (
-                    <FaRegEyeSlash
-                      style={{
-                        zIndex: '1',
-                        position: 'absolute',
-                        top: '50%',
-                        right: '10px',
-                        transform: 'translateY(-50%)',
-                        cursor: 'pointer'
-                      }}
-                      onClick={togglePasswordVisibility}
-                    />
-                  )}
                 </div>
               </div>
             );
@@ -298,17 +251,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                     className={styles.textInput}
                     {...register(name, { required: isRequired })}
                     defaultValue={defaultValue}
-                  />
-                  <FaExpandArrowsAlt
-                    style={{
-                      position: 'absolute',
-                      margin: '0.6rem',
-                      top: '0',
-                      right: '0',
-                      zIndex: '1'
-                    }}
-                    title={name}
-                    onClick={openMultiline}
                   />
                 </div>
               </div>
@@ -356,7 +298,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                   justifyContent: 'center'
                 }}
               >
-                <FaTrashAlt />
                 DELETE
               </div>
             </Button>
@@ -369,10 +310,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
         </div>
       </form>
       <div>
-        <LongInputModal
-          isOpen={longTextModalIsOpen}
-          onRequestClose={closeModal}
-        >
+        <LongInputModal isOpen={longTextModalIsOpen}>
           <div
             style={{
               display: 'flex',
@@ -391,7 +329,7 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
             />
           </div>
         </LongInputModal>
-        <SimpleModal isOpen={confirmDelete} onRequestClose={toggleDeletePopup}>
+        <SimpleModal isOpen={confirmDelete}>
           <div
             style={{
               display: 'flex',
