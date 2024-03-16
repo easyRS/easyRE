@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "api/vercelcronjob/index.tsx",
+      "path": "/api/vercelcronjob/index.tsx",
       "schedule": "0 14 * * *"
     }
   ]
