@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/xdxd",
-      "schedule": "30 18 * * *"
+      "path": "/api/cronjobvercel",
+      "schedule": "0 0 * * *"
     }
   ]
 }

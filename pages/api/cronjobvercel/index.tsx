@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import executeSeeder from '../../../lib/drivers/database/seeder';
+import startMidnightDailyJob from '../../../lib/drivers/jobs/tasks';
 
 export default async (
   req: /* eslint-disable-line*/ NextApiRequest,
   res: /* eslint-disable-line*/ NextApiResponse
 ) => {
-  await executeSeeder(true, false, true);
+  await startMidnightDailyJob();
 };
