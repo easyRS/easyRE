@@ -46,7 +46,12 @@ docker-compose -f docker/dev/docker-compose.yml up
 
 ### Prod:
 
-How to deploy in your own server:
+#### Vercel:
+
+This should be really easy. You can find more information [here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
+Keep in mind that the there is a cron job which will be executed at some point in midnight(not exact time) according to Vercel documentation for [Hobby plan](https://vercel.com/docs/cron-jobs/usage-and-pricing#hobby-scheduling-limits)
+
+#### How to deploy in your own server:
 
 - Install [Ansible in your local machine](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - Create an SSH key, go to Github SSH key setup page or corresponding one and copy it.
