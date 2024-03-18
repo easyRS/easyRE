@@ -7,4 +7,5 @@ export default async (
 ) => {
   await startMidnightDailyJob();
   console.log('Sucesfully run'); /* eslint-disable-line*/
+  process.exit(0);
 };
