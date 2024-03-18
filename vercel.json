@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/vercelcronjob/index.tsx",
-      "schedule": "4 11 * * *"
+      "path": "/pages/api/vercelcronjob",
+      "schedule": "57 12 * * *"
     }
   ]
 }
