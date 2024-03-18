@@ -6,4 +6,5 @@ export default async (
   res: /* eslint-disable-line*/ NextApiResponse
 ) => {
   await startMidnightDailyJob();
+  console.log('Sucesfully run'); /* eslint-disable-line*/
 };
