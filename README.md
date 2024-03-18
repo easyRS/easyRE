@@ -51,6 +51,13 @@ docker-compose -f docker/dev/docker-compose.yml up
 This should be really easy. You can find more information [here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 Keep in mind that the there is a cron job which will be executed at some point in midnight(not exact time) according to Vercel documentation for [Hobby plan](https://vercel.com/docs/cron-jobs/usage-and-pricing#hobby-scheduling-limits)
 
+There are only two environment variables:
+
+```sh
+DATABASE_URL=[REPLACE_WITH_MONGODB_ATLAS_CREDENTIALS]
+NEXTAUTH_SECRET=[REPLACE_WITH_YOUR_SOME_SECRET]
+```
+
 #### How to deploy in your own server:
 
 - Install [Ansible in your local machine](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
