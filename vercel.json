@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cronjobvercel",
+      "path": "/api/jobmidnight",
       "schedule": "0 0 * * *"
     }
   ]
