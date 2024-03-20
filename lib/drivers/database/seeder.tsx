@@ -235,7 +235,7 @@ export default async function executeSeeder(
 
       console.log(`Seed sucessfully ran! TEST_ENABLED=${TEST_ENABLED}`); // eslint-disable-line no-console
 
-      if (!TEST_ENABLED) process.exit(0);
+      if (TEST_ENABLED && TEST_ENABLED === 'false') process.exit(0);
     } catch (error) {
       console.log('error'); // eslint-disable-line no-console
       console.log(error); // eslint-disable-line no-console
