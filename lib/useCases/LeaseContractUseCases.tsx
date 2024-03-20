@@ -85,7 +85,8 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       };
 
       const leaseTmp = await super.create(leaseContract);
-      if (leaseTmp._id) {
+      return { ...leaseTmp, url: '' };
+      /* if (leaseTmp._id) {
         let lease = await this.findById(leaseTmp._id.toString(), []);
         const generateEvents = false;
         lease = await this.generateMonthlyRecurringTasks(lease, generateEvents);
@@ -96,6 +97,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       }
 
       throw new Error('Lease not found');
+      */
     } catch (error) {
       await session.abortTransaction();
       await session.endSession();
