@@ -4,5 +4,6 @@
       "path": "/api/jobmidnight",
       "schedule": "0 0 * * *"
     }
-  ]
+  ],
+  "buildCommand": "next build && yarn run seed --seed_fake_data=false --delete_data=false --seed_types=true"
 }
