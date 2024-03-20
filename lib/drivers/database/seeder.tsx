@@ -233,7 +233,7 @@ export default async function executeSeeder(
         await fakeDataFunct();
       }
 
-      console.log('Seed sucessfully ran!'); // eslint-disable-line no-console
+      console.log(`Seed sucessfully ran! TEST_ENABLED=${TEST_ENABLED}`); // eslint-disable-line no-console
 
       // if (!TEST_ENABLED)
       process.exit(0);
