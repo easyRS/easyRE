@@ -239,7 +239,7 @@ export default async function executeSeeder(
     } catch (error) {
       console.log('error'); // eslint-disable-line no-console
       console.log(error); // eslint-disable-line no-console
-      if (!TEST_ENABLED) process.exit(1);
+      if (!TEST_ENABLED && TEST_ENABLED === 'false') process.exit(1);
     }
   };
 

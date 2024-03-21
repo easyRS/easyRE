@@ -6,7 +6,7 @@
     "dev": "node cronconfig.js && node server.js",
     "build": "next build",
     "test": "TEST_ENABLED=true jest --verbose",
-    "start": "NODE_ENV=production next start",
+    "start": "NODE_ENV=production TEST_ENABLED=false next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",
