@@ -8,6 +8,7 @@ import AbstractUseCases from './AbstractUseCases';
 import { generateGoogleUrlRedirect } from '../drivers/network/googleapis';
 import { daysBetween, monthsBetween } from '../utils/datesHelper';
 import EventUseCases from './EventUseCases';
+import PropertyUseCases from './PropertyUseCases';
 import TaskUseCases from './TaskUseCases';
 import TenantUseCases from './TenantUseCases';
 
@@ -65,24 +66,23 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     const object = unknownObj as unknown;
     const objValues = object as StepMapper;
 
-    const tenant = objValues[0];
-    const property = objValues[1];
-    /* const tenantUseCase = new TenantUseCases();
-      if (tenant._id)
-        await tenantUseCase.update(unknownObj[0] as Record<string, unknown>);
-      else
-        tenant = await tenantUseCase.create(
-          unknownObj[0] as Record<string, unknown>
-        );
+    let tenant = objValues[0];
+    const tenantUseCase = new TenantUseCases();
+    if (tenant._id)
+      await tenantUseCase.update(unknownObj[0] as Record<string, unknown>);
+    else
+      tenant = await tenantUseCase.create(
+        unknownObj[0] as Record<string, unknown>
+      );
 
-      let property = objValues[1];
-      const propertyUseCase = new PropertyUseCases();
-      if (property._id)
-        await propertyUseCase.update(unknownObj[1] as Record<string, unknown>);
-      else
-        property = await propertyUseCase.create(
-          unknownObj[1] as Record<string, unknown>
-        ); */
+    let property = objValues[1];
+    const propertyUseCase = new PropertyUseCases();
+    if (property._id)
+      await propertyUseCase.update(unknownObj[1] as Record<string, unknown>);
+    else
+      property = await propertyUseCase.create(
+        unknownObj[1] as Record<string, unknown>
+      );
 
     const workInProgressState = (
       this.repository as LeaseContractRepository
