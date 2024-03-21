@@ -55,6 +55,7 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
 
     async function onSuccessCreate(response: Response) {
       const data = await response.json();
+      console.log('loggin!!'); /* eslint-disable-line*/
       console.log(data); /* eslint-disable-line*/
       // const url = data.url as string;
       // router.push(url || '/');
