@@ -52,8 +52,8 @@ export default class LeaseContractUseCases extends AbstractUseCases<
   async generateTasks(
     unknownObj: Record<string, unknown>
   ): Promise<NewLeaseContract> {
-    const { id } = unknownObj;
-    let lease = await this.findById(id as string, []);
+    const { _id } = unknownObj;
+    let lease = await this.findById(_id as string, []);
     const generateEvents = false;
     lease = await this.generateMonthlyRecurringTasks(lease, generateEvents);
 

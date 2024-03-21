@@ -47,18 +47,16 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    /* async function onSucessTasks(response: Response) {
+    async function onSucessTasks(response: Response) {
       const data = await response.json();
       const url = data.url as string;
       router.push(url || '/');
-    } */
+    }
 
     async function onSuccessCreate(response: Response) {
       const data = await response.json();
-      console.log('loggin!!'); /* eslint-disable-line*/
-      console.log(data); /* eslint-disable-line*/
-      // const url = data.url as string;
-      // router.push(url || '/');
+      const { createTasksCallback } = leaseCalls;
+      await createTasksCallback(data, onSucessTasks);
     }
 
     async function create() {
