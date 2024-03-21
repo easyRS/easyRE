@@ -55,8 +55,10 @@ const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
 
     async function onSuccessCreate(response: Response) {
       const data = await response.json();
-      const { createTasksCallback } = leaseCalls;
-      await createTasksCallback(data, onSucessTasks);
+      if (data && data._id) {
+        const { createTasksCallback } = leaseCalls;
+        await createTasksCallback(data, onSucessTasks);
+      }
     }
 
     async function create() {

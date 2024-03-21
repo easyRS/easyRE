@@ -95,14 +95,11 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     };
     const leaseTmp = await super.create(leaseContract);
 
-    return { ...leaseTmp, url: '' };
-    // if (leaseTmp._id) {
-    // return { ...leaseTmp, url: '' };
-    // const lease = await this.findById(leaseTmp._id.toString(), []);
-    // return { ...lease, url: '' };
-    // }
+    if (leaseTmp._id) {
+      return { ...leaseTmp, url: '' };
+    }
 
-    // throw new Error('Lease not found');
+    throw new Error('Lease not found');
   }
 
   async calculateNextDate(
