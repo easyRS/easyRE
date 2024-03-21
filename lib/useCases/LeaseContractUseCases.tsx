@@ -1,4 +1,4 @@
-import mongoose, { Types } from 'mongoose';
+import { Types } from 'mongoose';
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
 import ITenant from '../domain/entities/ITenant';
@@ -62,15 +62,12 @@ export default class LeaseContractUseCases extends AbstractUseCases<
   }
 
   async create(unknownObj: Record<string, unknown>): Promise<NewLeaseContract> {
-    const session = await mongoose.startSession();
-    await session.startTransaction();
-    try {
-      const object = unknownObj as unknown;
-      const objValues = object as StepMapper;
+    const object = unknownObj as unknown;
+    const objValues = object as StepMapper;
 
-      const tenant = objValues[0];
-      const property = objValues[1];
-      /* const tenantUseCase = new TenantUseCases();
+    const tenant = objValues[0];
+    const property = objValues[1];
+    /* const tenantUseCase = new TenantUseCases();
       if (tenant._id)
         await tenantUseCase.update(unknownObj[0] as Record<string, unknown>);
       else
@@ -87,32 +84,25 @@ export default class LeaseContractUseCases extends AbstractUseCases<
           unknownObj[1] as Record<string, unknown>
         ); */
 
-      const workInProgressState = (
-        this.repository as LeaseContractRepository
-      ).getWorkInProgressState();
-      const leaseContract = {
-        property,
-        tenant,
-        ...objValues[2],
-        state: workInProgressState
-      };
-      const leaseTmp = await super.create(leaseContract);
-      await session.commitTransaction();
-      await session.endSession();
+    const workInProgressState = (
+      this.repository as LeaseContractRepository
+    ).getWorkInProgressState();
+    const leaseContract = {
+      property,
+      tenant,
+      ...objValues[2],
+      state: workInProgressState
+    };
+    const leaseTmp = await super.create(leaseContract);
 
-      return { ...leaseTmp, url: '' };
-      // if (leaseTmp._id) {
-      // return { ...leaseTmp, url: '' };
-      // const lease = await this.findById(leaseTmp._id.toString(), []);
-      // return { ...lease, url: '' };
-      // }
+    return { ...leaseTmp, url: '' };
+    // if (leaseTmp._id) {
+    // return { ...leaseTmp, url: '' };
+    // const lease = await this.findById(leaseTmp._id.toString(), []);
+    // return { ...lease, url: '' };
+    // }
 
-      // throw new Error('Lease not found');
-    } catch (error) {
-      await session.abortTransaction();
-      await session.endSession();
-      throw error;
-    }
+    // throw new Error('Lease not found');
   }
 
   async calculateNextDate(
