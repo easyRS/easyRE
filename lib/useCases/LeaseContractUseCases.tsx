@@ -96,9 +96,9 @@ export default class LeaseContractUseCases extends AbstractUseCases<
         ...objValues[2],
         state: workInProgressState
       };
+      const leaseTmp = await super.create(leaseContract);
       await session.commitTransaction();
       await session.endSession();
-      const leaseTmp = await super.create(leaseContract);
 
       return { ...leaseTmp, url: '' };
       // if (leaseTmp._id) {
