@@ -1,6 +1,6 @@
 import { DELETE_METHOD, POST_METHOD, PUT_METHOD } from './constants';
 
-type AllowedType = IEntity | StepMapper;
+type AllowedType = IEntity | StepMapper | Record<string, unknown>;
 
 export const call = async (
   apiObj: CallApiObject,
