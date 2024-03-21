@@ -91,9 +91,10 @@ export default class LeaseContractUseCases extends AbstractUseCases<
         const generateEvents = false;
         lease = await this.generateMonthlyRecurringTasks(lease, generateEvents);
 
-        const url = await this.generateUrlRedirect(lease);
+        /* const url = await this.generateUrlRedirect(lease);
         const urlObj = { url };
-        return { ...lease, ...urlObj };
+        return { ...lease, ...urlObj }; */
+        return { ...lease, url: '' };
       }
 
       throw new Error('Lease not found');
