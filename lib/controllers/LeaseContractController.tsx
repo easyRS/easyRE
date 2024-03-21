@@ -5,6 +5,10 @@ async function createLeaseContract(object: Record<string, unknown>) {
   return new LeaseContractUseCases().create(object);
 }
 
+async function generateTasks(object: Record<string, unknown>) {
+  return new LeaseContractUseCases().generateTasks(object);
+}
+
 async function getLeaseContracts(): Promise<ILeaseContract[]> {
   return new LeaseContractUseCases().list();
 }
@@ -132,13 +136,14 @@ async function activeContracts() {
 }
 
 export {
+  activeContracts,
   createLeaseContract,
-  getLeaseContracts,
-  getAllLeaseContracts,
+  generateTasks,
   getActiveLeaseContracts,
+  getAllLeaseContracts,
   getFormFields,
   getLeaseContract,
-  updateLeaseContract,
+  getLeaseContracts,
   removeLeaseContract,
-  activeContracts
+  updateLeaseContract
 };

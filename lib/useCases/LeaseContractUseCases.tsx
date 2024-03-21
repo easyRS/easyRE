@@ -49,6 +49,19 @@ export default class LeaseContractUseCases extends AbstractUseCases<
     return wip.length;
   }
 
+  async generateTasks(
+    unknownObj: Record<string, unknown>
+  ): Promise<NewLeaseContract> {
+    const { id } = unknownObj;
+    let lease = await this.findById(id as string, []);
+    const generateEvents = false;
+    lease = await this.generateMonthlyRecurringTasks(lease, generateEvents);
+
+    const url = await this.generateUrlRedirect(lease);
+    const urlObj = { url };
+    return { ...lease, ...urlObj };
+  }
+
   async create(unknownObj: Record<string, unknown>): Promise<NewLeaseContract> {
     const session = await mongoose.startSession();
     await session.startTransaction();
@@ -87,14 +100,9 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       const leaseTmp = await super.create(leaseContract);
 
       if (leaseTmp._id) {
-        let lease = await this.findById(leaseTmp._id.toString(), []);
-        const generateEvents = false;
-        lease = await this.generateMonthlyRecurringTasks(lease, generateEvents);
-
-        /* const url = await this.generateUrlRedirect(lease);
-        const urlObj = { url };
-        return { ...lease, ...urlObj }; */
-        return { ...lease, url: '' };
+        return { ...leaseTmp, url: '' };
+        // const lease = await this.findById(leaseTmp._id.toString(), []);
+        // return { ...lease, url: '' };
       }
 
       throw new Error('Lease not found');
