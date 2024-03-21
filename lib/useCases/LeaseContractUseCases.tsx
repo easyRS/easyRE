@@ -8,7 +8,6 @@ import AbstractUseCases from './AbstractUseCases';
 import { generateGoogleUrlRedirect } from '../drivers/network/googleapis';
 import { daysBetween, monthsBetween } from '../utils/datesHelper';
 import EventUseCases from './EventUseCases';
-import PropertyUseCases from './PropertyUseCases';
 import TaskUseCases from './TaskUseCases';
 import TenantUseCases from './TenantUseCases';
 
@@ -69,8 +68,9 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       const object = unknownObj as unknown;
       const objValues = object as StepMapper;
 
-      let tenant = objValues[0];
-      const tenantUseCase = new TenantUseCases();
+      const tenant = objValues[0];
+      const property = objValues[1];
+      /* const tenantUseCase = new TenantUseCases();
       if (tenant._id)
         await tenantUseCase.update(unknownObj[0] as Record<string, unknown>);
       else
@@ -85,7 +85,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       else
         property = await propertyUseCase.create(
           unknownObj[1] as Record<string, unknown>
-        );
+        ); */
 
       const workInProgressState = (
         this.repository as LeaseContractRepository
