@@ -28,6 +28,8 @@ Easy RS is a self-hosted property management app targeted for developers. Contro
 - [Install](#install)
   - [Dev](#dev)
   - [Prod](#prod)
+    - [Vercel](#vercel)
+    - [Deploy on Your Own Server](#deploy-on-your-own-server)
 - [Extra Configurations](#extra-configurations)
   - [Seeders](#seeders)
   - [Tests](#tests)
