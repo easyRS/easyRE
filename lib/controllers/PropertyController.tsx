@@ -10,8 +10,8 @@ async function getTableProperties(): Promise<TableMapping<IPropertyTable>> {
 
   const labelsMapping: IPropertyTable = {
     name: 'Name',
-    measure: 'Measure',
-    amount: 'Amount',
+    measure: 'Square Meters',
+    amount: 'Rent Amount',
     location_details: 'Location Details',
     coordinates: 'Coordinates'
   };
@@ -73,12 +73,12 @@ async function allOccupancyRate() {
 }
 
 export {
-  getProperties,
-  getTableProperties,
-  getFormFields,
+  allOccupancyRate,
   createProperty,
+  getFormFields,
+  getProperties,
   getProperty,
-  updateProperty,
+  getTableProperties,
   removeProperty,
-  allOccupancyRate
+  updateProperty
 };

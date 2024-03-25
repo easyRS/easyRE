@@ -18,7 +18,7 @@ async function getTableLeaseContracts(
 ): Promise<TableMapping<ILeaseContractTable>> {
   const labelsMapping: ILeaseContractTable = {
     name: 'Name',
-    amount: 'Amount',
+    amount: 'Rent Amount',
     description: 'Description',
     startDate: 'Start Date',
     nextDate: 'Next Date',

@@ -36,7 +36,7 @@ const Home: NextPage<IndexTaskProps> = (tasksProps: IndexTaskProps) => {
         <div className={styles.mainContainer}>
           <div className={styles.messageContainer}>
             <p className={styles.welcomeText}>
-              Welcome to <strong>Easy RS</strong>!. The easy open-source way to
+              Welcome to <strong>Easy RE</strong>!. The easy open-source way to
               manage your Real Estate 🏠 stuff
               <br /> <FaRegLightbulb />
               &nbsp; Start creating a lease for managing your properties. Press

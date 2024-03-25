@@ -1,14 +1,13 @@
-# Welcome to Easy RS 👋
+# Welcome to Easy RE 👋
 
-![Version](https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Prerequisite](https://img.shields.io/badge/node-%3E%3D18.3.0-blue.svg)
 ![Prerequisite](https://img.shields.io/badge/yarn-%3E%3D1.22.0-blue.svg)
-![Prerequisite](https://img.shields.io/badge/npm-please-use-yarn-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 > 👌The easy open-source way to manage your Real Estate 🏠 stuff
 
-Easy RS is a self-hosted property management app targeted for developers. Control your real estate portafolio with this easy and open-source solution. With this app you can:
+Easy RE is a self-hosted property management app targeted for developers. Control your real estate portafolio with this easy and open-source solution. With this app you can:
 
 - Really easy to setup.
 - Manage your properties and tenants with details.
@@ -25,6 +24,7 @@ Easy RS is a self-hosted property management app targeted for developers. Contro
 
 ## Table of Contents
 
+- [Prerequisites](#prerequisites)
 - [Install](#install)
   - [Dev](#dev)
   - [Prod](#prod)
@@ -33,6 +33,9 @@ Easy RS is a self-hosted property management app targeted for developers. Contro
 - [Extra Configurations](#extra-configurations)
   - [Seeders](#seeders)
   - [Tests](#tests)
+- [Contributing](#contributing)
+  - [Guidelines](#guidelines)
+  - [Technical hightlights of the project](technical-hightlights-of-the-project)
 - [Author](#author)
 - [Show your support](#show-your-support)
 
@@ -130,6 +133,18 @@ docker exec main yarn test
 ```
 
 There is always a gap of improvement, a way to make it easier. That is the purpose of it, make a real estate app usefull and easy to use. And of course, having fun coding :D
+
+## Contributing
+
+### Guidelines
+
+The pull requests will be accepted only under the develop branch.Your code will be lincesed under the current license of the project.
+
+### Technical hightlights of the project
+
+This app uses following technologies: Next JS, React, Docker, Typescript, Ansible, and Husky. No CSS framework until the moment but who knows in the future.
+
+We made this project using the (or at least try) Clean Architecture based on [famous book](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164) and [a good article](https://daslaf.dev/posts/arquitectura-clean-react) by [@daslaf](https://github.com/daslaf).
 
 ## Author
 
