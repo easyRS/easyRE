@@ -60,7 +60,7 @@ export default class TaskUseCases extends AbstractUseCases<
       const leaseContractUnknown = task.leaseContract as unknown;
       const whatsappAction = (
         (leaseContractUnknown as ILeaseContract).tenant as ITenant
-      ).phone;
+      )?.phone;
 
       return {
         ...task,

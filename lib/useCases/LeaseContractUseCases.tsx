@@ -34,7 +34,7 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       state: object.state as string,
       amount: object.amount as number,
       property: (object.property as IProperty)._id || new Types.ObjectId(),
-      tenant: (object.tenant as ITenant)._id || new Types.ObjectId()
+      tenant: (object.tenant as ITenant)?._id || new Types.ObjectId()
     };
   }
 

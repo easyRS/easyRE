@@ -97,7 +97,7 @@ export default class LeaseContractRepository extends MongooseAbstractRepository<
         startDate: obj.startDate ? obj.startDate.toLocaleString() : '',
         nextDate: obj.nextDate ? obj.nextDate.toLocaleString() : '',
         property: { ...obj.property, _id: obj.property._id.toString() },
-        tenant: { ...obj.tenant, _id: obj.tenant._id.toString() }
+        tenant: { ...obj.tenant, _id: obj.tenant?._id.toString() || undefined }
       };
     });
   }
