@@ -2,8 +2,6 @@ import IProperty from '../../domain/entities/IProperty';
 import ITaskType from '../../domain/entities/ITaskType';
 import ITransactionType from '../../domain/entities/ITransactionType';
 
-import IConfig from '../../domain/entities/IConfig';
-
 import {
   ELECTRICITY,
   GAS,
@@ -14,10 +12,6 @@ import {
 } from '../../useCases/TaskUseCases';
 
 import { GENERIC } from '../../useCases/TaskTypeUseCases';
-
-const config: IConfig = {
-  isDailyJobRunning: false
-};
 
 const transactionType: ITransactionType = {
   name: GENERIC
@@ -69,4 +63,4 @@ const taskTypes: ITaskType[] = [
   }
 ];
 
-export default { properties, taskTypes, config, transactionType };
+export default { properties, taskTypes, transactionType };

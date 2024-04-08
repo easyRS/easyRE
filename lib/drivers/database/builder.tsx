@@ -1,6 +1,5 @@
 import mongoose, { Model, Schema } from 'mongoose';
 
-import IConfig from '../../domain/entities/IConfig';
 import IContractDefinition from '../../domain/entities/IContractDefinition';
 import IEvent from '../../domain/entities/IEvent';
 import ILeaseContract from '../../domain/entities/ILeaseContract';
@@ -11,7 +10,6 @@ import ITenant from '../../domain/entities/ITenant';
 import ITransaction from '../../domain/entities/ITransaction';
 import ITransactionType from '../../domain/entities/ITransactionType';
 import IUser from '../../domain/entities/IUser';
-import ConfigSchema from '../../domain/models/Config';
 import ContractDefinitionSchema from '../../domain/models/ContractDefinition';
 import EventSchema from '../../domain/models/Event';
 import LeaseContractSchema from '../../domain/models/LeaseContract';
@@ -30,7 +28,6 @@ export type SchemaType = {
   LeaseContract: Model<ILeaseContract>;
   Task: Model<ITask>;
   TaskType: Model<ITaskType>;
-  Config: Model<IConfig>;
   Transaction: Model<ITransaction>;
   TransactionType: Model<ITransactionType>;
   User: Model<IUser>;
@@ -41,7 +38,6 @@ export type SchemaType = {
   LCSchema: Schema<ILeaseContract>;
   TskSchema: Schema<ITask>;
   TTSchema: Schema<ITaskType>;
-  ConfSchema: Schema<IConfig>;
   TraSchema: Schema<ITransaction>;
   TraTSchema: Schema<ITransactionType>;
   USchema: Schema<IUser>;
@@ -74,9 +70,6 @@ const build = async (): Promise<SchemaType> => {
     mongoose.models.TaskType ||
     mongoose.model<ITaskType>('TaskType', TaskTypeSchema);
 
-  const Config =
-    mongoose.models.Config || mongoose.model<IConfig>('Config', ConfigSchema);
-
   const Transaction =
     mongoose.models.Transaction ||
     mongoose.model<ITransaction>('Transaction', TransactionSchema);
@@ -98,7 +91,6 @@ const build = async (): Promise<SchemaType> => {
     LeaseContract,
     Task,
     TaskType,
-    Config,
     Transaction,
     TransactionType,
     User,
