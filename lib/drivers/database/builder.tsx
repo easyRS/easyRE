@@ -101,7 +101,6 @@ const build = async (): Promise<SchemaType> => {
     LCSchema: LeaseContractSchema,
     TskSchema: TaskSchema,
     TTSchema: TaskTypeSchema,
-    ConfSchema: ConfigSchema,
     TraSchema: TransactionSchema,
     TraTSchema: TransactionTypeSchema,
     USchema: UserSchema,
