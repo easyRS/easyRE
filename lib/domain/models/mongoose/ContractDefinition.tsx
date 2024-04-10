@@ -2,9 +2,9 @@ import { Schema } from 'mongoose';
 
 import IContractDefinition, {
   CONTRACT_DEFINTION_STATES
-} from '../entities/IContractDefinition';
+} from '../../entities/IContractDefinition';
 
-import TIME_TYPE_OPTIONS from '../entities/TimeType';
+import TIME_TYPE_OPTIONS from '../../entities/TimeType';
 
 const ContractDefinitionSchema = new Schema<IContractDefinition>({
   name: { type: String, required: true },

@@ -1,5 +1,3 @@
-import { Types } from 'mongoose';
-
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
 import ITask from '../domain/entities/ITask';
@@ -43,9 +41,9 @@ export default class TaskUseCases extends AbstractUseCases<
       amount: object.amount as number,
       description: object.description as string,
       state: object.state as string,
-      leaseContract: object.leaseContract as Types.ObjectId,
-      taskType: object.taskType as Types.ObjectId,
-      property: object.taskType as Types.ObjectId
+      leaseContract: object.leaseContract as SYS_ID,
+      taskType: object.taskType as SYS_ID,
+      property: object.taskType as SYS_ID
     };
   }
 
@@ -96,7 +94,7 @@ export default class TaskUseCases extends AbstractUseCases<
     return tasks.map(this.addActionToTasks) as ITask[] | IAction[];
   }
 
-  async listLeaseTasks(leaseContractId: Types.ObjectId): Promise<ITask[]> {
+  async listLeaseTasks(leaseContractId: SYS_ID): Promise<ITask[]> {
     const query = { leaseContract: leaseContractId };
     return this.repository.list(
       [

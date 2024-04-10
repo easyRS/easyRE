@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import IContractDefinition from '../domain/entities/IContractDefinition';
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
@@ -115,4 +116,6 @@ declare global {
   type TypeStyle = 'primary' | 'secondary' | 'tertiary';
 
   type NewLeaseContract = ILeaseContract & { url: string };
+
+  type SYS_ID = Types.ObjectId;
 }

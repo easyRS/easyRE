@@ -1,6 +1,4 @@
-import { Types } from 'mongoose';
-
 export default interface ITransactionType {
-  _id?: Types.ObjectId;
+  _id?: SYS_ID;
   name: string;
 }

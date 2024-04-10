@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import ILeaseContract from '../../domain/entities/ILeaseContract';
 import ITask from '../../domain/entities/ITask';
 import ITaskType from '../../domain/entities/ITaskType';
@@ -93,7 +92,7 @@ export const generateGoogleEvent = async (
       : (date as Date).toISOString().split('T')[0];
 
   const attendees = [{ email: user.email }];
-  const tenantId = leaseContract.tenant as Types.ObjectId;
+  const tenantId = leaseContract.tenant as SYS_ID;
   if (tenantId) {
     const tenantUseCases = new TenantUseCases();
     const tenant = await tenantUseCases.findById(tenantId.toString());

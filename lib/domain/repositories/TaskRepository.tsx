@@ -215,7 +215,10 @@ export default class TaskRepository extends MongooseAbstractRepository<ITask> {
       if (obj.property)
         task = {
           ...task,
-          property: { ...obj.property, _id: obj.property._id.toString() }
+          property: {
+            ...obj.property,
+            _id: obj.property?._id.toString() || undefined
+          }
         };
 
       if (obj.leaseContract)

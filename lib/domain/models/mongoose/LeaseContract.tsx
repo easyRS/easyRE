@@ -2,9 +2,9 @@ import { Schema } from 'mongoose';
 
 import ILeaseContract, {
   LEASE_DEFINTION_STATES
-} from '../entities/ILeaseContract';
+} from '../../entities/ILeaseContract';
 
-import TIME_TYPE_OPTIONS from '../entities/TimeType';
+import TIME_TYPE_OPTIONS from '../../entities/TimeType';
 
 const LeaseContractSchema = new Schema<ILeaseContract>({
   name: { type: String, required: true },

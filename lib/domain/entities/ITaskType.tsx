@@ -1,7 +1,5 @@
-import { Types } from 'mongoose';
-
 export default interface ITaskType {
-  _id?: Types.ObjectId;
+  _id?: SYS_ID;
   name: string;
   description: string;
 }

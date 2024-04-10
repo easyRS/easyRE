@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import IContractDefinition from './IContractDefinition';
 import IProperty from './IProperty';
 import ITenant from './ITenant';
@@ -18,7 +17,7 @@ export const LEASE_DEFINTION_STATES = [
 export default interface ILeaseContract extends IContractDefinition {
   startDate: Date | string;
   nextDate?: Date | string;
-  property: Types.ObjectId | IProperty;
-  tenant: Types.ObjectId | ITenant;
+  property: SYS_ID | IProperty | null;
+  tenant: SYS_ID | ITenant | null;
   amount: number;
 }

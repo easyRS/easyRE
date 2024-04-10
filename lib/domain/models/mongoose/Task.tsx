@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import ITask, { TASK_DEFINTION_STATES } from '../entities/ITask';
+import ITask, { TASK_DEFINTION_STATES } from '../../entities/ITask';
 
 const TaskSchema = new Schema<ITask>({
   created_at: { type: Date, required: true },

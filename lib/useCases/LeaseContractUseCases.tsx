@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+// import { Types } from 'mongoose';
 import ILeaseContract from '../domain/entities/ILeaseContract';
 import IProperty from '../domain/entities/IProperty';
 import ITenant from '../domain/entities/ITenant';
@@ -23,6 +23,9 @@ export default class LeaseContractUseCases extends AbstractUseCases<
   /* eslint-disable-line class-methods-use-this */ buildFrom(
     object: Record<string, unknown>
   ): ILeaseContract {
+    const { property } = object;
+    const { tenant } = object;
+
     return {
       name: object.name as string,
       description: object.description as string,
@@ -33,8 +36,8 @@ export default class LeaseContractUseCases extends AbstractUseCases<
       termsConditions: object.termsConditions as string,
       state: object.state as string,
       amount: object.amount as number,
-      property: (object.property as IProperty)._id || new Types.ObjectId(),
-      tenant: (object.tenant as ITenant)?._id || new Types.ObjectId()
+      property: (property as IProperty)?._id || null,
+      tenant: (tenant as ITenant)?._id || null
     };
   }
 

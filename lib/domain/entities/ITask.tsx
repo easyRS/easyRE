@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import ITaskType from './ITaskType';
 
 export const TASK_WORK_IN_PROGRESS_STATE = 'Work In Progress';
@@ -12,12 +11,12 @@ export const TASK_DEFINTION_STATES = [
 ];
 
 export default interface ITask {
-  _id?: Types.ObjectId;
+  _id?: SYS_ID;
   created_at: Date | string;
-  leaseContract?: Types.ObjectId;
-  property?: Types.ObjectId;
+  leaseContract?: SYS_ID;
+  property?: SYS_ID;
   amount: number;
   description: string;
-  taskType: Types.ObjectId | ITaskType | string;
+  taskType: SYS_ID | ITaskType | string;
   state: string;
 }

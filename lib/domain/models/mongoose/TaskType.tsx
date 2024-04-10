@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import ITaskType from '../entities/ITaskType';
+import ITaskType from '../../entities/ITaskType';
 
 const TaskSchema = new Schema<ITaskType>({
   name: String,

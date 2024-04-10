@@ -1,5 +1,3 @@
-import { Types } from 'mongoose';
-
 export const CONTRACT_ACTIVE_STATE = 'Active';
 export const CONTRACT_INACTIVE_STATE = 'Inactive';
 
@@ -9,7 +7,7 @@ export const CONTRACT_DEFINTION_STATES = [
 ];
 
 export default interface IContractDefinition {
-  _id?: Types.ObjectId;
+  _id?: SYS_ID;
   name: string;
   description: string;
   timeAmount: string;

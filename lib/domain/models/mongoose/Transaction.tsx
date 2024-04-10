@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import ITransaction from '../entities/ITransaction';
+import ITransaction from '../../entities/ITransaction';
 
 const TransactionSchema = new Schema<ITransaction>({
   created_at: { type: Date, required: true },

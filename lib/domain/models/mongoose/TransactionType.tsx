@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import ITransactionType from '../entities/ITransactionType';
+import ITransactionType from '../../entities/ITransactionType';
 
 const TransactionTypeSchema = new Schema<ITransactionType>({
   name: String

@@ -10,16 +10,16 @@ import ITenant from '../../domain/entities/ITenant';
 import ITransaction from '../../domain/entities/ITransaction';
 import ITransactionType from '../../domain/entities/ITransactionType';
 import IUser from '../../domain/entities/IUser';
-import ContractDefinitionSchema from '../../domain/models/ContractDefinition';
-import EventSchema from '../../domain/models/Event';
-import LeaseContractSchema from '../../domain/models/LeaseContract';
-import PropertySchema from '../../domain/models/Property';
-import TaskSchema from '../../domain/models/Task';
-import TaskTypeSchema from '../../domain/models/TaskType';
-import TenantSchema from '../../domain/models/Tenant';
-import TransactionSchema from '../../domain/models/Transaction';
-import TransactionTypeSchema from '../../domain/models/TransactionType';
-import UserSchema from '../../domain/models/User';
+import ContractDefinitionSchema from '../../domain/models/mongoose/ContractDefinition';
+import EventSchema from '../../domain/models/mongoose/Event';
+import LeaseContractSchema from '../../domain/models/mongoose/LeaseContract';
+import PropertySchema from '../../domain/models/mongoose/Property';
+import TaskSchema from '../../domain/models/mongoose/Task';
+import TaskTypeSchema from '../../domain/models/mongoose/TaskType';
+import TenantSchema from '../../domain/models/mongoose/Tenant';
+import TransactionSchema from '../../domain/models/mongoose/Transaction';
+import TransactionTypeSchema from '../../domain/models/mongoose/TransactionType';
+import UserSchema from '../../domain/models/mongoose/User';
 
 export type SchemaType = {
   Property: Model<IProperty>;

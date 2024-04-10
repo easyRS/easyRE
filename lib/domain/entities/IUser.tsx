@@ -1,7 +1,5 @@
-import { Types } from 'mongoose';
-
 export default interface IUser {
-  _id?: Types.ObjectId;
+  _id?: SYS_ID;
   email: string;
   password: string;
   google_client_id: string;

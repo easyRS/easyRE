@@ -1,7 +1,5 @@
-import { Types } from 'mongoose';
-
 export default interface IProperty {
-  _id?: Types.ObjectId;
+  _id?: SYS_ID;
   coordinates: Array<number>;
   measure: string;
   name: string;

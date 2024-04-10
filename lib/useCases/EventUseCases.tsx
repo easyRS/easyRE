@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import IEvent from '../domain/entities/IEvent';
 import EventRepository from '../domain/repositories/EventRepository';
 import { generateAuthUrl } from '../drivers/network/googleapis';
@@ -16,8 +15,8 @@ export default class EventUseCases extends AbstractUseCases<
     object: Record<string, unknown>
   ): IEvent {
     return {
-      task: object.task as Types.ObjectId,
-      leaseContract: object.leaseContract as Types.ObjectId
+      task: object.task as SYS_ID,
+      leaseContract: object.leaseContract as SYS_ID
     };
   }
 

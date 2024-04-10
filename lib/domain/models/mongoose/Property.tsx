@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import IProperty from '../entities/IProperty';
+import IProperty from '../../entities/IProperty';
 
 const PropertySchema = new Schema<IProperty>({
   name: { type: String, required: true },

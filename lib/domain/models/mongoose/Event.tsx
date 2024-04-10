@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import IEvent from '../entities/IEvent';
+import IEvent from '../../entities/IEvent';
 
 const EventSchema = new Schema<IEvent>({
   leaseContract: {
