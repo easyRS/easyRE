@@ -41,7 +41,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
   const form = propertiesProps.form ? propertiesProps.form : _form;
 
   const {
-    register,
     handleSubmit,
     formState: { errors }
   } = form;
