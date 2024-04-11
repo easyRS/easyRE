@@ -42,25 +42,6 @@
   text-align: left;
 }
 
-.submitButton {
-  transition-duration: 0.4s;
-  background-color: var(--primary);
-  border-style: solid none solid none;
-  color: var(--primary-dark);
-  box-shadow: 0 0 2px var(--primary);
-  font-size: var(--button-font-size);
-
-  height: 2.5rem;
-  padding: 0.5rem 3rem;
-  border-radius: 0.5rem;
-}
-
-.submitButton:hover {
-  background-color: white;
-  color: var(--complementary);
-  box-shadow: 0 0 2px var(--complementary);
-}
-
 @media (max-width: 576px) {
   .container {
     width: 100vw;

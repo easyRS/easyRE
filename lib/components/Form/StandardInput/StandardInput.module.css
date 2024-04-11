@@ -1,0 +1,16 @@
+.labelTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-bottom: 6px;
+}
+
+.textInput {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-color: 0.134rem var(--primary-dark);
+  background: white;
+  border-radius: var(--border-radius-container);
+  padding: 15px 15px;
+  font-size: var(--button-font-size);
+}

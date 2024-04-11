@@ -1,21 +1,22 @@
-import React from 'react';
-
+import React, { useRef } from 'react';
 import { FaWindowClose } from 'react-icons/fa';
 import styles from './LongInputModal.module.css';
 
 interface ModalProps {
   isOpen: boolean;
-  onRequestClose: () => void;
-  children: React.ReactNode;
+  onRequestClose: (value: string) => void;
+  defaultValue: string;
 }
 
 const LongInputModal: React.FC<ModalProps> = ({
   isOpen,
   onRequestClose,
-  children
+  defaultValue
 }) => {
+  const modalRef = useRef<HTMLTextAreaElement>(null);
+
   const handleClose = () => {
-    onRequestClose();
+    onRequestClose(modalRef.current?.value || '');
   };
 
   return (
@@ -28,7 +29,23 @@ const LongInputModal: React.FC<ModalProps> = ({
               title="Close"
               onClick={handleClose}
             />
-            {children}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                flexDirection: 'column'
+              }}
+            >
+              <h3>Write extensively:</h3>
+              <textarea
+                id="my-textarea"
+                rows={20}
+                cols={80}
+                ref={modalRef}
+                className={styles.textInput}
+                defaultValue={defaultValue}
+              />
+            </div>
           </div>
         </div>
       )}

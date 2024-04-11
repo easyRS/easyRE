@@ -1,5 +1,10 @@
 import type { NextPage } from 'next';
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+  UseFormReturn
+} from 'react-hook-form';
 import styles from './CoordinatesInput.module.css';
 
 type LabelProps = {
@@ -38,15 +43,15 @@ const Coordinate = (props: LabelProps) => {
 };
 
 type Props = {
-  register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   fieldData: FieldData;
   defaultCoordinates?: number[] /* eslint-disable-line*/;
+  form: UseFormReturn;
 };
 
 const CoordinatesInput: NextPage<Props> = (props: Props) => {
-  const { register, fieldData, defaultCoordinates, errors } = props;
-
+  const { fieldData, defaultCoordinates, errors, form } = props;
+  const { register } = form;
   return (
     <div
       style={{
