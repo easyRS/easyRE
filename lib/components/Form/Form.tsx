@@ -114,7 +114,6 @@ const Form: NextPage<FormProps> = (propertiesProps: FormProps) => {
                 : [0, 0];
             return (
               <CoordinatesInput
-                register={register}
                 fieldData={fieldData}
                 defaultCoordinates={coordinates}
                 errors={errors}
