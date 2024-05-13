@@ -32,7 +32,7 @@ type NewPropertyProps = {
   formFieldsArray: ModelKeys[];
   selectValues: SelectValue;
 };
-
+// TODO: format this component
 const Main: NextPage<NewPropertyProps> = (props: NewPropertyProps) => {
   const [values, onValueChanged, index, setIndex, objValues] = useObjValues(
     props.selectValues
